@@ -22,7 +22,7 @@ export function AppHeader({ menuOpen, onToggleMenu, onCloseMenu, theme, onToggle
     <header className="topbar">
       <div className="brand">
         <img className="brand-logo" src={theme === 'dark' ? patitoursLogoDark : patitoursLogoLight} alt="PatiTours" />
-        <small>EUROPA 2027 · NUESTRO VIAJE</small>
+        <small>EUROPA 2027<br />NUESTRO VIAJE</small>
       </div>
       <div className="header-actions">
         <ThemeToggle theme={theme} onToggle={onToggleTheme} />

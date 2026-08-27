@@ -1,5 +1,6 @@
 import type { GeneratedOption } from '../data/generated/itinerary.generated'
 import { formatCOP } from '../utils/currency'
+import { collectCountryFlags } from '../utils/tripStats'
 import { ExchangeRatesCard } from './ExchangeRatesCard'
 import duckFamily from '../assets/ducks/duck-cat-family.png'
 
@@ -18,7 +19,7 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
       <section className="welcome">
         <div className="welcome-copy">
           <p className="eyebrow">Tu viaje, más fácil de entender</p>
-          <h1>Elige tu forma de viajar</h1>
+          <h1>Elige tu forma de <span className="accent-word">viajar</span></h1>
           <p className="intro">Compara las opciones y revisa cada gasto con calma. Todo está organizado para que encuentres lo que necesitas.</p>
         </div>
       </section>
@@ -38,9 +39,13 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
               key={option.name}
               onClick={() => onSelectOption(index)}
             >
-              <span className="option-accent" style={{ background: option.color }} />
               <div className="option-top">
-                <span className="radio">{selectedOptionIndex === index ? '✓' : ''}</span>
+                <div className="option-top-left">
+                  <span className="option-number" style={{ background: option.color }}>
+                    {selectedOptionIndex === index ? '✓' : index + 1}
+                  </span>
+                  <span className="option-flags">{collectCountryFlags(option.itinerary).join(' ')}</span>
+                </div>
                 <span className="days">{option.days} días</span>
               </div>
               <h3>{option.name}</h3>

@@ -68,7 +68,7 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
           {activeDay.expenses.map((expense, index) => (
             <div className="expense-row" key={expense.title + index}>
               <span className="category-icon" style={{ background: CATEGORY_META[expense.category as Category].color }}>
-                {CATEGORY_META[expense.category as Category].icon}
+                <img src={CATEGORY_META[expense.category as Category].duck} alt="" />
               </span>
               <div className="expense-info">
                 <strong>{expense.title}</strong>

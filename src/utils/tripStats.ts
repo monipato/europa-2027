@@ -26,3 +26,19 @@ export function collectExpensesByCategory(days: GeneratedDay[], category: Catego
       .map(expense => ({ ...expense, dayKey: day.dayKey })),
   )
 }
+
+/** The country flags an itinerary actually visits, in the order they first
+ * appear, deduplicated. Days at sea ("En el mar", country "Mediterráneo")
+ * aren't a real country, so they're excluded rather than showing a boat
+ * emoji next to a row of flags. */
+export function collectCountryFlags(days: GeneratedDay[]): string[] {
+  const seen = new Set<string>()
+  const flags: string[] = []
+  for (const day of days) {
+    if (day.country === 'Mediterráneo' || day.country === 'Europa') continue
+    if (seen.has(day.emoji)) continue
+    seen.add(day.emoji)
+    flags.push(day.emoji)
+  }
+  return flags
+}

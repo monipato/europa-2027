@@ -35,7 +35,7 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
               onClick={() => onSelectCategory(category as Category)}
             >
               <div className="category-card-head">
-                <span className="category-big-icon">
+                <span className="category-big-icon" style={{ background: meta.color }}>
                   <img src={meta.duck} alt="" />
                 </span>
                 <span className="category-name">{category}</span>
