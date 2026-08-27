@@ -152,6 +152,11 @@ button{cursor:pointer;border:0;background:none}
 .day-hero-overlay h2{font:700 30px Fraunces,serif;margin:5px 0}
 .day-hero-overlay p{display:flex;align-items:center;gap:5px;margin:0;font-size:14px}
 .day-hero img.day-duck-sticker{position:absolute;z-index:1;bottom:14px;right:18px;width:64px;height:auto;transform:rotate(-6deg);filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.day-hero-nav{position:absolute;z-index:2;top:16px;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:none;background:rgba(16,47,56,.45);color:#fff;cursor:pointer;transition:background .15s}
+.day-hero-nav:hover{background:rgba(16,47,56,.7)}
+.day-hero-nav svg{width:20px;height:20px}
+.day-hero-nav.prev{left:12px}
+.day-hero-nav.next{right:12px}
 .expense-header{display:flex;justify-content:space-between;align-items:end;padding:22px 24px 14px}
 .expense-header h3{font:700 22px Fraunces,serif;margin:0;color:var(--text-strong)}
 .expense-header>strong{font-size:20px;color:var(--accent-gold)}

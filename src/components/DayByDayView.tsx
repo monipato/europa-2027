@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react'
-import { ChevronDown, ExternalLink, MapPin } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, MapPin } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
 import { CATEGORY_META } from '../constants'
@@ -70,6 +70,16 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
       <article className="day-detail">
         <div className="day-hero" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           <img src={activeDay.image} alt={`Paisaje de ${activeDay.city}`} />
+          {activeIndex > 0 && (
+            <button className="day-hero-nav prev" aria-label="Día anterior" onClick={() => onSelectDay(activeIndex - 1)}>
+              <ChevronLeft />
+            </button>
+          )}
+          {activeIndex < days.length - 1 && (
+            <button className="day-hero-nav next" aria-label="Día siguiente" onClick={() => onSelectDay(activeIndex + 1)}>
+              <ChevronRight />
+            </button>
+          )}
           <div className="day-hero-overlay">
             <span>{activeDayLabel.emoji} {activeDayLabel.label}</span>
             <h2>{activeDay.title}</h2>
@@ -94,7 +104,7 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
               </span>
               <div className="expense-info">
                 <strong>{expense.title}</strong>
-                <span>{expense.category} · {expense.note}</span>
+                <span>{expense.category}{expense.note && ` · ${expense.note}`}</span>
                 {expense.link && (
                   <a href={expense.link} target="_blank" rel="noreferrer">
                     Ver tour o sitio web <ExternalLink size={14} />
