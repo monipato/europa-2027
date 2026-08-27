@@ -1,9 +1,11 @@
+import { useMemo } from 'react'
 import { ChevronDown, ExternalLink, MapPin } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
 import { CATEGORY_META } from '../constants'
 import { formatCOP, formatExpenseAmount } from '../utils/currency'
 import { getDayDisplayLabel } from '../utils/dayDisplay'
+import { assignDuckStickers } from '../utils/duckStickers'
 
 interface DayByDayViewProps {
   days: GeneratedDay[]
@@ -14,9 +16,12 @@ interface DayByDayViewProps {
 /** "Por día" view: a scrollable list of days on the left, and the selected
  * day's photo, title and full expense list on the right. */
 export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayViewProps) {
-  const activeDay = days[selectedDayIndex] ?? days[0]
+  const activeIndex = days[selectedDayIndex] ? selectedDayIndex : 0
+  const activeDay = days[activeIndex]
   const activeDayLabel = getDayDisplayLabel(activeDay)
   const activeDayTotal = activeDay.expenses.reduce((sum, expense) => sum + expense.amount, 0)
+  const dayDucks = useMemo(() => assignDuckStickers(days), [days])
+  const activeDayDuck = dayDucks[activeIndex]
 
   return (
     <div className="day-layout">
@@ -48,6 +53,7 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
             <h2>{activeDay.title}</h2>
             <p><MapPin size={15} /> {activeDay.city}</p>
           </div>
+          {activeDayDuck && <img className="day-duck-sticker" src={activeDayDuck} alt="" aria-hidden="true" />}
         </div>
 
         <div className="expense-header">

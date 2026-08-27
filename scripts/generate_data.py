@@ -39,20 +39,30 @@ CATEGORY_BY_EXCEL = {
     "Seguro de Viaje": "Seguro", "Otros y Extras": "Otros",
 }
 
-# (country, emoji, unsplash id) per canonical city name shown in the itinerary.
+def unsplash(photo_id: str) -> str:
+    return f"https://images.unsplash.com/{photo_id}?auto=format&fit=crop&w=900&q=80"
+
+
+# (country, emoji, hero image URL) per canonical city name shown in the itinerary.
+# Photo URLs are checked into the generated output, so they need to keep resolving
+# indefinitely — if one ever 404s, replace it (any stable image host is fine, not
+# just Unsplash) rather than leaving a broken image.
 CITY_INFO = {
-    "Zúrich": ("Suiza", "🇨🇭", "photo-1527668752968-14dc70a27c95"),
-    "París": ("Francia", "🇫🇷", "photo-1502602898657-3e91760cbb34"),
-    "Barcelona": ("España", "🇪🇸", "photo-1539037116277-4db20889f2d4"),
-    "La Spezia": ("Italia", "🇮🇹", "photo-1533104816931-20fa691ff6ca"),
-    "Salerno": ("Italia", "🇮🇹", "photo-1530789253388-582c481c54b0"),
-    "Zadar": ("Croacia", "🇭🇷", "photo-1555990538-1e8f8e4c5c1f"),
-    "Venecia": ("Italia", "🇮🇹", "photo-1520175480921-4edfa2983e0f"),
-    "Roma": ("Italia", "🇮🇹", "photo-1552832230-c0197dd311b5"),
-    "Praga": ("República Checa", "🇨🇿", "photo-1541849546-216549ae216d"),
-    "Berlín": ("Alemania", "🇩🇪", "photo-1560969184-10fe8719e047"),
-    "Múnich": ("Alemania", "🇩🇪", "photo-1595867818082-083862f3d630"),
-    "En el mar": ("Mediterráneo", "🛳️", "photo-1544551763-46a013bb70d5"),
+    "Zúrich": ("Suiza", "🇨🇭", unsplash("photo-1527668752968-14dc70a27c95")),
+    "París": ("Francia", "🇫🇷", unsplash("photo-1502602898657-3e91760cbb34")),
+    "Barcelona": ("España", "🇪🇸", unsplash("photo-1539037116277-4db20889f2d4")),
+    "La Spezia": ("Italia", "🇮🇹", unsplash("photo-1533104816931-20fa691ff6ca")),
+    "Salerno": ("Italia", "🇮🇹", unsplash("photo-1530789253388-582c481c54b0")),
+    # Wikimedia Commons, not Unsplash: the "Greeting to the Sun" / Sea Organ waterfront at
+    # sunset — the original Unsplash ID here 404'd, and Zadar's own city photos are thin on
+    # Unsplash. https://commons.wikimedia.org/wiki/File:Sunset_over_the_Adriatic_Sea_as_seen_from_the_Sea_Organ_in_Zadar_(48670423612).jpg
+    "Zadar": ("Croacia", "🇭🇷", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sunset_over_the_Adriatic_Sea_as_seen_from_the_Sea_Organ_in_Zadar_%2848670423612%29.jpg/960px-Sunset_over_the_Adriatic_Sea_as_seen_from_the_Sea_Organ_in_Zadar_%2848670423612%29.jpg"),
+    "Venecia": ("Italia", "🇮🇹", unsplash("photo-1520175480921-4edfa2983e0f")),
+    "Roma": ("Italia", "🇮🇹", unsplash("photo-1552832230-c0197dd311b5")),
+    "Praga": ("República Checa", "🇨🇿", unsplash("photo-1541849546-216549ae216d")),
+    "Berlín": ("Alemania", "🇩🇪", unsplash("photo-1560969184-10fe8719e047")),
+    "Múnich": ("Alemania", "🇩🇪", unsplash("photo-1595867818082-083862f3d630")),
+    "En el mar": ("Mediterráneo", "🛳️", unsplash("photo-1544551763-46a013bb70d5")),
 }
 
 # Ordered most-specific-first: substring match against a line's "place" text.
@@ -261,13 +271,13 @@ def build_itinerary(rows: list[dict[str, object]]) -> list[dict[str, object]]:
             lines = lines + dateless
         city = day_city(lines, current_city)
         current_city = city
-        country, emoji, image_id = CITY_INFO.get(city, ("Europa", "🌍", "photo-1436491865332-7a61a109cc05"))
+        country, emoji, image_url = CITY_INFO.get(city, ("Europa", "🌍", unsplash("photo-1436491865332-7a61a109cc05")))
         is_embark = any(line["category"] == "Crucero" for line in lines)
         is_first = index == 0
         display_lines = [line for line in lines if (line["perPersonCop"] or 0) != 0 and not is_placeholder(str(line["title"]))]
         days.append({
             "dayKey": key, "city": city, "country": country, "emoji": emoji,
-            "image": f"https://images.unsplash.com/{image_id}?auto=format&fit=crop&w=900&q=80",
+            "image": image_url,
             "title": day_title(lines, city, is_first, index == len(keys) - 1, is_embark),
             "dayKind": "flight" if is_first else ("embark" if is_embark else None),
             "expenses": [to_expense(line) for line in display_lines],

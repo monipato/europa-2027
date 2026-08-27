@@ -1,6 +1,7 @@
 import type { GeneratedOption } from '../data/generated/itinerary.generated'
 import { formatCOP } from '../utils/currency'
 import { ExchangeRatesCard } from './ExchangeRatesCard'
+import duckFamily from '../assets/ducks/duck-cat-family.png'
 
 interface TripSelectionScreenProps {
   options: GeneratedOption[]
@@ -15,12 +16,11 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
   return (
     <>
       <section className="welcome">
-        <div>
+        <div className="welcome-copy">
           <p className="eyebrow">Tu viaje, más fácil de entender</p>
-          <h1>Elige tu forma de viajar por Europa</h1>
+          <h1>Elige tu forma de viajar</h1>
           <p className="intro">Compara las opciones y revisa cada gasto con calma. Todo está organizado para que encuentres lo que necesitas.</p>
         </div>
-        <div className="welcome-art">✈️<span>🌍</span></div>
       </section>
 
       <section className="option-area">
@@ -29,7 +29,7 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
             <p className="eyebrow">Paso 1 de 2</p>
             <h2>Selecciona una cotización</h2>
           </div>
-          <span className="people-badge">👥 3 personas</span>
+          <span className="people-badge"><img src={duckFamily} alt="" aria-hidden="true" /> 3 personas</span>
         </div>
         <div className="option-grid">
           {options.map((option, index) => (

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { CalendarDays, Wallet } from 'lucide-react'
 import { generatedOptions } from './data/generated/itinerary.generated'
 import type { Category, ViewMode } from './types'
+import { useTheme } from './hooks/useTheme'
 import { AppHeader } from './components/AppHeader'
 import { AppFooter } from './components/AppFooter'
 import { PlannerHeading } from './components/PlannerHeading'
@@ -22,6 +23,7 @@ export function App() {
   const [selectedDayIndex, setSelectedDayIndex] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   const selectedOption = generatedOptions[selectedOptionIndex ?? 0]
   const days = selectedOption.itinerary
@@ -56,6 +58,8 @@ export function App() {
         menuOpen={menuOpen}
         onToggleMenu={() => setMenuOpen(!menuOpen)}
         onCloseMenu={() => setMenuOpen(false)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       <main>
