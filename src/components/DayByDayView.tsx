@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { ChevronDown, ExternalLink, MapPin } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
@@ -25,6 +25,11 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
 
   const touchStartX = useRef<number | null>(null)
   const SWIPE_THRESHOLD = 40
+  const selectedNavRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    selectedNavRef.current?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+  }, [activeIndex])
 
   function handleTouchStart(event: React.TouchEvent) {
     touchStartX.current = event.touches[0].clientX
@@ -48,6 +53,7 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
             <button
               className={`day-nav ${selectedDayIndex === index ? 'selected' : ''}`}
               key={day.dayKey}
+              ref={selectedDayIndex === index ? selectedNavRef : undefined}
               onClick={() => onSelectDay(index)}
             >
               <span>{day.dayKey}</span>

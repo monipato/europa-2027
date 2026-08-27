@@ -84,7 +84,8 @@ button{cursor:pointer;border:0;background:none}
 .option-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(var(--shadow-rgb),.09)}
 .option-card.active{border-color:var(--accent-gold-strong);box-shadow:0 0 0 3px rgba(219,165,63,.15)}
 .option-top{margin-bottom:14px}
-.option-flags{font-size:20px;letter-spacing:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.option-flags{font-size:20px;letter-spacing:3px;overflow-x:auto;white-space:nowrap;display:block;scrollbar-width:none}
+.option-flags::-webkit-scrollbar{display:none}
 .option-card h3{font:700 22px Fraunces,serif;margin:0 0 4px;color:var(--text-strong)}
 .option-card p{font-size:13px;color:var(--text-muted);margin:0 0 16px}
 .option-card strong{display:block;font-size:17px;color:var(--text-strong)}
