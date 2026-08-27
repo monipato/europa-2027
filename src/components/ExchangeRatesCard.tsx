@@ -24,7 +24,7 @@ export function ExchangeRatesCard({ className, occupancyNote }: ExchangeRatesCar
           </span>
         ))}
       </div>
-      <small>Referenciales; actualízalas antes de reservar.</small>
+      <small>Tasas de referencia, pueden variar antes de la reserva.</small>
       <p className="occupancy-note">👤 {occupancyNote}</p>
     </div>
   )

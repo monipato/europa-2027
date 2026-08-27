@@ -83,17 +83,13 @@ button{cursor:pointer;border:0;background:none}
 .option-card{position:relative;text-align:left;background:var(--bg-surface);border:2px solid transparent;border-radius:15px;padding:22px 18px 18px;box-shadow:0 4px 18px rgba(var(--shadow-rgb),.06);transition:.2s;min-height:225px;color:var(--text-body);display:flex;flex-direction:column;align-items:stretch}
 .option-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(var(--shadow-rgb),.09)}
 .option-card.active{border-color:var(--accent-gold-strong);box-shadow:0 0 0 3px rgba(219,165,63,.15)}
-.option-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:8px}
-.option-top-left{display:flex;align-items:center;gap:7px;min-width:0}
-.option-number{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;box-shadow:0 3px 8px rgba(var(--shadow-rgb),.25);flex-shrink:0}
-.option-flags{font-size:14px;letter-spacing:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.days{font-size:12px;color:var(--text-muted);font-weight:700}
+.option-top{margin-bottom:14px}
+.option-flags{font-size:20px;letter-spacing:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
 .option-card h3{font:700 22px Fraunces,serif;margin:0 0 4px;color:var(--text-strong)}
 .option-card p{font-size:13px;color:var(--text-muted);margin:0 0 16px}
 .option-card strong{display:block;font-size:17px;color:var(--text-strong)}
 .option-card small{color:var(--text-muted);font-size:12px}
-.option-card>small:after{content:' · COP original';display:block;color:var(--text-muted);font-size:10px}
-.option-card>strong:after{content:' · por persona';display:block;color:var(--text-muted);font-size:10px;font-weight:500}
+.option-card>strong:after{content:' · por persona';color:var(--text-muted);font-size:10px;font-weight:500;white-space:nowrap}
 .route{border-top:1px solid var(--border);margin-top:14px;padding-top:10px;color:var(--text-muted);font-size:12px;line-height:1.4}
 
 /* ============================================================
@@ -235,9 +231,8 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   .view-toggle{width:100%;margin-bottom:16px}
   .view-toggle button{flex:1;justify-content:center;padding:10px 12px}
   .day-layout{grid-template-columns:1fr}
-  .day-list{position:relative;padding-top:28px;display:flex;flex-direction:row;overflow-x:auto;max-height:none;padding-left:0;padding-right:0;padding-bottom:7px;gap:7px;scroll-snap-type:x proximity;scrollbar-width:none}
+  .day-list{position:relative;display:flex;flex-direction:row;overflow-x:auto;max-height:none;padding-left:0;padding-right:0;padding-bottom:7px;gap:7px;scroll-snap-type:x proximity;scrollbar-width:none}
   .day-list::-webkit-scrollbar{display:none}
-  .day-list:before{content:'Desliza hacia la derecha para ver más días';position:absolute;z-index:2;left:0;top:0;background:var(--bg-page);color:var(--text-muted);font-size:11px;font-weight:600;padding:2px 0;pointer-events:none}
   .day-nav{min-width:112px;display:block;padding:10px 9px;scroll-snap-align:start}
   .day-nav>span{display:block;margin-bottom:4px}
   .day-nav strong{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

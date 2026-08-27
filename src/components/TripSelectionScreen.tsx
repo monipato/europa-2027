@@ -40,16 +40,10 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
               onClick={() => onSelectOption(index)}
             >
               <div className="option-top">
-                <div className="option-top-left">
-                  <span className="option-number" style={{ background: option.color }}>
-                    {selectedOptionIndex === index ? '✓' : index + 1}
-                  </span>
-                  <span className="option-flags">{collectCountryFlags(option.itinerary).join(' ')}</span>
-                </div>
-                <span className="days">{option.days} días</span>
+                <span className="option-flags">{collectCountryFlags(option.itinerary).join(' ')}</span>
               </div>
               <h3>{option.name}</h3>
-              <p>{option.description}</p>
+              <p>{option.description} · {option.days} días</p>
               <strong>{formatCOP(option.perPerson)}</strong>
               <small>{option.dates}</small>
               <div className="route">{option.route}</div>

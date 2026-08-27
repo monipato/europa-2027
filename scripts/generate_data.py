@@ -65,6 +65,63 @@ CITY_INFO = {
     "En el mar": ("Mediterráneo", "🛳️", unsplash("photo-1544551763-46a013bb70d5")),
 }
 
+# A city can appear on several itinerary days. Use a small curated pool so the
+# hero does not repeat the same background on every occurrence. The duck sticker
+# is independent and remains assigned by the UI.
+CITY_IMAGE_POOLS = {
+    "Zúrich": [
+        unsplash("photo-1527668752968-14dc70a27c95"),
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Zurich_after_sunset.jpg/960px-Zurich_after_sunset.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Lake_Z%C3%BCrich_from_Uetliberg.jpg/960px-Lake_Z%C3%BCrich_from_Uetliberg.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Z%C3%BCrich_view_Quaibr%C3%BCcke_20200702.jpg/960px-Z%C3%BCrich_view_Quaibr%C3%BCcke_20200702.jpg",
+    ],
+    "París": [unsplash("photo-1502602898657-3e91760cbb34"), unsplash("photo-1499856871958-5b9627545d1a"), unsplash("photo-1503917988258-f87a78e3c995")],
+    "Barcelona": [unsplash("photo-1539037116277-4db20889f2d4"), unsplash("photo-1583422409516-2895a77efded"), unsplash("photo-1523531294919-4bcd7c65e216")],
+    "La Spezia": [
+        unsplash("photo-1533104816931-20fa691ff6ca"),
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Vernazza%2C_Cinque_Terre_%28panorama%29.jpg/960px-Vernazza%2C_Cinque_Terre_%28panorama%29.jpg",
+    ],
+    "Salerno": [
+        unsplash("photo-1530789253388-582c481c54b0"),
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Positano_at_dusk%2C_Amalfi_Coast%2C_Italy.jpg/960px-Positano_at_dusk%2C_Amalfi_Coast%2C_Italy.jpg",
+    ],
+    "Zadar": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sunset_over_the_Adriatic_Sea_as_seen_from_the_Sea_Organ_in_Zadar_%2848670423612%29.jpg/960px-Sunset_over_the_Adriatic_Sea_as_seen_from_the_Sea_Organ_in_Zadar_%2848670423612%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/The_Sea_Organ_on_the_waterfront_of_Zadar%2C_Croatia_%2848607630256%29.jpg/960px-The_Sea_Organ_on_the_waterfront_of_Zadar%2C_Croatia_%2848607630256%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Zadar_%2848947016376%29.jpg/960px-Zadar_%2848947016376%29.jpg",
+    ],
+    "Venecia": [unsplash("photo-1520175480921-4edfa2983e0f"), unsplash("photo-1514890547357-a9ee288728e0"), unsplash("photo-1523906834658-6e24ef2386f9")],
+    "Roma": [unsplash("photo-1552832230-c0197dd311b5"), unsplash("photo-1529260830199-42c24126f198"), unsplash("photo-1531572753322-ad063cecc140")],
+    "Praga": [
+        unsplash("photo-1541849546-216549ae216d"),
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Charles_Bridge_at_Sunset%2C_Prague_%2850489016846%29.jpg/960px-Charles_Bridge_at_Sunset%2C_Prague_%2850489016846%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Prague_Old_Town_2021_13.jpg/960px-Prague_Old_Town_2021_13.jpg",
+    ],
+    "Berlín": [
+        unsplash("photo-1560969184-10fe8719e047"),
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Skyline_Berlin.jpg/960px-Skyline_Berlin.jpg",
+        unsplash("photo-1528728329032-2972f65dfb3f"),
+    ],
+    "Múnich": [
+        unsplash("photo-1595867818082-083862f3d630"),
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Vista_panor%C3%A1mica_desde_Olympiapark%2C_M%C3%BAnich%2C_Alemania_2012-04-28%2C_DD_03.JPG/960px-Vista_panor%C3%A1mica_desde_Olympiapark%2C_M%C3%BAnich%2C_Alemania_2012-04-28%2C_DD_03.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Munich%2C_Nuevo_Ayuntamiento_01.jpg/960px-Munich%2C_Nuevo_Ayuntamiento_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Historische_Altstadt_Muenchen_01.JPG/960px-Historische_Altstadt_Muenchen_01.JPG",
+    ],
+    "En el mar": [
+        unsplash("photo-1544551763-46a013bb70d5"),
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Cruising_into_the_sunset_%28Explored%29_-_Flickr_-_M_McBey.jpg/960px-Cruising_into_the_sunset_%28Explored%29_-_Flickr_-_M_McBey.jpg",
+        unsplash("photo-1500375592092-40eb2168fd21"),
+    ],
+}
+
+
+def image_for_day(city: str, occurrence: int) -> str:
+    pool = CITY_IMAGE_POOLS.get(city)
+    if pool:
+        return pool[occurrence % len(pool)]
+    return CITY_INFO.get(city, ("Europa", "🌍", unsplash("photo-1436491865332-7a61a109cc05")))[2]
+
 # Ordered most-specific-first: substring match against a line's "place" text.
 CITY_ALIASES = [
     ("La Spezia", "La Spezia"), ("Civitavecchia", "Roma"), ("Salerno", "Salerno"), ("Zadar", "Zadar"),
@@ -261,6 +318,7 @@ def build_itinerary(rows: list[dict[str, object]]) -> list[dict[str, object]]:
     dated = [row for row in rows if row["dayKey"] is not None]
     keys = sorted({str(row["dayKey"]) for row in dated}, key=day_sort_key)
     current_city: str | None = None
+    city_occurrences: dict[str, int] = {}
     days = []
     for index, key in enumerate(keys):
         # `lines` (unfiltered) drives city/title detection and day continuity — a day still
@@ -271,7 +329,9 @@ def build_itinerary(rows: list[dict[str, object]]) -> list[dict[str, object]]:
             lines = lines + dateless
         city = day_city(lines, current_city)
         current_city = city
-        country, emoji, image_url = CITY_INFO.get(city, ("Europa", "🌍", unsplash("photo-1436491865332-7a61a109cc05")))
+        country, emoji, _ = CITY_INFO.get(city, ("Europa", "🌍", unsplash("photo-1436491865332-7a61a109cc05")))
+        image_url = image_for_day(city, city_occurrences.get(city, 0))
+        city_occurrences[city] = city_occurrences.get(city, 0) + 1
         is_embark = any(line["category"] == "Crucero" for line in lines)
         is_first = index == 0
         display_lines = [line for line in lines if (line["perPersonCop"] or 0) != 0 and not is_placeholder(str(line["title"]))]
@@ -288,8 +348,12 @@ def build_itinerary(rows: list[dict[str, object]]) -> list[dict[str, object]]:
 def build_option(name: str, dates_label: str, color: str, description: str, rows: list[dict[str, object]]) -> dict[str, object]:
     itinerary = build_itinerary(rows)
     total = sum(line["perPersonCop"] or 0 for line in rows)
+    # "En el mar" is a placeholder for days at sea, not a real destination —
+    # leave it out of the displayed route (the option card's city list).
     route: list[str] = []
     for day in itinerary:
+        if day["city"] == "En el mar":
+            continue
         if not route or route[-1] != day["city"]:
             route.append(day["city"])
     return {

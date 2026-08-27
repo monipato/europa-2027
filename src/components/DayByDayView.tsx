@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { ChevronDown, ExternalLink, MapPin } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
@@ -23,6 +23,22 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
   const dayDucks = useMemo(() => assignDuckStickers(days), [days])
   const activeDayDuck = dayDucks[activeIndex]
 
+  const touchStartX = useRef<number | null>(null)
+  const SWIPE_THRESHOLD = 40
+
+  function handleTouchStart(event: React.TouchEvent) {
+    touchStartX.current = event.touches[0].clientX
+  }
+
+  function handleTouchEnd(event: React.TouchEvent) {
+    if (touchStartX.current === null) return
+    const deltaX = event.changedTouches[0].clientX - touchStartX.current
+    touchStartX.current = null
+    if (Math.abs(deltaX) < SWIPE_THRESHOLD) return
+    if (deltaX < 0 && activeIndex < days.length - 1) onSelectDay(activeIndex + 1)
+    else if (deltaX > 0 && activeIndex > 0) onSelectDay(activeIndex - 1)
+  }
+
   return (
     <div className="day-layout">
       <aside className="day-list">
@@ -46,7 +62,7 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
       </aside>
 
       <article className="day-detail">
-        <div className="day-hero">
+        <div className="day-hero" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           <img src={activeDay.image} alt={`Paisaje de ${activeDay.city}`} />
           <div className="day-hero-overlay">
             <span>{activeDayLabel.emoji} {activeDayLabel.label}</span>
