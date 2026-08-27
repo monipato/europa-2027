@@ -1,0 +1,83 @@
+import { ChevronDown, ExternalLink, MapPin } from 'lucide-react'
+import type { Category } from '../types'
+import type { GeneratedDay } from '../data/generated/itinerary.generated'
+import { CATEGORY_META } from '../constants'
+import { formatCOP, formatExpenseAmount } from '../utils/currency'
+import { getDayDisplayLabel } from '../utils/dayDisplay'
+
+interface DayByDayViewProps {
+  days: GeneratedDay[]
+  selectedDayIndex: number
+  onSelectDay: (index: number) => void
+}
+
+/** "Por día" view: a scrollable list of days on the left, and the selected
+ * day's photo, title and full expense list on the right. */
+export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayViewProps) {
+  const activeDay = days[selectedDayIndex] ?? days[0]
+  const activeDayLabel = getDayDisplayLabel(activeDay)
+  const activeDayTotal = activeDay.expenses.reduce((sum, expense) => sum + expense.amount, 0)
+
+  return (
+    <div className="day-layout">
+      <aside className="day-list">
+        {days.map((day, index) => {
+          const label = getDayDisplayLabel(day)
+          return (
+            <button
+              className={`day-nav ${selectedDayIndex === index ? 'selected' : ''}`}
+              key={day.dayKey}
+              onClick={() => onSelectDay(index)}
+            >
+              <span>{day.dayKey}</span>
+              <div>
+                <strong>{label.emoji} {day.city}</strong>
+                <small>{label.label}</small>
+              </div>
+              <ChevronDown />
+            </button>
+          )
+        })}
+      </aside>
+
+      <article className="day-detail">
+        <div className="day-hero">
+          <img src={activeDay.image} alt={`Paisaje de ${activeDay.city}`} />
+          <div className="day-hero-overlay">
+            <span>{activeDayLabel.emoji} {activeDayLabel.label}</span>
+            <h2>{activeDay.title}</h2>
+            <p><MapPin size={15} /> {activeDay.city}</p>
+          </div>
+        </div>
+
+        <div className="expense-header">
+          <div>
+            <p className="eyebrow">{activeDay.dayKey} · gastos del día</p>
+            <h3>¿En qué se va el dinero?</h3>
+          </div>
+          <strong>{formatCOP(activeDayTotal)}</strong>
+        </div>
+
+        <div className="expense-list">
+          {activeDay.expenses.map((expense, index) => (
+            <div className="expense-row" key={expense.title + index}>
+              <span className="category-icon" style={{ background: CATEGORY_META[expense.category as Category].color }}>
+                {CATEGORY_META[expense.category as Category].icon}
+              </span>
+              <div className="expense-info">
+                <strong>{expense.title}</strong>
+                <span>{expense.category} · {expense.note}</span>
+                {expense.link && (
+                  <a href={expense.link} target="_blank" rel="noreferrer">
+                    Ver tour o sitio web <ExternalLink size={14} />
+                  </a>
+                )}
+              </div>
+              <b>{formatExpenseAmount(expense)}</b>
+            </div>
+          ))}
+        </div>
+      </article>
+    </div>
+  )
+}
