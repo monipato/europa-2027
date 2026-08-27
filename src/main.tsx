@@ -74,6 +74,7 @@ const formatOriginal = (expense: Expense) => {
   return `${symbols[expense.currency]} ${new Intl.NumberFormat('es-CO', { maximumFractionDigits: 2 }).format(expense.originalAmount ?? 0)} · ${formatCOP(expense.amount)} COP`
 }
 const rates = [{ code: 'EUR', value: '€ 1 = $3.750 COP' }, { code: 'CHF', value: 'CHF 1 = $4.053 COP' }, { code: 'CZK', value: 'Kč 1 = $156 COP' }, { code: 'USD', value: 'US$ 1 = $3.218 COP' }]
+const cruiseFlightDay: Day = { date: '05 MAY', city: 'Vuelo', country: 'Colombia → España', title: 'Vuelo hacia Barcelona', emoji: '✈️', image: img('photo-1436491865332-7a61a109cc05'), expenses: [{ category: 'Transporte', title: 'Vuelo Bogotá → Barcelona', amount: 1473385, originalAmount: 1473385, currency: 'COP', note: 'Lufthansa · sale 23:30 · llega el 6 de mayo · vía Frankfurt · 16 h 35 min' }] }
 
 function App() {
   void excelQuoteLines
@@ -89,7 +90,7 @@ function App() {
     return () => document.removeEventListener('click', advance)
   }, [])
   const selected = options[option ?? 0]
-  const itineraryDays = useMemo(() => option === 0 ? allItineraryDays : option === 1 ? allItineraryDays.filter(d => ['05 MAY','06 MAY','07 MAY','08 MAY','09 MAY','10 MAY','11 MAY','12 MAY','13 MAY','14 MAY','15 MAY','16 MAY'].includes(d.date)) : allItineraryDays.filter(d => ['30 ABR','01 MAY','02 MAY','03 MAY','04 MAY','05 MAY','06 MAY','07 MAY','08 MAY','09 MAY','10 MAY','11 MAY','12 MAY','13 MAY','14 MAY','15 MAY','16 MAY'].includes(d.date)), [option])
+  const itineraryDays = useMemo(() => option === 0 ? allItineraryDays : option === 1 ? [cruiseFlightDay, ...allItineraryDays.filter(d => ['06 MAY','07 MAY','08 MAY','09 MAY','10 MAY','11 MAY','12 MAY','13 MAY','14 MAY','15 MAY','16 MAY'].includes(d.date))] : allItineraryDays.filter(d => ['30 ABR','01 MAY','02 MAY','03 MAY','04 MAY','05 MAY','06 MAY','07 MAY','08 MAY','09 MAY','10 MAY','11 MAY','12 MAY','13 MAY','14 MAY','15 MAY','16 MAY'].includes(d.date)), [option])
   const days = itineraryDays
   const activeDay = itineraryDays[selectedDay] ?? itineraryDays[0]
   const day = activeDay
