@@ -385,10 +385,10 @@ def main() -> None:
     rows = [line for sheet, name in sheets for line in read_rows(sheet, name)]
 
     options_meta = [
-        ("Completo", "30 abr – 30 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo"),
         ("Solo crucero", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero"),
         ("Zúrich y Crucero", "30 abr – 16 may 2027", "#91b9a2", "Ciudad y mar en un solo viaje", "Zúrich y Crucero"),
         ("Múnich y Crucero", "30 abr – 16 may 2027", "#bf8e9a", "Alemania, España y Mediterráneo", "Múnich y Crucero"),
+        ("Completo", "30 abr – 30 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo"),
     ]
     people_count = read_people_count()
     options = [
