@@ -57,18 +57,21 @@ NS = {"x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 
 # Option name -> sheet number, matching the mapping in generate_data.py's main().
 OPTION_SHEETS = {
-    "Completo": 4,
+    "1 mes por Europa": 4,
     "Zúrich y Crucero": 6,
     "Múnich y Crucero": 8,
     "Crucero para 3": 10,
     "Crucero en pareja": 12,
+    "Crucero para 4": 13,
 }
 
 # Options whose per-person headcount differs from the workbook-wide
-# 'Tasas de Cambio'!C5 value (see scripts/duplicate_option.py) — their K
-# formulas divide by a literal number instead of that shared cell.
+# 'Tasas de Cambio'!C5 value (see scripts/duplicate_option.py /
+# scripts/duplicate_option_4p.py) — their K formulas divide by a literal
+# number instead of that shared cell.
 OPTION_PEOPLE_OVERRIDE = {
     "Crucero en pareja": 2,
+    "Crucero para 4": 4,
 }
 
 CATEGORIES = {

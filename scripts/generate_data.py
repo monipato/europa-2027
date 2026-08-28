@@ -625,7 +625,7 @@ def build_option(name: str, dates_label: str, color: str, description: str, rows
 def main() -> None:
     sheets = [
         (4, "Completo"), (6, "Zúrich y Crucero"), (8, "Múnich y Crucero"), (10, "Solo crucero"),
-        (12, "Solo crucero 2P"),
+        (12, "Solo crucero 2P"), (13, "Solo crucero 4P"),
     ]
     rows = [line for sheet, name in sheets for line in read_rows(sheet, name)]
 
@@ -636,7 +636,8 @@ def main() -> None:
     shared_people_count = read_people_count()
     options_meta = [
         ("Crucero en pareja", "5 – 16 may 2027", "#a998c9", "Una escapada mediterránea para dos", "Solo crucero 2P", 2),
-        ("Completo", "29 abr – 27 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo", shared_people_count),
+        ("Crucero para 4", "5 – 16 may 2027", "#c9a17f", "Una escapada mediterránea para el grupo", "Solo crucero 4P", 4),
+        ("1 mes por Europa", "29 abr – 27 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo", shared_people_count),
         ("Crucero para 3", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero", shared_people_count),
         ("Zúrich y Crucero", "30 abr – 16 may 2027", "#91b9a2", "Ciudad y mar en un solo viaje", "Zúrich y Crucero", shared_people_count),
         ("Múnich y Crucero", "30 abr – 16 may 2027", "#bf8e9a", "Alemania, España y Mediterráneo", "Múnich y Crucero", shared_people_count),
