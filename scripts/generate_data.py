@@ -381,19 +381,27 @@ def build_option(name: str, dates_label: str, color: str, description: str, rows
 
 
 def main() -> None:
-    sheets = [(4, "Completo"), (6, "Zúrich y Crucero"), (8, "Múnich y Crucero"), (10, "Solo crucero")]
+    sheets = [
+        (4, "Completo"), (6, "Zúrich y Crucero"), (8, "Múnich y Crucero"), (10, "Solo crucero"),
+        (12, "Solo crucero 2P"),
+    ]
     rows = [line for sheet, name in sheets for line in read_rows(sheet, name)]
 
+    # people_count is per-option: every sheet but "Crucero 2P" shares the
+    # workbook-wide 'Tasas de Cambio'!C5 headcount; sheet12 is hardcoded to
+    # 2 since it's a dedicated 2-person duplicate with its own /2 formulas
+    # (see scripts/duplicate_option.py) rather than reading the shared cell.
+    shared_people_count = read_people_count()
     options_meta = [
-        ("Solo crucero", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero"),
-        ("Zúrich y Crucero", "30 abr – 16 may 2027", "#91b9a2", "Ciudad y mar en un solo viaje", "Zúrich y Crucero"),
-        ("Múnich y Crucero", "30 abr – 16 may 2027", "#bf8e9a", "Alemania, España y Mediterráneo", "Múnich y Crucero"),
-        ("Completo", "30 abr – 30 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo"),
+        ("Solo crucero", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero", shared_people_count),
+        ("Solo crucero (2 personas)", "5 – 16 may 2027", "#a998c9", "Una escapada mediterránea para dos", "Solo crucero 2P", 2),
+        ("Zúrich y Crucero", "30 abr – 16 may 2027", "#91b9a2", "Ciudad y mar en un solo viaje", "Zúrich y Crucero", shared_people_count),
+        ("Múnich y Crucero", "30 abr – 16 may 2027", "#bf8e9a", "Alemania, España y Mediterráneo", "Múnich y Crucero", shared_people_count),
+        ("Completo", "30 abr – 30 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo", shared_people_count),
     ]
-    people_count = read_people_count()
     options = [
         build_option(display_name, dates_label, color, description, [r for r in rows if r["option"] == sheet_option], people_count)
-        for display_name, dates_label, color, description, sheet_option in options_meta
+        for display_name, dates_label, color, description, sheet_option, people_count in options_meta
     ]
     rates, rates_updated = read_rates()
 

@@ -45,7 +45,7 @@
    ============================================================ */
 :root{font-family:'DM Sans',sans-serif;color:var(--text-body);background:var(--bg-page);font-size:16px;line-height:1.45}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg-page)}
+body{margin:0;background:var(--bg-page);overflow-anchor:none}
 button,a{font:inherit}
 button{cursor:pointer;border:0;background:none}
 .app-shell{min-height:100vh}
@@ -54,7 +54,7 @@ button{cursor:pointer;border:0;background:none}
    Header
    ============================================================ */
 .topbar{height:112px;background:var(--bg-header);border-bottom:1px solid var(--border);color:var(--text-strong);display:flex;align-items:center;padding:0 max(24px,calc((100% - 1180px)/2));justify-content:space-between}
-.brand{display:flex;gap:13px;align-items:center}
+.brand{display:flex;gap:13px;align-items:center;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;text-align:left}
 .brand-logo{height:70px;width:auto;display:block}
 .brand small{font-size:11px;line-height:1.6;letter-spacing:2px;color:var(--text-muted)}
 .topbar nav{display:flex;gap:30px}
@@ -135,7 +135,7 @@ button{cursor:pointer;border:0;background:none}
 /* ============================================================
    Day-by-day view
    ============================================================ */
-.day-layout{display:grid;grid-template-columns:285px 1fr;gap:24px}
+.day-layout{display:grid;grid-template-columns:285px 1fr;gap:24px;overflow-anchor:none}
 .day-list{display:flex;flex-direction:column;gap:7px;max-height:620px;overflow:auto;padding-right:4px}
 .day-nav{display:grid;grid-template-columns:62px 1fr 16px;text-align:left;align-items:center;gap:8px;background:var(--bg-surface);padding:13px 12px;border-radius:10px;color:var(--text-strong);border:1px solid transparent}
 .day-nav.selected{background:var(--bg-surface-muted);border-color:var(--accent-teal);color:var(--text-strong)}
@@ -144,7 +144,7 @@ button{cursor:pointer;border:0;background:none}
 .day-nav small{display:none}
 .day-nav svg{width:15px;transform:rotate(-90deg);color:var(--text-muted)}
 .day-detail{background:var(--bg-surface);border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(var(--shadow-rgb),.06)}
-.day-hero{height:230px;position:relative}
+.day-hero{height:230px;position:relative;touch-action:pan-y}
 .day-hero img{width:100%;height:100%;object-fit:cover}
 .day-hero:after{content:'';position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#102f38dd)}
 .day-hero-overlay{position:absolute;z-index:1;bottom:20px;left:24px;color:#fff}
@@ -218,6 +218,7 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   body{background:var(--bg-page)}
   .app-shell{max-width:520px;margin:0 auto;background:var(--bg-page);box-shadow:0 0 28px rgba(var(--shadow-rgb),.09);min-height:100vh}
   .topbar{height:84px;padding:0 16px;position:sticky;top:0;z-index:10}
+  .day-layout{scroll-margin-top:84px}
   .brand-logo{height:52px}
   .topbar nav{display:none;position:absolute;z-index:5;top:84px;left:0;right:0;background:var(--bg-header);border-bottom:1px solid var(--border);padding:18px 24px;flex-direction:column;gap:18px;box-shadow:0 8px 15px rgba(var(--shadow-rgb),.12)}
   .topbar nav.open{display:flex}
@@ -240,7 +241,7 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   .day-layout{grid-template-columns:1fr}
   .day-list{position:relative;display:flex;flex-direction:row;overflow-x:auto;max-height:none;padding-left:0;padding-right:0;padding-bottom:7px;gap:7px;scroll-snap-type:x proximity;scrollbar-width:none}
   .day-list::-webkit-scrollbar{display:none}
-  .day-nav{min-width:112px;display:block;padding:10px 9px;scroll-snap-align:start}
+  .day-nav{min-width:112px;display:block;padding:10px 9px;scroll-snap-align:center}
   .day-nav>span{display:block;margin-bottom:4px}
   .day-nav strong{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .day-nav svg{display:none}

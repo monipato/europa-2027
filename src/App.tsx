@@ -40,6 +40,7 @@ export function App() {
   function handleSelectOption(index: number) {
     setSelectedOptionIndex(index)
     setHasStartedPlanning(true)
+    window.scrollTo(0, 0)
   }
 
   function handleChangeTrip() {
@@ -60,6 +61,7 @@ export function App() {
         onCloseMenu={() => setMenuOpen(false)}
         theme={theme}
         onToggleTheme={toggleTheme}
+        onGoHome={handleChangeTrip}
       />
 
       <main>

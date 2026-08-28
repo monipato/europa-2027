@@ -2,7 +2,14 @@ import type { GeneratedOption } from '../data/generated/itinerary.generated'
 import { formatCOP } from '../utils/currency'
 import { collectCountryFlags } from '../utils/tripStats'
 import { ExchangeRatesCard } from './ExchangeRatesCard'
-import duckFamily from '../assets/ducks/duck-cat-family.png'
+import duckFamily2 from '../assets/ducks/duck2-family-car.png'
+import duckFamily3 from '../assets/ducks/duck2-family-3.png'
+import duckFamily4 from '../assets/ducks/duck2-family-4.png'
+
+// Small duck icon next to the "N personas" badge on each option card — picked
+// to roughly match the actual traveler count, falling back to the 3-duck one
+// (the common case) for any other count.
+const PEOPLE_DUCK_BY_COUNT: Record<number, string> = { 2: duckFamily2, 3: duckFamily3, 4: duckFamily4 }
 
 interface TripSelectionScreenProps {
   options: GeneratedOption[]
@@ -41,7 +48,9 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
               <div className="option-top">
                 <span className="option-flags">{collectCountryFlags(option.itinerary).join(' ')}</span>
               </div>
-              <span className="option-people"><img src={duckFamily} alt="" aria-hidden="true" /> {option.peopleCount} personas</span>
+              <span className="option-people">
+                <img src={PEOPLE_DUCK_BY_COUNT[option.peopleCount] ?? duckFamily3} alt="" aria-hidden="true" /> {option.peopleCount} personas
+              </span>
               <h3>{option.name}</h3>
               <p>{option.description} · {option.days} días</p>
               <strong>{formatCOP(option.perPerson)}</strong>

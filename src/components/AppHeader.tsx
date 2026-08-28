@@ -10,20 +10,22 @@ interface AppHeaderProps {
   onCloseMenu: () => void
   theme: Theme
   onToggleTheme: () => void
+  onGoHome: () => void
 }
 
 /**
  * Top navigation bar: the PatiTours logo (swapped for a light-ink variant in
  * dark mode — see `scripts/generate_brand_assets.py`), the light/dark toggle,
- * and the mobile-collapsible nav links.
+ * and the mobile-collapsible nav links. Clicking the logo returns to the
+ * trip-selection screen, like a normal site home link.
  */
-export function AppHeader({ menuOpen, onToggleMenu, onCloseMenu, theme, onToggleTheme }: AppHeaderProps) {
+export function AppHeader({ menuOpen, onToggleMenu, onCloseMenu, theme, onToggleTheme, onGoHome }: AppHeaderProps) {
   return (
     <header className="topbar">
-      <div className="brand">
+      <button className="brand" onClick={onGoHome} aria-label="Ir al inicio">
         <img className="brand-logo" src={theme === 'dark' ? patitoursLogoDark : patitoursLogoLight} alt="PatiTours" />
         <small>EUROPA 2027<br />NUESTRO VIAJE</small>
-      </div>
+      </button>
       <div className="header-actions">
         <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         <button className="menu-button" aria-label="Abrir menú" onClick={onToggleMenu}>

@@ -26,9 +26,47 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
   const touchStartX = useRef<number | null>(null)
   const SWIPE_THRESHOLD = 40
   const selectedNavRef = useRef<HTMLButtonElement | null>(null)
+  const dayListRef = useRef<HTMLElement | null>(null)
+  const layoutRef = useRef<HTMLDivElement | null>(null)
+  const isFirstRender = useRef(true)
 
+  // Keep the selected day-nav button in view by scrolling only the day-list
+  // strip itself (never window.scrollTo / scrollIntoView on ancestors) —
+  // otherwise the browser can also drag the whole page's vertical scroll
+  // along with it whenever the day-list isn't fully in view, which is what
+  // made using the prev/next arrows feel like it randomly moved the page.
+  // Instant (no smooth): an animated scroll here can race the day-list's
+  // own CSS scroll-snap, which then nudges the final position by a couple
+  // px once the animation settles — instant removes that timing window.
   useEffect(() => {
-    selectedNavRef.current?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    const container = dayListRef.current
+    const button = selectedNavRef.current
+    if (!container || !button) return
+    if (container.scrollWidth > container.clientWidth) {
+      const target = button.offsetLeft - (container.clientWidth - button.clientWidth) / 2
+      container.scrollTo({ left: target, behavior: 'auto' })
+    }
+    if (container.scrollHeight > container.clientHeight) {
+      const target = button.offsetTop - (container.clientHeight - button.clientHeight) / 2
+      container.scrollTo({ top: target, behavior: 'auto' })
+    }
+  }, [activeIndex])
+
+  // Every time the selected day changes (arrows, swipe, or the list), snap
+  // back to a stable landing spot: the day-nav row together with the hero
+  // image just below it, instead of wherever the page happened to be
+  // scrolled to (e.g. deep in the expense list). Anchored on the whole
+  // day-list + day-detail section — not just the detail — so the nav row
+  // stays visible with the hero, matching how this view is meant to be
+  // read. Instant (no smooth) so it doesn't fight the day-list's own
+  // smooth horizontal scroll above. Skipped on first mount so opening the
+  // planner doesn't jump.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+    layoutRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' })
   }, [activeIndex])
 
   function handleTouchStart(event: React.TouchEvent) {
@@ -45,8 +83,8 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
   }
 
   return (
-    <div className="day-layout">
-      <aside className="day-list">
+    <div className="day-layout" ref={layoutRef}>
+      <aside className="day-list" ref={dayListRef}>
         {days.map((day, index) => {
           const label = getDayDisplayLabel(day)
           return (

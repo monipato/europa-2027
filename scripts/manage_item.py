@@ -57,6 +57,14 @@ OPTION_SHEETS = {
     "Zúrich y Crucero": 6,
     "Múnich y Crucero": 8,
     "Solo crucero": 10,
+    "Solo crucero (2 personas)": 12,
+}
+
+# Options whose per-person headcount differs from the workbook-wide
+# 'Tasas de Cambio'!C5 value (see scripts/duplicate_option.py) — their K
+# formulas divide by a literal number instead of that shared cell.
+OPTION_PEOPLE_OVERRIDE = {
+    "Solo crucero (2 personas)": 2,
 }
 
 CATEGORIES = {
@@ -195,9 +203,9 @@ class Workbook:
 
     def build_row_xml(self, row_no: int, *, category: str, place: str, date_text: str,
                        title: str, currency: str, unit_amount: float, quantity: float,
-                       note_with_link: str, confirmed_date: str) -> str:
+                       note_with_link: str, confirmed_date: str, people_override: int | None = None) -> str:
         rate = self.read_rate(currency)
-        people = self.read_people_count()
+        people = people_override if people_override is not None else self.read_people_count()
 
         idx_category = self.get_or_add_shared_string(category)
         idx_place = self.get_or_add_shared_string(place)
@@ -226,9 +234,10 @@ class Workbook:
             f'MATCH(E{row_no},\'Tasas de Cambio\'!$B$11:$B$15,0)),0)</f><v>{rate}</v></c>'
         )
         cells.append(f'<c r="J{row_no}" s="{STYLES["J"]}"><f>IFERROR(H{row_no}*I{row_no},0)</f><v>{total_cop}</v></c>')
+        k_divisor = str(people_override) if people_override is not None else "'Tasas de Cambio'!$C$5"
         cells.append(
             f'<c r="K{row_no}" s="{STYLES["K"]}">'
-            f"<f>IFERROR(J{row_no}/'Tasas de Cambio'!$C$5,0)</f><v>{per_person}</v></c>"
+            f"<f>IFERROR(J{row_no}/{k_divisor},0)</f><v>{per_person}</v></c>"
         )
         cells.append(f'<c r="L{row_no}" s="{STYLES["L"]}" t="s"><v>{idx_note}</v></c>')
         cells.append(f'<c r="M{row_no}" s="1" t="s"><v>{idx_confirmed}</v></c>')
@@ -369,6 +378,7 @@ def main():
         category=args.category, place=args.place, date_text=args.date_text, title=args.title,
         currency=args.currency, unit_amount=args.unit_amount, quantity=args.quantity,
         note_with_link=note_with_link, confirmed_date=confirmed,
+        people_override=OPTION_PEOPLE_OVERRIDE.get(args.option),
     )
     # A,B,C,D,E,L,M are the 7 shared-string-typed cells per row. An "add" turns 7
     # previously-blank cells into 7 string references (net +7 to sst's `count`);
