@@ -15,7 +15,7 @@ export function PlannerHeading({ onBack }: PlannerHeadingProps) {
       </button>
       <p className="eyebrow">Tu itinerario seleccionado</p>
       <ExchangeRatesCard
-        occupancyNote={<>Todos los gastos detallados se muestran <b>por persona</b>, calculados con alojamiento en habitación triple (3 personas). En habitación doble, el precio por persona cambia.</>}
+        occupancyNote={<>Todos los gastos detallados se muestran <b>por persona</b>, según la ocupación de este plan. El precio por persona cambia si se comparte una habitación distinta.</>}
       />
     </div>
   )

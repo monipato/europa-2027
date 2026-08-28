@@ -71,10 +71,11 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
               <div className="mini-row" key={expense.title + index}>
                 <span>{expense.dayKey} · {expense.place}</span>
                 <strong>{expense.title}</strong>
+                {expense.note && <p>{expense.note}</p>}
                 <b>{formatExpenseAmount(expense)}</b>
                 {expense.link && (
                   <a href={expense.link} target="_blank" rel="noreferrer">
-                    Abrir enlace <ExternalLink size={13} />
+                    Ver tour o sitio web <ExternalLink size={13} />
                   </a>
                 )}
               </div>

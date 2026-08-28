@@ -77,15 +77,15 @@ button{cursor:pointer;border:0;background:none}
 .option-area,.content-section{max-width:1180px;margin:0 auto;padding:18px 24px 46px}
 .section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}
 .section-heading h2{font:700 30px Fraunces,serif;margin:0;color:var(--text-strong)}
-.people-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg-surface-muted);border-radius:22px;padding:6px 14px 6px 8px;font-size:14px;color:var(--text-strong);font-weight:600}
-.people-badge img{width:26px;display:block;border-radius:6px}
 .option-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .option-card{position:relative;text-align:left;background:var(--bg-surface);border:2px solid transparent;border-radius:15px;padding:22px 18px 18px;box-shadow:0 4px 18px rgba(var(--shadow-rgb),.06);transition:.2s;min-height:225px;color:var(--text-body);display:flex;flex-direction:column;align-items:stretch}
 .option-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(var(--shadow-rgb),.09)}
 .option-card.active{border-color:var(--accent-gold-strong);box-shadow:0 0 0 3px rgba(219,165,63,.15)}
-.option-top{margin-bottom:14px}
+.option-top{margin-bottom:8px}
 .option-flags{font-size:20px;letter-spacing:3px;overflow-x:auto;white-space:nowrap;display:block;scrollbar-width:none}
 .option-flags::-webkit-scrollbar{display:none}
+.option-people{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;background:var(--bg-surface-muted);border-radius:14px;padding:3px 8px 3px 4px;margin-bottom:10px;font-size:11px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.option-people img{width:16px;height:16px;display:block;border-radius:4px}
 .option-card h3{font:700 22px Fraunces,serif;margin:0 0 4px;color:var(--text-strong)}
 .option-card p{font-size:13px;color:var(--text-muted);margin:0 0 16px}
 .option-card strong{display:block;font-size:17px;color:var(--text-strong)}
@@ -201,6 +201,7 @@ button{cursor:pointer;border:0;background:none}
 .mini-row span{color:var(--text-muted)}
 .mini-row b{color:var(--text-strong)}
 .mini-row b:after{content:' · por persona';display:block;color:var(--text-muted);font-size:10px;font-weight:500}
+.mini-row p{grid-column:2;margin:2px 0 0;color:var(--text-muted);font-size:12px}
 .mini-row a{grid-column:2}
 
 /* ============================================================
@@ -269,7 +270,6 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   .option-card p{font-size:12px}
   .option-card strong{font-size:14px}
   .route{font-size:11px}
-  .people-badge{align-self:flex-start}
   .trip-summary{align-items:flex-start}
   .summary-cost{text-align:left}
   .summary-copy{min-width:0}

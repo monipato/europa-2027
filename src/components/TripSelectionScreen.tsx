@@ -30,7 +30,6 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
             <p className="eyebrow">Paso 1 de 2</p>
             <h2>Selecciona una cotización</h2>
           </div>
-          <span className="people-badge"><img src={duckFamily} alt="" aria-hidden="true" /> 3 personas</span>
         </div>
         <div className="option-grid">
           {options.map((option, index) => (
@@ -42,6 +41,7 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
               <div className="option-top">
                 <span className="option-flags">{collectCountryFlags(option.itinerary).join(' ')}</span>
               </div>
+              <span className="option-people"><img src={duckFamily} alt="" aria-hidden="true" /> {option.peopleCount} personas</span>
               <h3>{option.name}</h3>
               <p>{option.description} · {option.days} días</p>
               <strong>{formatCOP(option.perPerson)}</strong>
@@ -54,7 +54,7 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
 
       <ExchangeRatesCard
         className="rates-bottom"
-        occupancyNote={<>Gastos por persona con alojamiento en habitación triple (3 personas). En habitación doble, el precio por persona cambia.</>}
+        occupancyNote={<>Gastos mostrados <b>por persona</b>, según la ocupación de cada plan. El precio por persona cambia si se comparte una habitación distinta.</>}
       />
     </>
   )
