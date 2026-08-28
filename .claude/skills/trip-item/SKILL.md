@@ -17,7 +17,7 @@ then regenerates the app's data file automatically.
 
 Ask for whatever isn't already clear from context:
 
-- **option**: one of `Completo`, `Zúrich y Crucero`, `Múnich y Crucero`, `Solo crucero`
+- **option**: one of `Completo`, `Zúrich y Crucero`, `Múnich y Crucero`, `Crucero para 3`, `Crucero en pareja`
 - **category**: one of `Vuelos y Trenes`, `Traslados`, `Alojamiento`, `Crucero`, `Tours y Excursiones`, `Comidas`, `Seguro de Viaje`, `Otros y Extras`
 - **place**: short city/place label (can be blank for trip-wide items)
 - **date**: either a real date string like `"14 May 2027"` (must contain a
@@ -51,7 +51,7 @@ category are modeled (read the sheet or ask) before picking:
 
 ```
 python3 scripts/manage_item.py add \
-  --option "Solo crucero" \
+  --option "Crucero para 3" \
   --category "Tours y Excursiones" \
   --place "Zadar" \
   --date "14 May 2027" \
@@ -67,7 +67,7 @@ changed — anything you omit keeps its current value:
 
 ```
 python3 scripts/manage_item.py update \
-  --option "Solo crucero" --match-title "SIM card" \
+  --option "Crucero para 3" --match-title "SIM card" \
   --currency USD --unit-amount 45 --note "..." --link "..."
 ```
 
@@ -78,11 +78,23 @@ first one. If that happens, re-run with a more specific `--match-title`
 (more of the title text) rather than trying to work around it. The same
 applies to `delete`.
 
+Some titles are intentionally repeated once per day (e.g. "Comida del día
+(almuerzo y cena)"), where no `--match-title` wording can disambiguate.
+Add `--match-date` (an exact match against the row's current date/date-range
+text, e.g. `"26 May 2027"` or `"17 – 18 May (2 días)"`) to narrow the
+candidates by date before the ambiguity check runs:
+
+```
+python3 scripts/manage_item.py update \
+  --option "Completo" --match-title "Comida del día" --match-date "26 May 2027" \
+  --note ""
+```
+
 `delete` (drop a line item, e.g. removing a duplicated tour) works the
 same way:
 
 ```
-python3 scripts/manage_item.py delete --option "Solo crucero" --match-title "Free tour"
+python3 scripts/manage_item.py delete --option "Crucero para 3" --match-title "Free tour"
 ```
 
 The script:

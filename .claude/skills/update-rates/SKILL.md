@@ -30,16 +30,18 @@ report the new per-option totals to the user — no manual cell editing.
   factor is ever changed by hand, the script respects it rather than
   hardcoding 5% itself.
 - Updates "Fecha de actualización de tasas" to today.
-- Re-prices every line item in every option sheet (Completo, Solo crucero,
-  Solo crucero 2P, Zúrich y Crucero, Múnich y Crucero): any row priced in
-  EUR/CHF/CZK/USD gets its cached rate/total/per-person values recomputed
-  against the new rate. Titles, notes, links, unit prices, and quantities
-  are untouched — only the numbers that actually depend on the exchange
-  rate change. COP-priced rows are already rate-independent and are
-  skipped entirely.
-- The 2-person "Solo crucero (2 personas)" sheet divides by 2 instead of
-  the shared 3-person cell (see `scripts/duplicate_option.py`) — the
-  script already knows this and uses the right divisor per sheet.
+- Re-prices every line item in every option sheet (Completo, Solo crucero
+  i.e. "Crucero para 3", Solo crucero 2P i.e. "Crucero en pareja", Zúrich y
+  Crucero, Múnich y Crucero — the sheet labels stay "Solo crucero"/"Solo
+  crucero 2P" internally, only the app-facing display name changed): any
+  row priced in EUR/CHF/CZK/USD gets its cached rate/total/per-person
+  values recomputed against the new rate. Titles, notes, links, unit
+  prices, and quantities are untouched — only the numbers that actually
+  depend on the exchange rate change. COP-priced rows are already
+  rate-independent and are skipped entirely.
+- The 2-person "Crucero en pareja" sheet divides by 2 instead of the
+  shared 3-person cell (see `scripts/duplicate_option.py`) — the script
+  already knows this and uses the right divisor per sheet.
 
 ## Where this shows up in the app
 

@@ -635,11 +635,11 @@ def main() -> None:
     # (see scripts/duplicate_option.py) rather than reading the shared cell.
     shared_people_count = read_people_count()
     options_meta = [
-        ("Solo crucero", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero", shared_people_count),
-        ("Solo crucero (2 personas)", "5 – 16 may 2027", "#a998c9", "Una escapada mediterránea para dos", "Solo crucero 2P", 2),
+        ("Crucero en pareja", "5 – 16 may 2027", "#a998c9", "Una escapada mediterránea para dos", "Solo crucero 2P", 2),
+        ("Completo", "29 abr – 27 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo", shared_people_count),
+        ("Crucero para 3", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero", shared_people_count),
         ("Zúrich y Crucero", "30 abr – 16 may 2027", "#91b9a2", "Ciudad y mar en un solo viaje", "Zúrich y Crucero", shared_people_count),
         ("Múnich y Crucero", "30 abr – 16 may 2027", "#bf8e9a", "Alemania, España y Mediterráneo", "Múnich y Crucero", shared_people_count),
-        ("Completo", "30 abr – 30 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo", shared_people_count),
     ]
     options = [
         build_option(display_name, dates_label, color, description, [r for r in rows if r["option"] == sheet_option], people_count)

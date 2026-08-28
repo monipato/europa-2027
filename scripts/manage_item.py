@@ -1,15 +1,15 @@
 """Add or update a single line item in the quote workbook.
 
 Run from the project root:
-    python3 scripts/manage_item.py add    --option "Solo crucero" --category "Tours y Excursiones" \
+    python3 scripts/manage_item.py add    --option "Crucero para 3" --category "Tours y Excursiones" \
         --place "Zadar" --date "14 May 2027" --title "Tour a pie por el casco antiguo" \
         --currency EUR --unit-amount 15 --quantity 3 \
         --note "Tour guiado 2h, incluye entrada a la catedral" --link "https://example.com/tour"
 
-    python3 scripts/manage_item.py update --option "Solo crucero" --match-title "SIM card" \
+    python3 scripts/manage_item.py update --option "Crucero para 3" --match-title "SIM card" \
         --currency USD --unit-amount 45 --quantity 1 --note "..." --link "..."
 
-    python3 scripts/manage_item.py delete --option "Solo crucero" --match-title "Free tour"
+    python3 scripts/manage_item.py delete --option "Crucero para 3" --match-title "Free tour"
 
 This is the only supported way to hand-edit a line item in the workbook — it
 edits the raw .xlsx XML directly (same approach as generate_data.py, no
@@ -34,6 +34,10 @@ Design notes:
 - A link is optional. If given, it's appended to the end of the note text
   and the app automatically renders it as a "Ver tour o sitio web" button
   that opens in a new tab, in both views. If omitted, no link is shown.
+- On `update`, changing `--note` without also passing `--link` keeps the
+  row's existing link (extracted back out of its current note+link text) —
+  it does not get silently dropped. Pass `--link ""` to explicitly remove
+  an existing link while updating the note.
 """
 from __future__ import annotations
 
@@ -56,15 +60,15 @@ OPTION_SHEETS = {
     "Completo": 4,
     "Zúrich y Crucero": 6,
     "Múnich y Crucero": 8,
-    "Solo crucero": 10,
-    "Solo crucero (2 personas)": 12,
+    "Crucero para 3": 10,
+    "Crucero en pareja": 12,
 }
 
 # Options whose per-person headcount differs from the workbook-wide
 # 'Tasas de Cambio'!C5 value (see scripts/duplicate_option.py) — their K
 # formulas divide by a literal number instead of that shared cell.
 OPTION_PEOPLE_OVERRIDE = {
-    "Solo crucero (2 personas)": 2,
+    "Crucero en pareja": 2,
 }
 
 CATEGORIES = {
@@ -145,7 +149,7 @@ class Workbook:
                 return int(float(cells.get(f"C{row.attrib['r']}", "3")))
         return 3
 
-    def find_row_by_title(self, sheet_no: int, match_title: str) -> int | None:
+    def find_row_by_title(self, sheet_no: int, match_title: str, match_date: str | None = None) -> int | None:
         """Match by substring, but only ever silently return a result when
         it's unambiguous. Preference order: (1) a case-sensitive exact title
         match — the strongest signal; (2) if none, a case-insensitive exact
@@ -155,7 +159,13 @@ class Workbook:
         only if exactly one qualifies. Any ambiguity at (2) or (3) raises
         instead of guessing — two real edits in this project accidentally
         clobbered the wrong row (a substring collision, then a same-modulo-
-        case collision) before these checks existed."""
+        case collision) before these checks existed.
+
+        If match_date is given, candidates are filtered to rows whose
+        column C (date) exactly matches it *before* the ambiguity checks
+        above — needed for a title that's intentionally repeated once per
+        day (e.g. "Comida del día (almuerzo y cena)"), where title alone
+        can never disambiguate."""
         sheet = self.sheet_root(sheet_no)
         needle = match_title.strip()
         needle_lower = needle.lower()
@@ -168,6 +178,8 @@ class Workbook:
             title = cells.get(f"D{rn}", "")
             if not title:
                 continue
+            if match_date is not None and cells.get(f"C{rn}", "").strip() != match_date.strip():
+                continue
             stripped = title.strip()
             if stripped == needle:
                 case_sensitive_hit = rn
@@ -179,12 +191,12 @@ class Workbook:
             return case_sensitive_hit
         if len(exact_ci) > 1:
             listing = "; ".join(f"row {rn}: {t!r}" for rn, t in exact_ci)
-            raise SystemExit(f"--match-title {match_title!r} matches {len(exact_ci)} rows that differ only by case, ambiguous: {listing}. Use --match-title with the exact case shown.")
+            raise SystemExit(f"--match-title {match_title!r} matches {len(exact_ci)} rows that differ only by case, ambiguous: {listing}. Use --match-title with the exact case shown, or add --match-date.")
         if exact_ci:
             return exact_ci[0][0]
         if len(substring) > 1:
             listing = "; ".join(f"row {rn}: {t!r}" for rn, t in substring)
-            raise SystemExit(f"--match-title {match_title!r} matches {len(substring)} rows, ambiguous: {listing}. Use a more specific --match-title.")
+            raise SystemExit(f"--match-title {match_title!r} matches {len(substring)} rows, ambiguous: {listing}. Use a more specific --match-title, or add --match-date.")
         return substring[0][0] if substring else None
 
     def find_blank_row(self, sheet_no: int) -> int:
@@ -290,6 +302,18 @@ def confirmed_date_text() -> str:
     return f"{today.day} {MONTHS_ES_LOWER[today.month - 1]} {today.year}"
 
 
+LINK_RE = re.compile(r"https?://\S+")
+
+
+def extract_link(note: str) -> str | None:
+    match = LINK_RE.search(note)
+    return match.group(0).rstrip(".,)") if match else None
+
+
+def strip_link(note: str) -> str:
+    return LINK_RE.sub("", note).strip(" .|")
+
+
 def build_note(note: str, link: str | None) -> str:
     if word_count(note) > 20:
         raise SystemExit(f"Note is {word_count(note)} words (max 20): {note!r}")
@@ -308,6 +332,7 @@ def main():
     parser.add_argument("--date", dest="date_text", default="", help='e.g. "14 May 2027", or a dateless label like "Durante el viaje"')
     parser.add_argument("--title", help="Required for 'add'; optional for 'update' (keeps the matched title if omitted)")
     parser.add_argument("--match-title", help="Substring to find the row to update (required for 'update')")
+    parser.add_argument("--match-date", help="Also filter --match-title candidates by exact column-C date text, for a title repeated once per day (e.g. \"Comida del día\")")
     parser.add_argument("--currency", choices=sorted(CURRENCIES))
     parser.add_argument("--unit-amount", type=float)
     parser.add_argument("--quantity", type=float)
@@ -321,7 +346,7 @@ def main():
     if args.action == "delete":
         if not args.match_title:
             raise SystemExit("delete requires --match-title")
-        row_no = wb.find_row_by_title(sheet_no, args.match_title)
+        row_no = wb.find_row_by_title(sheet_no, args.match_title, args.match_date)
         if row_no is None:
             raise SystemExit(f"No row found in {args.option!r} matching title {args.match_title!r}")
         sheet = wb.sheet_root(sheet_no)
@@ -347,7 +372,7 @@ def main():
     else:
         if not args.match_title:
             raise SystemExit("update requires --match-title")
-        row_no = wb.find_row_by_title(sheet_no, args.match_title)
+        row_no = wb.find_row_by_title(sheet_no, args.match_title, args.match_date)
         if row_no is None:
             raise SystemExit(f"No row found in {args.option!r} matching title {args.match_title!r}")
         # Fill in any field the caller didn't override from the existing row.
@@ -370,7 +395,24 @@ def main():
     if args.category not in CATEGORIES:
         raise SystemExit(f"Unknown category {args.category!r}. Must be one of: {sorted(CATEGORIES)}")
 
-    note_with_link = build_note(args.note, args.link) if args.note else existing.get("L", "") if args.action == "update" else ""
+    # Note and link share one workbook cell (column L), but are two
+    # independent CLI flags, so any of the 4 combinations must work as its
+    # own flag suggests — updating just one must never silently discard the
+    # other:
+    #   --note only    -> new note,      existing link kept
+    #   --link only    -> existing note, new link applied
+    #   both           -> both new
+    #   neither        -> row unchanged (update) / blank (add)
+    # `is not None` (not truthy) throughout so `--note ""` / `--link ""`
+    # explicitly clear that piece instead of being indistinguishable from
+    # omitting the flag.
+    existing_note_with_link = existing.get("L", "") if args.action == "update" else ""
+    bare_note = args.note if args.note is not None else strip_link(existing_note_with_link)
+    link = args.link if args.link is not None else extract_link(existing_note_with_link)
+    if args.note is not None or args.link is not None or args.action == "add":
+        note_with_link = build_note(bare_note, link)
+    else:
+        note_with_link = existing_note_with_link
     confirmed = confirmed_date_text()
 
     cells_xml, per_person = wb.build_row_xml(
