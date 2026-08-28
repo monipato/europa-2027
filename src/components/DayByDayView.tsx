@@ -1,11 +1,14 @@
-import { useEffect, useMemo, useRef } from 'react'
-import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, MapPin } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Check, ChevronDown, ChevronLeft, ChevronRight, ExternalLink, MapPin, X } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
 import { CATEGORY_META } from '../constants'
 import { formatCOP, formatExpenseAmount } from '../utils/currency'
 import { getDayDisplayLabel } from '../utils/dayDisplay'
 import { assignDuckStickers } from '../utils/duckStickers'
+import { assignTourDucks } from '../utils/tourDuck'
+import { assignWeatherDucks } from '../utils/weatherDuck'
+import duckPacking from '../assets/ducks/duck-luggage.png'
 
 interface DayByDayViewProps {
   days: GeneratedDay[]
@@ -22,6 +25,15 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
   const activeDayTotal = activeDay.expenses.reduce((sum, expense) => sum + expense.amount, 0)
   const dayDucks = useMemo(() => assignDuckStickers(days), [days])
   const activeDayDuck = dayDucks[activeIndex]
+  const tourDucks = useMemo(() => assignTourDucks(days), [days])
+  const weatherDucks = useMemo(() => assignWeatherDucks(days), [days])
+  const [showPacking, setShowPacking] = useState(false)
+
+  // Close the packing popup when the day changes underneath it, instead of
+  // leaving it open showing the previous day's tip.
+  useEffect(() => {
+    setShowPacking(false)
+  }, [activeIndex])
 
   const touchStartX = useRef<number | null>(null)
   const SWIPE_THRESHOLD = 40
@@ -125,6 +137,110 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
           </div>
           {activeDayDuck && <img className="day-duck-sticker" src={activeDayDuck} alt="" aria-hidden="true" />}
         </div>
+
+        {activeDay.climateCity !== activeDay.city && (
+          <p className="climate-away-note">🚠 Clima de {activeDay.climateCity} — la excursión del día</p>
+        )}
+
+        <div className="day-conditions">
+          {activeDay.sunUrl ? (
+            <a className="day-condition day-condition-link" href={activeDay.sunUrl} target="_blank" rel="noreferrer" title="Ver amanecer de este destino">
+              🌅 {activeDay.sunrise}
+            </a>
+          ) : (
+            <span className="day-condition" title="Amanecer">🌅 {activeDay.sunrise}</span>
+          )}
+          {activeDay.sunUrl ? (
+            <a className="day-condition day-condition-link" href={activeDay.sunUrl} target="_blank" rel="noreferrer" title="Ver atardecer de este destino">
+              🌇 {activeDay.sunset}
+            </a>
+          ) : (
+            <span className="day-condition" title="Atardecer">🌇 {activeDay.sunset}</span>
+          )}
+          {activeDay.weatherUrl ? (
+            <a className="day-condition day-condition-link" href={activeDay.weatherUrl} target="_blank" rel="noreferrer" title="Ver clima de este destino">
+              {activeDay.weatherIcon} {activeDay.temp}
+            </a>
+          ) : (
+            <span className="day-condition" title="Clima aproximado">{activeDay.weatherIcon} {activeDay.temp}</span>
+          )}
+          <button className="day-condition day-condition-packing" onClick={() => setShowPacking(true)}>
+            <img src={duckPacking} alt="" aria-hidden="true" /> Qué llevar
+          </button>
+        </div>
+
+        {showPacking && (
+          <>
+            <div className="category-detail-backdrop" onClick={() => setShowPacking(false)} />
+            <div className="category-detail packing-modal">
+              <div className="detail-title">
+                <div>
+                  <p className="eyebrow">{activeDay.dayKey} · {activeDay.city}</p>
+                  <h3>Qué llevar</h3>
+                  {activeDay.climateCity !== activeDay.city && (
+                    <p className="climate-away-note">🚠 Clima de {activeDay.climateCity} — la excursión del día</p>
+                  )}
+                </div>
+                <button onClick={() => setShowPacking(false)} aria-label="Cerrar">
+                  <X />
+                </button>
+              </div>
+              <div className="packing-modal-ducks">
+                <img className="packing-modal-duck" src={tourDucks[activeIndex]} alt="" aria-hidden="true" title="El plan del día" />
+                <img className="packing-modal-duck" src={weatherDucks[activeIndex]} alt="" aria-hidden="true" title="El clima del día" />
+              </div>
+              <div className="packing-modal-stats">
+                {activeDay.weatherUrl ? (
+                  <a href={activeDay.weatherUrl} target="_blank" rel="noreferrer" title="Ver clima de este destino">
+                    <span>{activeDay.weatherIcon}</span>
+                    <small>Clima aprox.</small>
+                    <strong>{activeDay.temp}</strong>
+                  </a>
+                ) : (
+                  <div>
+                    <span>{activeDay.weatherIcon}</span>
+                    <small>Clima aprox.</small>
+                    <strong>{activeDay.temp}</strong>
+                  </div>
+                )}
+                {activeDay.sunUrl ? (
+                  <a href={activeDay.sunUrl} target="_blank" rel="noreferrer" title="Ver amanecer de este destino">
+                    <span>🌅</span>
+                    <small>Amanecer</small>
+                    <strong>{activeDay.sunrise}</strong>
+                  </a>
+                ) : (
+                  <div>
+                    <span>🌅</span>
+                    <small>Amanecer</small>
+                    <strong>{activeDay.sunrise}</strong>
+                  </div>
+                )}
+                {activeDay.sunUrl ? (
+                  <a href={activeDay.sunUrl} target="_blank" rel="noreferrer" title="Ver atardecer de este destino">
+                    <span>🌇</span>
+                    <small>Atardecer</small>
+                    <strong>{activeDay.sunset}</strong>
+                  </a>
+                ) : (
+                  <div>
+                    <span>🌇</span>
+                    <small>Atardecer</small>
+                    <strong>{activeDay.sunset}</strong>
+                  </div>
+                )}
+              </div>
+              <ul className="packing-checklist">
+                {activeDay.packing.map((item, index) => (
+                  <li key={index}>
+                    <Check size={15} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
 
         <div className="expense-header">
           <div>

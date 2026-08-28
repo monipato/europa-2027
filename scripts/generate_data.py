@@ -65,6 +65,147 @@ CITY_INFO = {
     "En el mar": ("Mediterráneo", "🛳️", unsplash("photo-1544551763-46a013bb70d5")),
 }
 
+# Approximate late April/May climate per city — sunrise/sunset, typical
+# temperature range, a one-line weather label + emoji, and a short packing
+# tip. These are seasonal averages (single value per city, not per exact
+# date), same "aprox" framing as any travel-planning weather estimate this
+# far ahead — not a real forecast. If a city is ever added to CITY_INFO
+# without an entry here, DEFAULT_CLIMATE below is used instead of crashing.
+CITY_CLIMATE = {
+    "Zúrich": {"sunrise": "6:09 AM", "sunset": "8:36 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna", "packing": "Chaqueta ligera y zapatos cómodos"},
+    "París": {"sunrise": "6:25 AM", "sunset": "9:09 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Chaqueta ligera y paraguas compacto"},
+    "Barcelona": {"sunrise": "6:40 AM", "sunset": "8:55 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Ropa ligera y gafas de sol"},
+    "La Spezia": {"sunrise": "5:58 AM", "sunset": "8:35 PM", "temp": "12–20°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Zapatos cómodos para caminar"},
+    "Salerno": {"sunrise": "5:45 AM", "sunset": "8:09 PM", "temp": "14–21°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Traje de baño y bloqueador solar"},
+    "Zadar": {"sunrise": "5:32 AM", "sunset": "8:18 PM", "temp": "14–22°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Ropa cómoda y calzado para caminar"},
+    "Venecia": {"sunrise": "5:38 AM", "sunset": "8:35 PM", "temp": "14–21°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Zapatos cómodos, el suelo puede estar húmedo"},
+    "Roma": {"sunrise": "5:52 AM", "sunset": "8:20 PM", "temp": "13–23°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Ropa ligera y zapatos para caminar"},
+    "Praga": {"sunrise": "5:08 AM", "sunset": "8:48 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna", "packing": "Chaqueta y capas ligeras"},
+    "Berlín": {"sunrise": "4:58 AM", "sunset": "9:07 PM", "temp": "11–21°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Chaqueta impermeable"},
+    "Múnich": {"sunrise": "5:21 AM", "sunset": "8:59 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Chaqueta ligera y zapatos cómodos"},
+    "En el mar": {"sunrise": "5:46 AM", "sunset": "8:02 PM", "temp": "9–20°C", "weatherIcon": "🌦️", "weather": "Llovizna", "packing": "Traje de baño y ropa casual"},
+    "Jungfraujoch": {"sunrise": "6:10 AM", "sunset": "8:39 PM", "temp": "-11–-5°C", "weatherIcon": "⛅", "weather": "Parcialmente nublado", "packing": "Ropa de abrigo tipo montaña y gafas de sol para la nieve"},
+}
+DEFAULT_CLIMATE = {"sunrise": "6:00 AM", "sunset": "8:15 PM", "temp": "12–20°C", "weatherIcon": "⛅", "weather": "Variable", "packing": "Ropa por capas y zapatos cómodos"}
+
+# Per (city, dayKey) override of sunrise/sunset/temp/weatherIcon/weather —
+# these vary by the exact calendar date, not just the city, so a city
+# visited twice on different dates can show different values. Populated by
+# scripts/update_climate.py; falls back to CITY_CLIMATE/DEFAULT_CLIMATE
+# above (city-only) for any day not covered here, e.g. right after a new
+# day is added to the workbook and before the next update_climate.py run.
+CITY_CLIMATE_BY_DAY: dict[str, dict[str, str]] = {
+    "Zúrich|01 MAY": {"sunrise": "6:07 AM", "sunset": "8:38 PM", "temp": "7–16°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Barcelona|06 MAY": {"sunrise": "6:40 AM", "sunset": "8:55 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Jungfraujoch|02 MAY": {"sunrise": "6:10 AM", "sunset": "8:39 PM", "temp": "-11–-5°C", "weatherIcon": "⛅", "weather": "Parcialmente nublado"},
+    "París|04 MAY": {"sunrise": "6:23 AM", "sunset": "9:11 PM", "temp": "9–19°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "París|05 MAY": {"sunrise": "6:21 AM", "sunset": "9:12 PM", "temp": "9–19°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "París|03 MAY": {"sunrise": "6:25 AM", "sunset": "9:09 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Zúrich|30 ABR": {"sunrise": "6:09 AM", "sunset": "8:36 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Barcelona|07 MAY": {"sunrise": "6:39 AM", "sunset": "8:56 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Roma|11 MAY": {"sunrise": "5:52 AM", "sunset": "8:20 PM", "temp": "13–23°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Barcelona|08 MAY": {"sunrise": "6:38 AM", "sunset": "8:57 PM", "temp": "12–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "La Spezia|10 MAY": {"sunrise": "5:58 AM", "sunset": "8:35 PM", "temp": "12–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "En el mar|09 MAY": {"sunrise": "5:46 AM", "sunset": "8:02 PM", "temp": "9–20°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Salerno|12 MAY": {"sunrise": "5:45 AM", "sunset": "8:09 PM", "temp": "14–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Venecia|15 MAY": {"sunrise": "5:38 AM", "sunset": "8:35 PM", "temp": "14–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "En el mar|13 MAY": {"sunrise": "5:42 AM", "sunset": "8:06 PM", "temp": "11–22°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Zadar|14 MAY": {"sunrise": "5:32 AM", "sunset": "8:18 PM", "temp": "14–22°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Praga|19 MAY": {"sunrise": "5:08 AM", "sunset": "8:48 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Praga|20 MAY": {"sunrise": "5:07 AM", "sunset": "8:49 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Roma|16 MAY": {"sunrise": "5:47 AM", "sunset": "8:25 PM", "temp": "14–24°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Roma|18 MAY": {"sunrise": "5:45 AM", "sunset": "8:27 PM", "temp": "14–25°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Roma|17 MAY": {"sunrise": "5:46 AM", "sunset": "8:26 PM", "temp": "14–25°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Praga|21 MAY": {"sunrise": "5:06 AM", "sunset": "8:51 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Berlín|22 MAY": {"sunrise": "4:58 AM", "sunset": "9:07 PM", "temp": "11–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Berlín|23 MAY": {"sunrise": "4:56 AM", "sunset": "9:09 PM", "temp": "11–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|26 MAY": {"sunrise": "5:20 AM", "sunset": "9:00 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|25 MAY": {"sunrise": "5:21 AM", "sunset": "8:59 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Berlín|24 MAY": {"sunrise": "4:55 AM", "sunset": "9:10 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Múnich|27 MAY": {"sunrise": "5:19 AM", "sunset": "9:01 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|28 MAY": {"sunrise": "5:18 AM", "sunset": "9:02 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|29 MAY": {"sunrise": "5:18 AM", "sunset": "9:04 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Zúrich|04 MAY": {"sunrise": "6:03 AM", "sunset": "8:42 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Zúrich|03 MAY": {"sunrise": "6:04 AM", "sunset": "8:40 PM", "temp": "7–17°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Múnich|30 ABR": {"sunrise": "5:55 AM", "sunset": "8:26 PM", "temp": "6–16°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Venecia|16 MAY": {"sunrise": "5:37 AM", "sunset": "8:36 PM", "temp": "14–22°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|02 MAY": {"sunrise": "5:51 AM", "sunset": "8:29 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Zúrich|05 MAY": {"sunrise": "6:01 AM", "sunset": "8:43 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|01 MAY": {"sunrise": "5:53 AM", "sunset": "8:28 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Múnich|04 MAY": {"sunrise": "5:48 AM", "sunset": "8:32 PM", "temp": "7–17°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|05 MAY": {"sunrise": "5:47 AM", "sunset": "8:33 PM", "temp": "7–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|03 MAY": {"sunrise": "5:50 AM", "sunset": "8:30 PM", "temp": "7–17°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Barcelona|05 MAY": {"sunrise": "6:42 AM", "sunset": "8:53 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+}
+
+# Where a reader can independently check a city's climate normals — shown as the
+# "Ver clima" link on that day's weather chip in the app. weather-and-climate.com
+# uses a plain city+country slug (no per-city ID lookup needed), which is what
+# scripts/update_climate.py relies on when refreshing CITY_CLIMATE above.
+# "En el mar" has no fixed location, so it gets no link.
+CLIMATE_SOURCE_URL = {
+    "Zúrich": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,zurich,Switzerland",
+    "París": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,paris,France",
+    "Barcelona": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,barcelona,Spain",
+    "La Spezia": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,la-spezia,Italy",
+    "Salerno": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,salerno,Italy",
+    "Zadar": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,zadar,Croatia",
+    "Venecia": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,venice,Italy",
+    "Roma": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,rome,Italy",
+    "Praga": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,prague,Czech-Republic",
+    "Berlín": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,berlin,Germany",
+    "Múnich": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,munich,Germany",
+    # weather-and-climate.com has no page for the Jungfraujoch summit itself
+    # (not a "city") — Interlaken is the nearest town with one, a reasonable
+    # stand-in reference the same way "En el mar" uses a representative point.
+    "Jungfraujoch": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,interlaken,Switzerland",
+}
+
+# Some Tours lines are a day trip to a specific destination distinct from
+# where the traveler is actually staying that day — e.g. a Zürich-based day
+# (02 May) with an optional excursion up to the Jungfraujoch. Detected by a
+# keyword match (lowercase substring) against that day's Tours y Excursiones
+# line titles. When matched, that day's weather/sunrise/sunset/packing
+# reflect the excursion destination instead of the base city, since that's
+# where the day is actually spent — the day's own city/title/hero image are
+# unaffected. The destination still needs its own CITY_CLIMATE (fallback),
+# CLIMATE_SOURCE_URL/SUN_SOURCE_URL entries below, and CITY_COORDS in
+# scripts/update_climate.py, the same as any other climate-tracked place.
+DAY_TRIP_DESTINATIONS = {
+    "jungfraujoch": "Jungfraujoch",
+}
+
+
+def day_trip_destination(lines: list[dict[str, object]]) -> str | None:
+    for line in lines:
+        if line["category"] != "Tours y Excursiones":
+            continue
+        title_lower = str(line["title"]).lower()
+        for keyword, destination in DAY_TRIP_DESTINATIONS.items():
+            if keyword in title_lower:
+                return destination
+    return None
+
+
+# Where a reader can independently check a city's sunrise/sunset — shown as
+# the "Ver amanecer/atardecer" link on those two day-condition chips. Same
+# page serves both (sunrise-sunset.org's per-location page shows the day's
+# full sun schedule), so amanecer and atardecer share this one URL per city.
+SUN_SOURCE_URL = {
+    "Zúrich": "https://sunrise-sunset.org/search?location=Zurich",
+    "París": "https://sunrise-sunset.org/search?location=Paris",
+    "Barcelona": "https://sunrise-sunset.org/search?location=Barcelona",
+    "La Spezia": "https://sunrise-sunset.org/search?location=La+Spezia",
+    "Salerno": "https://sunrise-sunset.org/search?location=Salerno",
+    "Zadar": "https://sunrise-sunset.org/search?location=Zadar",
+    "Venecia": "https://sunrise-sunset.org/search?location=Venice",
+    "Roma": "https://sunrise-sunset.org/search?location=Rome",
+    "Praga": "https://sunrise-sunset.org/search?location=Prague",
+    "Berlín": "https://sunrise-sunset.org/search?location=Berlin",
+    "Múnich": "https://sunrise-sunset.org/search?location=Munich",
+    "Jungfraujoch": "https://sunrise-sunset.org/search?location=Jungfraujoch",
+}
+
 # A city can appear on several itinerary days. Use a small curated pool so the
 # hero does not repeat the same background on every occurrence. The duck sticker
 # is independent and remains assigned by the UI.
@@ -228,6 +369,17 @@ def ts(value: object) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+# Where a reader can independently verify each currency's rate to COP —
+# shown as a "Ver fuente" link next to that currency in the app. Same
+# provider for all four, for consistency; update here if it ever changes.
+CURRENCY_SOURCE_URL = {
+    "EUR": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=EUR&To=COP",
+    "CHF": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=CHF&To=COP",
+    "CZK": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=CZK&To=COP",
+    "USD": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=COP",
+}
+
+
 def read_rates() -> list[dict[str, object]]:
     """Read the 'Tasas de Cambio' sheet (sheet3): code, label, symbol, rate to COP."""
     with zipfile.ZipFile(WORKBOOK) as book:
@@ -241,7 +393,10 @@ def read_rates() -> list[dict[str, object]]:
             if values[1] == "Fecha de actualización de tasas":
                 update_date = values[2]
             if values[1] in {"EUR", "CHF", "CZK", "USD"}:
-                rates.append({"code": values[1], "label": values[2], "symbol": values[3], "rate": number(values[4])})
+                rates.append({
+                    "code": values[1], "label": values[2], "symbol": values[3], "rate": number(values[4]),
+                    "sourceUrl": CURRENCY_SOURCE_URL.get(values[1]),
+                })
         return rates, update_date
 
 
@@ -310,6 +465,75 @@ def day_title(lines: list[dict[str, object]], city: str, is_first: bool, is_last
 
 
 LINK_RE = re.compile(r"https?://\S+")
+TEMP_RANGE_RE = re.compile(r"(-?\d+)\D+(-?\d+)")
+
+
+def _parse_temp_range(temp: str) -> tuple[int, int] | None:
+    match = TEMP_RANGE_RE.match(temp)
+    return (int(match.group(1)), int(match.group(2))) if match else None
+
+
+def compute_packing(
+    city: str, day_kind: str | None, is_last: bool, weather: str, temp: str,
+    has_lodging: bool, has_tours: bool, fallback: str,
+) -> list[str]:
+    """Rule-based "qué llevar" checklist for one day, combining what that
+    day's own plans require (documents, logistics) with what its weather
+    calls for. The rules themselves are informed by common travel-prep
+    checklists — passport validity, a printed/offline boarding pass, a
+    cruise embarkation day-bag — researched once (see the update-packing
+    skill for sources) rather than fetched live: unlike climate, packing
+    guidance doesn't go stale day to day, so there's no separate "run this
+    script" step — it's recomputed automatically here every time the
+    itinerary regenerates, from whatever that day's dayKind/weather/lines
+    already are. Falls back to a single-item list with the city's static
+    CITY_CLIMATE packing tip on an otherwise uneventful day (no
+    flight/embark, mild weather) rather than forcing a generic item onto
+    every single day."""
+    items: list[str] = []
+
+    if day_kind == "flight":
+        items.append("pasaporte (vigencia mínima de 6 meses)")
+        items.append("tiquete o pase de abordar impreso y en el celular")
+    elif day_kind == "embark":
+        items.append("pasaporte y documentos de embarque del crucero")
+        items.append("bolso de mano con lo esencial — el equipaje tarda en llegar al camarote")
+    elif is_last:
+        items.append("pasaporte y documentos del vuelo de regreso")
+    elif has_lodging:
+        items.append("confirmación de la reserva del hotel")
+
+    if has_tours:
+        items.append("efectivo para gastos pequeños y cámara")
+
+    if city == "En el mar":
+        items.append("traje de baño, protector solar y algo para el mareo si lo necesitas")
+
+    weather_lower = weather.lower()
+    if any(word in weather_lower for word in ("lluv", "chubasco", "tormenta")):
+        items.append("paraguas compacto o chaqueta impermeable")
+
+    temp_range = _parse_temp_range(temp)
+    if temp_range:
+        low, high = temp_range
+        if low < 10:
+            items.append("chaqueta abrigada")
+        elif low < 16:
+            items.append("chaqueta ligera")
+        if high >= 22:
+            items.append("ropa ligera, gafas de sol y bloqueador solar")
+
+    if not items:
+        return [fallback]
+
+    items.append("botella de agua reutilizable")
+    seen: set[str] = set()
+    unique_items: list[str] = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            unique_items.append(item.capitalize())
+    return unique_items[:5]  # keep it a short checklist, not an exhaustive dump
 
 
 def to_expense(line: dict[str, object]) -> dict[str, object]:
@@ -349,12 +573,30 @@ def build_itinerary(rows: list[dict[str, object]]) -> list[dict[str, object]]:
         city_occurrences[city] = city_occurrences.get(city, 0) + 1
         is_embark = any(line["category"] == "Crucero" for line in lines)
         is_first = index == 0
+        is_last = index == len(keys) - 1
+        has_lodging = any(line["category"] == "Alojamiento" for line in lines)
+        has_tours = any(
+            line["category"] == "Tours y Excursiones" and str(line["title"]).strip() and not is_placeholder(str(line["title"]))
+            for line in lines
+        )
         display_lines = [line for line in lines if not is_placeholder(str(line["title"]))]
+        # The day's weather/sunrise/sunset/packing follow wherever the day is actually spent —
+        # the base city, unless a Tours line is a day trip elsewhere (see DAY_TRIP_DESTINATIONS).
+        # The day's own city/title/hero image always stay the base city regardless.
+        climate_city = day_trip_destination(lines) or city
+        climate = {**CITY_CLIMATE.get(climate_city, DEFAULT_CLIMATE), **CITY_CLIMATE_BY_DAY.get(f"{climate_city}|{key}", {})}
+        day_kind = "flight" if is_first else ("embark" if is_embark else None)
         days.append({
             "dayKey": key, "city": city, "country": country, "emoji": emoji,
             "image": image_url,
-            "title": day_title(lines, city, is_first, index == len(keys) - 1, is_embark),
-            "dayKind": "flight" if is_first else ("embark" if is_embark else None),
+            "title": day_title(lines, city, is_first, is_last, is_embark),
+            "dayKind": day_kind,
+            "climateCity": climate_city,
+            "sunrise": climate["sunrise"], "sunset": climate["sunset"], "temp": climate["temp"],
+            "weatherIcon": climate["weatherIcon"], "weather": climate["weather"],
+            "packing": compute_packing(climate_city, day_kind, is_last, climate["weather"], climate["temp"], has_lodging, has_tours, climate["packing"]),
+            "weatherUrl": CLIMATE_SOURCE_URL.get(climate_city),
+            "sunUrl": SUN_SOURCE_URL.get(climate_city),
             "expenses": [to_expense(line) for line in display_lines],
         })
     return days
@@ -408,9 +650,9 @@ def main() -> None:
     ITINERARY_OUTPUT.write_text(
         "// Generated by scripts/generate_data.py — do not edit manually.\n"
         "export type GeneratedExpense = { category: string; title: string; amount: number; originalAmount: number; currency: string; note: string; place: string; date: string; link: string | null };\n"
-        "export type GeneratedDay = { dayKey: string; city: string; country: string; emoji: string; image: string; title: string; dayKind: 'flight' | 'embark' | null; expenses: GeneratedExpense[] };\n"
+        "export type GeneratedDay = { dayKey: string; city: string; country: string; emoji: string; image: string; title: string; dayKind: 'flight' | 'embark' | null; climateCity: string; sunrise: string; sunset: string; temp: string; weatherIcon: string; weather: string; packing: string[]; weatherUrl: string | null; sunUrl: string | null; expenses: GeneratedExpense[] };\n"
         "export type GeneratedOption = { name: string; dates: string; route: string; days: number; total: number; perPerson: number; color: string; description: string; peopleCount: number; itinerary: GeneratedDay[] };\n"
-        "export type ExchangeRate = { code: string; label: string; symbol: string; rate: number };\n"
+        "export type ExchangeRate = { code: string; label: string; symbol: string; rate: number; sourceUrl: string };\n"
         f"export const generatedOptions: GeneratedOption[] = {ts(options)};\n"
         f"export const exchangeRates: ExchangeRate[] = {ts(rates)};\n"
         f"export const ratesUpdatedAt: string = {ts(rates_updated)};\n",

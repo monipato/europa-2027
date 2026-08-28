@@ -19,12 +19,11 @@ export function ExchangeRatesCard({ className, occupancyNote }: ExchangeRatesCar
       <strong>Tasas estimadas · {ratesUpdatedAt}</strong>
       <div>
         {exchangeRates.map(rate => (
-          <span key={rate.code}>
+          <a key={rate.code} href={rate.sourceUrl} target="_blank" rel="noreferrer" title="Ver fuente de esta tasa">
             <b>{rate.code}</b> {rate.symbol} 1 = {new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(rate.rate)} COP
-          </span>
+          </a>
         ))}
       </div>
-      <small>Tasas de referencia, pueden variar antes de la reserva.</small>
       <p className="occupancy-note">👤 {occupancyNote}</p>
     </div>
   )

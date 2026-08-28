@@ -37,6 +37,22 @@ export function App() {
     setSelectedCategory(null)
   }, [selectedOptionIndex])
 
+  // Clicking "Por día" always lands the scroll on the day-nav row (.day-layout),
+  // even if that tab was already selected — e.g. after scrolling deep into the
+  // expense list. A counter (not `view` itself) is the effect's dependency so a
+  // no-op click (already on "day") still re-triggers it, which a `view`-keyed
+  // effect wouldn't catch since the value wouldn't actually change. Switching
+  // *from* "Por rubro" also lands here: DayByDayView is a different component
+  // than CategoryBreakdownView, so it remounts fresh and its own "skip scroll on
+  // first render" guard would otherwise swallow this. Not fired on the initial
+  // mount right after picking a trip — handleSelectOption's window.scrollTo(0, 0)
+  // is the last word there, since dayTabClickCount starts at 0.
+  const [dayTabClickCount, setDayTabClickCount] = useState(0)
+  useEffect(() => {
+    if (dayTabClickCount === 0) return
+    document.querySelector('.day-layout')?.scrollIntoView({ behavior: 'auto', block: 'start' })
+  }, [dayTabClickCount])
+
   function handleSelectOption(index: number) {
     setSelectedOptionIndex(index)
     setHasStartedPlanning(true)
@@ -50,7 +66,10 @@ export function App() {
 
   function handleChangeView(nextView: ViewMode) {
     setView(nextView)
-    if (nextView === 'day') setSelectedCategory(null)
+    if (nextView === 'day') {
+      setSelectedCategory(null)
+      setDayTabClickCount(count => count + 1)
+    }
   }
 
   return (

@@ -113,9 +113,9 @@ button{cursor:pointer;border:0;background:none}
 .rates-card{background:var(--bg-surface-muted);border:1px solid var(--border);border-radius:12px;margin-top:12px;padding:12px 15px;color:var(--text-body)}
 .rates-card strong{display:block;font-size:13px;color:var(--text-strong)}
 .rates-card div{display:flex;flex-wrap:wrap;gap:7px 18px;margin-top:6px}
-.rates-card span{font-size:12px}
+.rates-card a{font-size:12px;color:inherit;text-decoration:none;border-bottom:1px dashed var(--text-muted)}
+.rates-card a:hover{border-bottom-color:var(--accent-gold)}
 .rates-card b{color:var(--text-strong)}
-.rates-card small{display:block;margin-top:6px;font-size:11px;color:var(--text-muted)}
 .occupancy-note{border-top:1px solid var(--border);margin:10px 0 0;padding-top:9px;color:var(--text-muted);font-size:12px;line-height:1.4}
 .occupancy-note b{color:var(--text-strong)}
 
@@ -157,6 +157,31 @@ button{cursor:pointer;border:0;background:none}
 .day-hero-nav svg{width:20px;height:20px}
 .day-hero-nav.prev{left:12px}
 .day-hero-nav.next{right:12px}
+.climate-away-note{margin:12px 24px 0;font-size:12px;font-weight:700;color:var(--text-muted)}
+.packing-modal .climate-away-note{margin:2px 0 0}
+.day-conditions{display:flex;flex-wrap:nowrap;gap:7px;padding:14px 24px 0;overflow-x:auto;scrollbar-width:none}
+.day-conditions::-webkit-scrollbar{display:none}
+.day-condition{flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;background:var(--bg-surface-muted);border-radius:20px;border:none;padding:8px 10px;font-size:12px;font-weight:700;color:var(--text-strong);font-family:inherit}
+.day-condition-packing{flex:1.3 1 0;cursor:pointer;background:linear-gradient(120deg,var(--accent-gold-strong),var(--accent-gold));color:#fff}
+.day-condition-packing img{width:20px;height:20px;object-fit:contain;flex-shrink:0}
+.day-condition-link{text-decoration:none;cursor:pointer;border-bottom:1px dashed var(--text-muted)}
+.day-condition-link:hover{border-bottom-color:var(--accent-gold)}
+
+.packing-modal{text-align:center;padding-bottom:26px}
+.category-detail.packing-modal:after{content:none}
+.packing-modal .detail-title{text-align:left}
+.packing-modal-ducks{display:flex;align-items:center;justify-content:center;gap:22px;margin:4px 0 14px}
+.packing-modal-duck{width:92px;height:auto;display:block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15))}
+.packing-modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.packing-modal-stats div,.packing-modal-stats a{background:var(--bg-surface-muted);border-radius:12px;padding:10px 6px}
+.packing-modal-stats a{display:block;text-decoration:none;color:inherit}
+.packing-modal-stats a:hover{background:var(--accent-gold)}
+.packing-modal-stats span{font-size:20px;display:block;margin-bottom:2px}
+.packing-modal-stats small{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted)}
+.packing-modal-stats strong{display:block;font-size:13px;color:var(--text-strong)}
+.packing-checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.packing-checklist li{display:flex;align-items:flex-start;gap:10px;background:var(--bg-surface-muted);border:1px solid var(--border);color:var(--text-strong);border-radius:14px;padding:10px 14px;font:700 14px Fraunces,serif}
+.packing-checklist li svg{flex-shrink:0;margin-top:2px;color:var(--accent-gold-strong)}
 .expense-header{display:flex;justify-content:space-between;align-items:end;padding:22px 24px 14px}
 .expense-header h3{font:700 22px Fraunces,serif;margin:0;color:var(--text-strong)}
 .expense-header>strong{font-size:20px;color:var(--accent-gold)}
@@ -249,6 +274,10 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   .day-hero-overlay{left:17px;bottom:14px}
   .day-hero img.day-duck-sticker{width:48px;right:12px;bottom:10px}
   .day-hero-overlay h2{font-size:24px}
+  .day-conditions{padding:12px 16px 0}
+  .climate-away-note{margin:10px 16px 0}
+  .day-condition{font-size:11px;padding:7px 8px}
+  .packing-modal-stats{grid-template-columns:repeat(3,1fr)}
   .expense-header{padding-top:16px;padding-bottom:10px}
   .expense-header h3{font-size:20px}
   .expense-list{padding-bottom:13px}
