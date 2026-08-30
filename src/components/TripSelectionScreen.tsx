@@ -5,11 +5,17 @@ import { ExchangeRatesCard } from './ExchangeRatesCard'
 import duckFamily2 from '../assets/ducks/duck2-family-car.png'
 import duckFamily3 from '../assets/ducks/duck2-family-3.png'
 import duckFamily4 from '../assets/ducks/duck2-family-4.png'
+import duckSailboat from '../assets/ducks/duck-sailboat.png'
 
 // Small duck icon next to the "N personas" badge on each option card — picked
 // to roughly match the actual traveler count, falling back to the 3-duck one
 // (the common case) for any other count.
 const PEOPLE_DUCK_BY_COUNT: Record<number, string> = { 2: duckFamily2, 3: duckFamily3, 4: duckFamily4 }
+
+// A small illustrated duck next to specific option titles, not an emoji —
+// keyed by option name since it's a one-off touch for a single card, not a
+// general per-option feature.
+const OPTION_TITLE_DUCK_BY_NAME: Record<string, string> = { "Italia": duckSailboat }
 
 interface TripSelectionScreenProps {
   options: GeneratedOption[]
@@ -51,7 +57,12 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
               <span className="option-people">
                 <img src={PEOPLE_DUCK_BY_COUNT[option.peopleCount] ?? duckFamily3} alt="" aria-hidden="true" /> {option.peopleCount} personas
               </span>
-              <h3>{option.name}</h3>
+              <h3>
+                {option.name}
+                {OPTION_TITLE_DUCK_BY_NAME[option.name] && (
+                  <img className="option-title-duck" src={OPTION_TITLE_DUCK_BY_NAME[option.name]} alt="" aria-hidden="true" />
+                )}
+              </h3>
               <p>{option.description} · {option.days} días</p>
               <strong>{formatCOP(option.perPerson)}</strong>
               <small>{option.dates}</small>

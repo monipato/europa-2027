@@ -57,12 +57,14 @@ NS = {"x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 
 # Option name -> sheet number, matching the mapping in generate_data.py's main().
 OPTION_SHEETS = {
-    "1 mes por Europa": 4,
+    "1 mes por Europa Zúrich": 4,
     "Zúrich y Crucero": 6,
     "Múnich y Crucero": 8,
     "Crucero para 3": 10,
     "Crucero en pareja": 12,
     "Crucero para 4": 13,
+    "Italia": 14,
+    "1 mes por Europa Milán": 15,
 }
 
 # Options whose per-person headcount differs from the workbook-wide

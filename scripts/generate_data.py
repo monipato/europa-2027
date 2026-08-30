@@ -62,6 +62,10 @@ CITY_INFO = {
     "Praga": ("República Checa", "🇨🇿", unsplash("photo-1541849546-216549ae216d")),
     "Berlín": ("Alemania", "🇩🇪", unsplash("photo-1560969184-10fe8719e047")),
     "Múnich": ("Alemania", "🇩🇪", unsplash("photo-1595867818082-083862f3d630")),
+    # Wikimedia Commons, not Unsplash — Milan's Duomo. https://commons.wikimedia.org/wiki/File:Milan_Cathedral_(Duomo_di_Milano).jpg
+    "Milán": ("Italia", "🇮🇹", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Milan_Cathedral_%28Duomo_di_Milano%29.jpg/960px-Milan_Cathedral_%28Duomo_di_Milano%29.jpg"),
+    # Wikimedia Commons, not Unsplash — Ponte Vecchio. https://commons.wikimedia.org/wiki/File:Panorama_of_the_Ponte_Vecchio_in_Florence,_Italy.jpg
+    "Florencia": ("Italia", "🇮🇹", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Panorama_of_the_Ponte_Vecchio_in_Florence%2C_Italy.jpg/960px-Panorama_of_the_Ponte_Vecchio_in_Florence%2C_Italy.jpg"),
     "En el mar": ("Mediterráneo", "🛳️", unsplash("photo-1544551763-46a013bb70d5")),
 }
 
@@ -271,6 +275,11 @@ CITY_ALIASES = [
     ("París", "París"), ("Paris", "París"),
     ("Barcelona", "Barcelona"), ("Roma", "Roma"), ("Praga", "Praga"),
     ("Berlín", "Berlín"), ("Berlin", "Berlín"), ("Múnich", "Múnich"), ("Munich", "Múnich"),
+    # Florencia before Milán: on the "Milán / Florencia" train-day place text,
+    # the first alias that matches wins (see extract_city), and that day's
+    # actual city is the destination, Florencia.
+    ("Florencia", "Florencia"), ("Firenze", "Florencia"), ("Florence", "Florencia"),
+    ("Milán", "Milán"), ("Milan", "Milán"),
     ("Navegaci", "En el mar"),
 ]
 
@@ -625,7 +634,7 @@ def build_option(name: str, dates_label: str, color: str, description: str, rows
 def main() -> None:
     sheets = [
         (4, "Completo"), (6, "Zúrich y Crucero"), (8, "Múnich y Crucero"), (10, "Solo crucero"),
-        (12, "Solo crucero 2P"), (13, "Solo crucero 4P"),
+        (12, "Solo crucero 2P"), (13, "Solo crucero 4P"), (14, "Crucero Milán"), (15, "Completo Milán"),
     ]
     rows = [line for sheet, name in sheets for line in read_rows(sheet, name)]
 
@@ -635,10 +644,12 @@ def main() -> None:
     # (see scripts/duplicate_option.py) rather than reading the shared cell.
     shared_people_count = read_people_count()
     options_meta = [
+        ("1 mes por Europa Zúrich", "29 abr – 27 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo", shared_people_count),
+        ("1 mes por Europa Milán", "29 abr – 27 may 2027", "#d9a35c", "El recorrido más completo, vía Milán", "Completo Milán", shared_people_count),
+        ("Italia", "30 abr – 16 may 2027", "#7a9b8e", "Milán, Florencia y Mediterráneo", "Crucero Milán", shared_people_count),
+        ("Crucero para 3", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero", shared_people_count),
         ("Crucero en pareja", "5 – 16 may 2027", "#a998c9", "Una escapada mediterránea para dos", "Solo crucero 2P", 2),
         ("Crucero para 4", "5 – 16 may 2027", "#c9a17f", "Una escapada mediterránea para el grupo", "Solo crucero 4P", 4),
-        ("1 mes por Europa", "29 abr – 27 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo", shared_people_count),
-        ("Crucero para 3", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero", shared_people_count),
         ("Zúrich y Crucero", "30 abr – 16 may 2027", "#91b9a2", "Ciudad y mar en un solo viaje", "Zúrich y Crucero", shared_people_count),
         ("Múnich y Crucero", "30 abr – 16 may 2027", "#bf8e9a", "Alemania, España y Mediterráneo", "Múnich y Crucero", shared_people_count),
     ]

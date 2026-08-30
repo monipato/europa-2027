@@ -86,7 +86,8 @@ button{cursor:pointer;border:0;background:none}
 .option-flags::-webkit-scrollbar{display:none}
 .option-people{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;background:var(--bg-surface-muted);border-radius:14px;padding:3px 8px 3px 4px;margin-bottom:10px;font-size:11px;font-weight:600;color:var(--text-strong);white-space:nowrap}
 .option-people img{width:16px;height:16px;display:block;border-radius:4px}
-.option-card h3{font:700 22px Fraunces,serif;margin:0 0 4px;color:var(--text-strong)}
+.option-card h3{font:700 22px Fraunces,serif;margin:0 0 4px;color:var(--text-strong);display:flex;align-items:center;gap:8px}
+.option-title-duck{width:28px;height:28px;object-fit:contain;flex-shrink:0}
 .option-card p{font-size:13px;color:var(--text-muted);margin:0 0 16px}
 .option-card strong{display:block;font-size:17px;color:var(--text-strong)}
 .option-card small{color:var(--text-muted);font-size:12px}

@@ -17,7 +17,7 @@ then regenerates the app's data file automatically.
 
 Ask for whatever isn't already clear from context:
 
-- **option**: one of `1 mes por Europa`, `Zúrich y Crucero`, `Múnich y Crucero`, `Crucero para 3`, `Crucero en pareja`, `Crucero para 4`
+- **option**: one of `1 mes por Europa Zúrich`, `1 mes por Europa Milán`, `Zúrich y Crucero`, `Múnich y Crucero`, `Crucero para 3`, `Crucero en pareja`, `Crucero para 4`, `Italia`
 - **category**: one of `Vuelos y Trenes`, `Traslados`, `Alojamiento`, `Crucero`, `Tours y Excursiones`, `Comidas`, `Seguro de Viaje`, `Otros y Extras`
 - **place**: short city/place label (can be blank for trip-wide items)
 - **date**: either a real date string like `"14 May 2027"` (must contain a
@@ -86,7 +86,7 @@ candidates by date before the ambiguity check runs:
 
 ```
 python3 scripts/manage_item.py update \
-  --option "1 mes por Europa" --match-title "Comida del día" --match-date "26 May 2027" \
+  --option "1 mes por Europa Zúrich" --match-title "Comida del día" --match-date "26 May 2027" \
   --note ""
 ```
 
