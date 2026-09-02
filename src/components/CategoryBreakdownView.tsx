@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { ExternalLink, X } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
-import { CATEGORY_META } from '../constants'
+import { CATEGORY_META } from '../categoryMeta'
 import { formatCOP, formatExpenseAmount } from '../utils/currency'
 import { collectExpensesByCategory, sumExpensesByCategory } from '../utils/tripStats'
 
