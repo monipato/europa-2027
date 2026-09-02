@@ -1,6 +1,9 @@
 import type { StoredMessage } from './db'
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.6-flash'
+// An alias, not a pinned snapshot — Google keeps it pointed at the current
+// lightweight Flash model, so it doesn't 404 again the next time a specific
+// snapshot (e.g. gemini-2.5-flash) gets retired.
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-flash-lite-latest'
 const FALLBACK_REPLY = 'Uy, tuve un problema respondiendo. ¿Puedes intentar de nuevo en un momento?'
 
 /**
