@@ -8,17 +8,19 @@ import { getDayDisplayLabel } from '../utils/dayDisplay'
 import { assignDuckStickers } from '../utils/duckStickers'
 import { assignTourDucks } from '../utils/tourDuck'
 import { assignWeatherDucks } from '../utils/weatherDuck'
+import { WhatsAppInlineCTA } from './WhatsAppInlineCTA'
 import duckPacking from '../assets/ducks/duck-luggage.png'
 
 interface DayByDayViewProps {
   days: GeneratedDay[]
   selectedDayIndex: number
   onSelectDay: (index: number) => void
+  optionName: string
 }
 
 /** "Por día" view: a scrollable list of days on the left, and the selected
  * day's photo, title and full expense list on the right. */
-export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayViewProps) {
+export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }: DayByDayViewProps) {
   const activeIndex = days[selectedDayIndex] ? selectedDayIndex : 0
   const activeDay = days[activeIndex]
   const activeDayLabel = getDayDisplayLabel(activeDay)
@@ -168,6 +170,11 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
             <img src={duckPacking} alt="" aria-hidden="true" /> Qué llevar
           </button>
         </div>
+
+        <WhatsAppInlineCTA
+          label={`¿Preguntas sobre este día? Escríbenos`}
+          message={`Hola! Tengo una pregunta sobre el día ${activeDay.dayKey} (${activeDay.city}) de la opción "${optionName}".`}
+        />
 
         {showPacking && (
           <>

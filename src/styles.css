@@ -321,3 +321,21 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   footer{padding:20px 18px;display:block}
   footer span{display:block;margin:5px 0}
 }
+
+/* ============================================================
+   WhatsApp CTAs
+   ============================================================ */
+/* `bottom` is deliberately well above the page edge — Netlify's own "Deploys
+   by Netlify" badge sits bottom-right on the free tier and would otherwise
+   overlap/cover this button. */
+.whatsapp-fab{position:fixed;right:20px;bottom:92px;z-index:15;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#25d366;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .15s}
+.whatsapp-fab:hover{transform:scale(1.06)}
+@media(max-width:640px){
+  .whatsapp-fab{right:14px;bottom:80px;width:50px;height:50px}
+}
+
+.whatsapp-inline-cta{display:inline-flex;align-items:center;gap:9px;margin:0 24px 18px;padding:11px 16px;border-radius:11px;background:#e9fbef;color:#128c4a;font-weight:600;font-size:13.5px;width:fit-content;transition:background .15s}
+.whatsapp-inline-cta:hover{background:#d7f5e0}
+:root[data-theme="dark"] .whatsapp-inline-cta{background:#173428;color:#4fd88a}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .whatsapp-inline-cta{background:#173428;color:#4fd88a}}
+@media(max-width:640px){.whatsapp-inline-cta{margin:0 17px 16px}}

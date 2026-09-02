@@ -9,14 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
+    "lucide-react": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "lucide-react": "latest"
+    "twilio": "^6.1.0",
+    "typescript": "latest",
+    "vite": "latest"
   },
   "devDependencies": {
+    "@netlify/functions": "^5.3.0",
+    "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest"
   }

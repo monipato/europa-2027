@@ -10,6 +10,8 @@ import { TripSelectionScreen } from './components/TripSelectionScreen'
 import { TripSummaryBar } from './components/TripSummaryBar'
 import { DayByDayView } from './components/DayByDayView'
 import { CategoryBreakdownView } from './components/CategoryBreakdownView'
+import { WhatsAppButton } from './components/WhatsAppButton'
+import { buildContextualMessage } from './utils/whatsappContext'
 
 /**
  * Top-level component. Owns all UI state and wires the presentational
@@ -27,6 +29,14 @@ export function App() {
 
   const selectedOption = generatedOptions[selectedOptionIndex ?? 0]
   const days = selectedOption.itinerary
+
+  const whatsAppMessage = buildContextualMessage({
+    hasStartedPlanning,
+    option: selectedOption,
+    view,
+    selectedDay: hasStartedPlanning ? (days[selectedDayIndex] ?? null) : null,
+    selectedCategory,
+  })
 
   // Switching trip options resets the day/category the previous one had
   // selected — the new option has a different number of days and, since
@@ -117,7 +127,7 @@ export function App() {
           </div>
 
           {view === 'day' ? (
-            <DayByDayView days={days} selectedDayIndex={selectedDayIndex} onSelectDay={setSelectedDayIndex} />
+            <DayByDayView days={days} selectedDayIndex={selectedDayIndex} onSelectDay={setSelectedDayIndex} optionName={selectedOption.name} />
           ) : (
             <CategoryBreakdownView days={days} selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
           )}
@@ -125,6 +135,7 @@ export function App() {
       </main>
 
       <AppFooter />
+      <WhatsAppButton message={whatsAppMessage} />
     </div>
   )
 }
