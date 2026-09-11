@@ -767,15 +767,13 @@ def build_disney_option(
                 "Recomendado: DoubleTree Suites, Disney Springs Resort Area — shuttle gratis a los 4 parques Disney, 4★.",
                 HILTON,
             ))
+            # PhotoPass folded into souvenirs (one combined "extras" line)
+            # instead of its own row — the family isn't buying it separately.
+            souvenirs_and_photopass = souvenirs + photopass
             expenses.append({
-                "category": "Otros", "title": "PhotoPass / fotos", "amount": round(photopass * rate_usd_to_cop / people_count),
-                "originalAmount": round(photopass / people_count, 2), "currency": "USD",
-                "note": "Estimado para todo el viaje, compartido entre el subgrupo.", "place": "Orlando", "date": "", "link": None,
-            })
-            expenses.append({
-                "category": "Otros", "title": "Souvenirs (estimado)", "amount": round(souvenirs * rate_usd_to_cop / people_count),
-                "originalAmount": round(souvenirs / people_count, 2), "currency": "USD",
-                "note": "Estimado para todo el viaje, compartido entre el subgrupo.", "place": "Orlando", "date": "", "link": None,
+                "category": "Otros", "title": "Souvenirs (estimado)", "amount": round(souvenirs_and_photopass * rate_usd_to_cop / people_count),
+                "originalAmount": round(souvenirs_and_photopass / people_count, 2), "currency": "USD",
+                "note": "Estimado para todo el viaje, compartido entre el subgrupo. Incluye PhotoPass.", "place": "Orlando", "date": "", "link": None,
             })
             expenses.append({
                 "category": "Otros", "title": "Propinas y varios", "amount": round(tips * rate_usd_to_cop / people_count),
