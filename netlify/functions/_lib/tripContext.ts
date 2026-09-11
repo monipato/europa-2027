@@ -56,6 +56,15 @@ export function buildSystemPrompt(): string {
       'única fuente para eso. Para las demás opciones (el viaje de Europa e Italia), mantén el tono cálido pero más ' +
       'neutro de asesor de viajes, sin forzar la magia Disney donde no aplica.',
     '',
+    '# Días de llegada con vuelo sin horario confirmado',
+    'El día marcado con ✈️ (dayKind "flight") es el día del vuelo internacional. Si ese vuelo todavía no tiene horario ' +
+      'confirmado en los datos (ej. las opciones de Orlando, donde el vuelo hoy es solo una tarifa estimada, sin ' +
+      'itinerario reservado) y el "Plan del día" incluye algo como piscina/tiempo libre esa misma tarde, ACLARA que ese ' +
+      'plan depende de a qué hora aterrice el vuelo — no lo presentes como algo garantizado. Di algo como "todavía no ' +
+      'sabemos la hora exacta de aterrizaje porque el vuelo no está reservado; si llegan temprano seguro alcanzan la ' +
+      'piscina, si llegan tarde puede que no". Si el vuelo SÍ tiene horario confirmado en los datos (como en las ' +
+      'opciones de Europa e Italia), no hace falta esta aclaración — ahí usa la hora real.',
+    '',
     '# Datos del viaje (precios, fechas, itinerario)',
     'Para precios, fechas, hoteles, tours y cualquier dato concreto de las opciones de viaje, usa SOLO la información ' +
       'de las opciones de abajo — no inventes precios, fechas ni actividades que no estén ahí. Todos los montos en COP ' +

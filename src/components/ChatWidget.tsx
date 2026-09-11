@@ -8,6 +8,31 @@ type ChatMessage = { sender: 'user' | 'ai'; body: string }
 const FALLBACK_REPLY = 'Uy, tuve un problema respondiendo. ¿Puedes intentar de nuevo en un momento?'
 
 /**
+ * Gemini replies use light markdown (**bold**, *italic*) that showed up as
+ * literal asterisks in a plain-text bubble. Renders just those two safely as
+ * React elements — never dangerouslySetInnerHTML, since this is model
+ * output — instead of pulling in a full markdown parser for two tags.
+ * Newlines stay as plain "\n" characters in the text nodes; `.chat-bubble`'s
+ * `white-space:pre-wrap` renders those as line breaks regardless of which
+ * element they end up inside.
+ */
+function renderChatText(text: string): React.ReactNode[] {
+  // A markdown bullet ("* item") isn't paired italic — swap it for a plain
+  // bullet character first so the italic regex below never has to guess.
+  const withBullets = text.replace(/^\*\s+/gm, '• ')
+  const parts = withBullets.split(/(\*\*[^*]+\*\*|\*[^\s*][^*]*\*)/g)
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>
+    }
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={index}>{part.slice(1, -1)}</em>
+    }
+    return part
+  })
+}
+
+/**
  * The floating in-app chat: a fab that opens a panel talking to the same
  * Gemini-powered assistant the WhatsApp bot used
  * (`netlify/functions/chat.mts` → `_lib/tripContext.ts` + `_lib/gemini.ts`),
@@ -145,7 +170,7 @@ export function ChatWidget({ contextMessage }: { contextMessage: string }) {
             )}
             {messages.map((message, index) => (
               <div className={`chat-bubble ${message.sender}`} key={index}>
-                {message.body}
+                {message.sender === 'ai' ? renderChatText(message.body) : message.body}
               </div>
             ))}
             {sending && <div className="chat-bubble ai chat-typing">Escribiendo…</div>}

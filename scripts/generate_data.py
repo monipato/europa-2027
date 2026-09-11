@@ -677,7 +677,7 @@ DISNEY_DAYS = [
     ("24 MAR", "Hollywood Studios", None),
     ("25 MAR", "Universal Epic Universe", None),
     ("26 MAR", "Animal Kingdom", None),
-    ("27 MAR", "Día libre / compras / pileta", None),
+    ("27 MAR", "Día libre / compras / piscina", None),
     ("28 MAR", "Check-out y vuelo de regreso", None),
 ]
 
@@ -836,7 +836,11 @@ def build_disney_option(
             })
 
         climate = CITY_CLIMATE["Orlando"]
-        plan_note = itin.get(f"D{5 + index}")
+        # "pileta" (the workbook's own wording) reads as Argentine/regional
+        # Spanish here — this app's copy is for a Colombian family, so use
+        # "piscina" instead. A plain text swap, not a data change.
+        raw_plan_note = itin.get(f"D{5 + index}")
+        plan_note = raw_plan_note.replace("pileta", "piscina") if raw_plan_note else None
         plan_caption = itin.get(f"E{5 + index}")
         has_tours = any(e["category"] == "Tours" for e in expenses)
         has_lodging = any(e["category"] == "Alojamiento" for e in expenses)
