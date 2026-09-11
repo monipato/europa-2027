@@ -10,8 +10,8 @@ import { TripSelectionScreen } from './components/TripSelectionScreen'
 import { TripSummaryBar } from './components/TripSummaryBar'
 import { DayByDayView } from './components/DayByDayView'
 import { CategoryBreakdownView } from './components/CategoryBreakdownView'
-import { WhatsAppButton } from './components/WhatsAppButton'
-import { buildContextualMessage } from './utils/whatsappContext'
+import { ChatWidget } from './components/ChatWidget'
+import { buildContextualMessage } from './utils/chatContext'
 
 /**
  * Top-level component. Owns all UI state and wires the presentational
@@ -30,7 +30,7 @@ export function App() {
   const selectedOption = generatedOptions[selectedOptionIndex ?? 0]
   const days = selectedOption.itinerary
 
-  const whatsAppMessage = buildContextualMessage({
+  const chatContextMessage = buildContextualMessage({
     hasStartedPlanning,
     option: selectedOption,
     view,
@@ -106,7 +106,7 @@ export function App() {
 
         {/* Always rendered (even on the selection screen, where CSS hides it) so the
             CSS flex `order` rules that lay out the planner keep a stable DOM to work with. */}
-        <TripSummaryBar route={selectedOption.route} perPersonCop={selectedOption.perPerson} />
+        <TripSummaryBar route={selectedOption.route} perPersonCop={selectedOption.perPerson} perPersonByType={selectedOption.perPersonByType} />
 
         <section id="itinerario" className="content-section">
           <div className="section-heading">
@@ -135,7 +135,7 @@ export function App() {
       </main>
 
       <AppFooter />
-      <WhatsAppButton message={whatsAppMessage} />
+      <ChatWidget contextMessage={chatContextMessage} />
     </div>
   )
 }

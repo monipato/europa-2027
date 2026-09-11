@@ -67,6 +67,7 @@ CITY_INFO = {
     # Wikimedia Commons, not Unsplash — Ponte Vecchio. https://commons.wikimedia.org/wiki/File:Panorama_of_the_Ponte_Vecchio_in_Florence,_Italy.jpg
     "Florencia": ("Italia", "🇮🇹", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Panorama_of_the_Ponte_Vecchio_in_Florence%2C_Italy.jpg/960px-Panorama_of_the_Ponte_Vecchio_in_Florence%2C_Italy.jpg"),
     "En el mar": ("Mediterráneo", "🛳️", unsplash("photo-1544551763-46a013bb70d5")),
+    "Orlando": ("Estados Unidos", "🇺🇸", unsplash("photo-1578089815509-ed664d5b66d3")),
 }
 
 # Approximate late April/May climate per city — sunrise/sunset, typical
@@ -76,7 +77,7 @@ CITY_INFO = {
 # far ahead — not a real forecast. If a city is ever added to CITY_INFO
 # without an entry here, DEFAULT_CLIMATE below is used instead of crashing.
 CITY_CLIMATE = {
-    "Zúrich": {"sunrise": "6:09 AM", "sunset": "8:36 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna", "packing": "Chaqueta ligera y zapatos cómodos"},
+    "Zúrich": {"sunrise": "6:11 AM", "sunset": "8:35 PM", "temp": "6–16°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Chaqueta ligera y zapatos cómodos"},
     "París": {"sunrise": "6:25 AM", "sunset": "9:09 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Chaqueta ligera y paraguas compacto"},
     "Barcelona": {"sunrise": "6:40 AM", "sunset": "8:55 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Ropa ligera y gafas de sol"},
     "La Spezia": {"sunrise": "5:58 AM", "sunset": "8:35 PM", "temp": "12–20°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Zapatos cómodos para caminar"},
@@ -89,6 +90,9 @@ CITY_CLIMATE = {
     "Múnich": {"sunrise": "5:21 AM", "sunset": "8:59 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado", "packing": "Chaqueta ligera y zapatos cómodos"},
     "En el mar": {"sunrise": "5:46 AM", "sunset": "8:02 PM", "temp": "9–20°C", "weatherIcon": "🌦️", "weather": "Llovizna", "packing": "Traje de baño y ropa casual"},
     "Jungfraujoch": {"sunrise": "6:10 AM", "sunset": "8:39 PM", "temp": "-11–-5°C", "weatherIcon": "⛅", "weather": "Parcialmente nublado", "packing": "Ropa de abrigo tipo montaña y gafas de sol para la nieve"},
+    # Late March (Semana Santa), Orlando/Central Florida — sunny and warm,
+    # around the spring equinox.
+    "Orlando": {"sunrise": "7:20 AM", "sunset": "7:26 PM", "temp": "16–27°C", "weatherIcon": "☀️", "weather": "Soleado", "packing": "Ropa ligera, bloqueador solar y gorra"},
 }
 DEFAULT_CLIMATE = {"sunrise": "6:00 AM", "sunset": "8:15 PM", "temp": "12–20°C", "weatherIcon": "⛅", "weather": "Variable", "packing": "Ropa por capas y zapatos cómodos"}
 
@@ -99,47 +103,53 @@ DEFAULT_CLIMATE = {"sunrise": "6:00 AM", "sunset": "8:15 PM", "temp": "12–20°
 # above (city-only) for any day not covered here, e.g. right after a new
 # day is added to the workbook and before the next update_climate.py run.
 CITY_CLIMATE_BY_DAY: dict[str, dict[str, str]] = {
+    "Zúrich|29 ABR": {"sunrise": "6:11 AM", "sunset": "8:35 PM", "temp": "6–16°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Zúrich|30 ABR": {"sunrise": "6:09 AM", "sunset": "8:36 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
     "Zúrich|01 MAY": {"sunrise": "6:07 AM", "sunset": "8:38 PM", "temp": "7–16°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Barcelona|06 MAY": {"sunrise": "6:40 AM", "sunset": "8:55 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Jungfraujoch|02 MAY": {"sunrise": "6:10 AM", "sunset": "8:39 PM", "temp": "-11–-5°C", "weatherIcon": "⛅", "weather": "Parcialmente nublado"},
-    "París|04 MAY": {"sunrise": "6:23 AM", "sunset": "9:11 PM", "temp": "9–19°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "París|05 MAY": {"sunrise": "6:21 AM", "sunset": "9:12 PM", "temp": "9–19°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "París|03 MAY": {"sunrise": "6:25 AM", "sunset": "9:09 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Zúrich|30 ABR": {"sunrise": "6:09 AM", "sunset": "8:36 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "París|04 MAY": {"sunrise": "6:23 AM", "sunset": "9:11 PM", "temp": "9–19°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Jungfraujoch|02 MAY": {"sunrise": "6:10 AM", "sunset": "8:39 PM", "temp": "-11–-5°C", "weatherIcon": "⛅", "weather": "Parcialmente nublado"},
+    "Barcelona|06 MAY": {"sunrise": "6:40 AM", "sunset": "8:55 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Barcelona|07 MAY": {"sunrise": "6:39 AM", "sunset": "8:56 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Roma|11 MAY": {"sunrise": "5:52 AM", "sunset": "8:20 PM", "temp": "13–23°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Barcelona|08 MAY": {"sunrise": "6:38 AM", "sunset": "8:57 PM", "temp": "12–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "La Spezia|10 MAY": {"sunrise": "5:58 AM", "sunset": "8:35 PM", "temp": "12–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "En el mar|13 MAY": {"sunrise": "5:42 AM", "sunset": "8:06 PM", "temp": "11–22°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
     "En el mar|09 MAY": {"sunrise": "5:46 AM", "sunset": "8:02 PM", "temp": "9–20°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Zadar|14 MAY": {"sunrise": "5:32 AM", "sunset": "8:18 PM", "temp": "14–22°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "La Spezia|10 MAY": {"sunrise": "5:58 AM", "sunset": "8:35 PM", "temp": "12–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Roma|11 MAY": {"sunrise": "5:52 AM", "sunset": "8:20 PM", "temp": "13–23°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Salerno|12 MAY": {"sunrise": "5:45 AM", "sunset": "8:09 PM", "temp": "14–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Venecia|15 MAY": {"sunrise": "5:38 AM", "sunset": "8:35 PM", "temp": "14–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "En el mar|13 MAY": {"sunrise": "5:42 AM", "sunset": "8:06 PM", "temp": "11–22°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
-    "Zadar|14 MAY": {"sunrise": "5:32 AM", "sunset": "8:18 PM", "temp": "14–22°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Praga|19 MAY": {"sunrise": "5:08 AM", "sunset": "8:48 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
-    "Praga|20 MAY": {"sunrise": "5:07 AM", "sunset": "8:49 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
-    "Roma|16 MAY": {"sunrise": "5:47 AM", "sunset": "8:25 PM", "temp": "14–24°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Roma|18 MAY": {"sunrise": "5:45 AM", "sunset": "8:27 PM", "temp": "14–25°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Roma|17 MAY": {"sunrise": "5:46 AM", "sunset": "8:26 PM", "temp": "14–25°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Praga|21 MAY": {"sunrise": "5:06 AM", "sunset": "8:51 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Roma|16 MAY": {"sunrise": "5:47 AM", "sunset": "8:25 PM", "temp": "14–24°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Roma|17 MAY": {"sunrise": "5:46 AM", "sunset": "8:26 PM", "temp": "14–25°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Praga|20 MAY": {"sunrise": "5:07 AM", "sunset": "8:49 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Roma|18 MAY": {"sunrise": "5:45 AM", "sunset": "8:27 PM", "temp": "14–25°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Berlín|22 MAY": {"sunrise": "4:58 AM", "sunset": "9:07 PM", "temp": "11–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Berlín|23 MAY": {"sunrise": "4:56 AM", "sunset": "9:09 PM", "temp": "11–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Zúrich|04 MAY": {"sunrise": "6:03 AM", "sunset": "8:42 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Zúrich|05 MAY": {"sunrise": "6:01 AM", "sunset": "8:43 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Múnich|26 MAY": {"sunrise": "5:20 AM", "sunset": "9:00 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Múnich|25 MAY": {"sunrise": "5:21 AM", "sunset": "8:59 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Berlín|24 MAY": {"sunrise": "4:55 AM", "sunset": "9:10 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
     "Múnich|27 MAY": {"sunrise": "5:19 AM", "sunset": "9:01 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Múnich|28 MAY": {"sunrise": "5:18 AM", "sunset": "9:02 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Múnich|29 MAY": {"sunrise": "5:18 AM", "sunset": "9:04 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Zúrich|04 MAY": {"sunrise": "6:03 AM", "sunset": "8:42 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Berlín|23 MAY": {"sunrise": "4:56 AM", "sunset": "9:09 PM", "temp": "11–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Zúrich|03 MAY": {"sunrise": "6:04 AM", "sunset": "8:40 PM", "temp": "7–17°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
-    "Múnich|30 ABR": {"sunrise": "5:55 AM", "sunset": "8:26 PM", "temp": "6–16°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Berlín|24 MAY": {"sunrise": "4:55 AM", "sunset": "9:10 PM", "temp": "11–21°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
     "Venecia|16 MAY": {"sunrise": "5:37 AM", "sunset": "8:36 PM", "temp": "14–22°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Múnich|02 MAY": {"sunrise": "5:51 AM", "sunset": "8:29 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
-    "Zúrich|05 MAY": {"sunrise": "6:01 AM", "sunset": "8:43 PM", "temp": "8–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Múnich|01 MAY": {"sunrise": "5:53 AM", "sunset": "8:28 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
     "Múnich|04 MAY": {"sunrise": "5:48 AM", "sunset": "8:32 PM", "temp": "7–17°C", "weatherIcon": "☁️", "weather": "Nublado"},
-    "Múnich|05 MAY": {"sunrise": "5:47 AM", "sunset": "8:33 PM", "temp": "7–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|30 ABR": {"sunrise": "5:55 AM", "sunset": "8:26 PM", "temp": "6–16°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Múnich|02 MAY": {"sunrise": "5:51 AM", "sunset": "8:29 PM", "temp": "6–16°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
     "Múnich|03 MAY": {"sunrise": "5:50 AM", "sunset": "8:30 PM", "temp": "7–17°C", "weatherIcon": "🌦️", "weather": "Llovizna"},
+    "Múnich|05 MAY": {"sunrise": "5:47 AM", "sunset": "8:33 PM", "temp": "7–18°C", "weatherIcon": "☁️", "weather": "Nublado"},
     "Barcelona|05 MAY": {"sunrise": "6:42 AM", "sunset": "8:53 PM", "temp": "13–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Milán|03 MAY": {"sunrise": "6:07 AM", "sunset": "8:33 PM", "temp": "11–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Milán|01 MAY": {"sunrise": "6:09 AM", "sunset": "8:30 PM", "temp": "11–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Florencia|05 MAY": {"sunrise": "6:00 AM", "sunset": "8:23 PM", "temp": "10–22°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Florencia|04 MAY": {"sunrise": "6:01 AM", "sunset": "8:22 PM", "temp": "10–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Milán|29 ABR": {"sunrise": "6:13 AM", "sunset": "8:28 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Milán|02 MAY": {"sunrise": "6:08 AM", "sunset": "8:32 PM", "temp": "11–21°C", "weatherIcon": "☁️", "weather": "Nublado"},
+    "Milán|30 ABR": {"sunrise": "6:11 AM", "sunset": "8:29 PM", "temp": "10–20°C", "weatherIcon": "☁️", "weather": "Nublado"},
 }
 
 # Where a reader can independently check a city's climate normals — shown as the
@@ -159,6 +169,8 @@ CLIMATE_SOURCE_URL = {
     "Praga": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,prague,Czech-Republic",
     "Berlín": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,berlin,Germany",
     "Múnich": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,munich,Germany",
+    "Milán": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,milan,Italy",
+    "Florencia": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,florence,Italy",
     # weather-and-climate.com has no page for the Jungfraujoch summit itself
     # (not a "city") — Interlaken is the nearest town with one, a reasonable
     # stand-in reference the same way "En el mar" uses a representative point.
@@ -207,6 +219,8 @@ SUN_SOURCE_URL = {
     "Praga": "https://sunrise-sunset.org/search?location=Prague",
     "Berlín": "https://sunrise-sunset.org/search?location=Berlin",
     "Múnich": "https://sunrise-sunset.org/search?location=Munich",
+    "Milán": "https://sunrise-sunset.org/search?location=Milan",
+    "Florencia": "https://sunrise-sunset.org/search?location=Florence",
     "Jungfraujoch": "https://sunrise-sunset.org/search?location=Jungfraujoch",
 }
 
@@ -257,6 +271,11 @@ CITY_IMAGE_POOLS = {
         unsplash("photo-1544551763-46a013bb70d5"),
         "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Cruising_into_the_sunset_%28Explored%29_-_Flickr_-_M_McBey.jpg/960px-Cruising_into_the_sunset_%28Explored%29_-_Flickr_-_M_McBey.jpg",
         unsplash("photo-1500375592092-40eb2168fd21"),
+    ],
+    "Orlando": [
+        unsplash("photo-1578089815509-ed664d5b66d3"),
+        unsplash("photo-1597466599360-3b9775841aec"),
+        unsplash("photo-1524008279394-3aed4643b30b"),
     ],
 }
 
@@ -606,6 +625,7 @@ def build_itinerary(rows: list[dict[str, object]]) -> list[dict[str, object]]:
             "packing": compute_packing(climate_city, day_kind, is_last, climate["weather"], climate["temp"], has_lodging, has_tours, climate["packing"]),
             "weatherUrl": CLIMATE_SOURCE_URL.get(climate_city),
             "sunUrl": SUN_SOURCE_URL.get(climate_city),
+            "planNote": None, "planNoteCaption": None,
             "expenses": [to_expense(line) for line in display_lines],
         })
     return days
@@ -631,10 +651,253 @@ def build_option(name: str, dates_label: str, color: str, description: str, rows
     }
 
 
+# ============================================================
+# Disney World + Universal Orlando trip — a second, independent workbook
+# (Plan_Disney_Universal_2027.xlsx) with a completely different sheet shape
+# than the Europa one above: costs are bucketed per category and per
+# traveler-type (adults vs. children, since Disney/Universal/food price them
+# differently), not one row per line item with an explicit date — and the
+# day-by-day plan lives in separate "Itinerario Grupo A/B" sheets, keyed by
+# day number rather than date. Read directly here rather than forced through
+# read_rows()/to_expense(), since the shape genuinely doesn't fit that model.
+# Two options come out of this workbook — "Orlando con Jero" (Grupo A) and
+# "Orlando con Pachito y Vale" (Grupo B) — one per hotel room/travel
+# subgroup, each with its own real per-traveler-type composition.
+# ============================================================
+DISNEY_WORKBOOK = ROOT / "Plan_Disney_Universal_2027.xlsx"
+
+# (dayKey, title, dayKind) for the 9 fixed days (20-28 Mar 2027) — same for
+# both groups, since both subgroups follow the same park each day, just with
+# a different ride plan (see the itinerary sheets' "Plan recomendado" column).
+DISNEY_DAYS = [
+    ("20 MAR", "Llegada a Orlando", "flight"),
+    ("21 MAR", "Magic Kingdom", None),
+    ("22 MAR", "EPCOT", None),
+    ("23 MAR", "Universal Studios + Islands of Adventure", None),
+    ("24 MAR", "Hollywood Studios", None),
+    ("25 MAR", "Universal Epic Universe", None),
+    ("26 MAR", "Animal Kingdom", None),
+    ("27 MAR", "Día libre / compras / pileta", None),
+    ("28 MAR", "Check-out y vuelo de regreso", None),
+]
+
+
+def _disney_sheet_cells(book: zipfile.ZipFile, strings: list[str], sheet_no: int) -> dict[str, str]:
+    sheet = ET.fromstring(book.read(f"xl/worksheets/sheet{sheet_no}.xml"))
+    cells: dict[str, str] = {}
+    for row in sheet.findall(".//x:sheetData/x:row", NS):
+        for cell in row.findall("x:c", NS):
+            v = value(cell, strings)
+            if v:
+                cells[cell.attrib["r"]] = v
+    return cells
+
+
+def _disney_num(cells: dict[str, str], ref: str) -> float:
+    raw = cells.get(ref, "")
+    try:
+        return float(raw)
+    except ValueError:
+        return 0.0
+
+
+def build_disney_option(
+    name: str, description: str, color: str, budget_sheet: int, itinerary_sheet: int,
+    child_age_label: str, adults_count: int, children_count: int, rate_usd_to_cop: float,
+    has_adolescent: bool = False,
+) -> dict[str, object]:
+    with zipfile.ZipFile(DISNEY_WORKBOOK) as book:
+        strings = shared_strings(book)
+        budget = _disney_sheet_cells(book, strings, budget_sheet)
+        itin = _disney_sheet_cells(book, strings, itinerary_sheet)
+
+    people_count = adults_count + children_count
+
+    def blended_expense(category: str, title: str, unit_usd: float, qty: int, note: str, link: str | None = None) -> dict[str, object]:
+        """A cost bucket for one traveler type (e.g. "3 adultos"), shown at
+        its blended per-person share of the option's total headcount — the
+        same total/peopleCount split every Europa expense already uses, so
+        the day and category views keep reconciling with the option's
+        headline total. The real per-traveler-type price always stays
+        visible in `note` (never hidden), since blending only ever produces
+        an average, not what any one traveler actually pays."""
+        total_usd = unit_usd * qty
+        total_cop = total_usd * rate_usd_to_cop
+        per_person_cop = total_cop / people_count
+        return {
+            "category": category, "title": title, "amount": round(per_person_cop),
+            "originalAmount": round(total_usd / people_count, 2), "currency": "USD",
+            "note": note, "place": "Orlando", "date": "", "link": link,
+        }
+
+    def shared_expense(category: str, title: str, total_usd: float, note: str, link: str | None = None) -> dict[str, object]:
+        """A bundled cost for the whole subgroup (hotel room, PhotoPass,
+        souvenirs...) — same convention as Europa's "costo total" rows."""
+        return blended_expense(category, title, total_usd, 1, note, link)
+
+    AVIANCA = "https://www.avianca.com/co/es/vuelos-desde-bogota-a-orlando"
+    HILTON = "https://www.hilton.com/en/hotels/mcofhdt-doubletree-suites-orlando-disney-springs/"
+    DISNEY_TICKETS = "https://disneyworld.disney.go.com/admission/tickets/"
+    UNIVERSAL_TICKETS = "https://www.universalorlando.com/web/en/us/tickets-packages/park-tickets"
+    EPIC_TICKETS = "https://www.universalorlando.com/web/en/us/tickets-packages/park-tickets/epic-products"
+
+    flight_adult_unit, flight_child_unit = _disney_num(budget, "C6"), _disney_num(budget, "C7")
+    flight_roundtrip_total = flight_adult_unit * adults_count + flight_child_unit * children_count
+    hotel_total = _disney_num(budget, "F13")
+    disney_adult_unit, disney_child_unit = _disney_num(budget, "C19"), _disney_num(budget, "C20")
+    universal_adult_unit, universal_child_unit = _disney_num(budget, "C26"), _disney_num(budget, "C27")
+    epic_adult_unit, epic_child_unit = _disney_num(budget, "C33"), _disney_num(budget, "C34")
+    food_adult_per_day, food_child_per_day = _disney_num(budget, "B40"), _disney_num(budget, "B41")
+    uber_total = _disney_num(budget, "B46")  # covers 2 days (Universal + Epic Universe), split below
+    photopass, souvenirs, tips = _disney_num(budget, "B47"), _disney_num(budget, "B48"), _disney_num(budget, "B49")
+
+    days: list[dict[str, object]] = []
+    for index, (day_key, title, day_kind) in enumerate(DISNEY_DAYS):
+        is_first, is_last = index == 0, index == len(DISNEY_DAYS) - 1
+        expenses: list[dict[str, object]] = []
+
+        if is_first:
+            expenses.append(shared_expense(
+                "Transporte", "Vuelo internacional Bogotá ⇄ Orlando (ida y vuelta)", flight_roundtrip_total,
+                f"Avianca, estimado temporada Semana Santa. ${flight_adult_unit:.0f}/persona (adultos y niño de {child_age_label} años por igual).",
+                AVIANCA,
+            ))
+            expenses.append(shared_expense(
+                "Alojamiento", "Hotel DoubleTree Suites — costo total (8 noches)", hotel_total,
+                "Recomendado: DoubleTree Suites, Disney Springs Resort Area — shuttle gratis a los 4 parques Disney, 4★.",
+                HILTON,
+            ))
+            expenses.append({
+                "category": "Otros", "title": "PhotoPass / fotos", "amount": round(photopass * rate_usd_to_cop / people_count),
+                "originalAmount": round(photopass / people_count, 2), "currency": "USD",
+                "note": "Estimado para todo el viaje, compartido entre el subgrupo.", "place": "Orlando", "date": "", "link": None,
+            })
+            expenses.append({
+                "category": "Otros", "title": "Souvenirs (estimado)", "amount": round(souvenirs * rate_usd_to_cop / people_count),
+                "originalAmount": round(souvenirs / people_count, 2), "currency": "USD",
+                "note": "Estimado para todo el viaje, compartido entre el subgrupo.", "place": "Orlando", "date": "", "link": None,
+            })
+            expenses.append({
+                "category": "Otros", "title": "Propinas y varios", "amount": round(tips * rate_usd_to_cop / people_count),
+                "originalAmount": round(tips / people_count, 2), "currency": "USD",
+                "note": "Estimado para todo el viaje, compartido entre el subgrupo.", "place": "Orlando", "date": "", "link": None,
+            })
+
+        if title == "Magic Kingdom":
+            expenses.append(blended_expense(
+                "Tours", f"Tickets Disney World — adultos ({adults_count} personas)", disney_adult_unit, adults_count,
+                "Pase de 4 días, 1 parque/día, sin Park Hopper. Tarifa oficial temporada pico (MouseSavers).", DISNEY_TICKETS,
+            ))
+            expenses.append(blended_expense(
+                "Tours", f"Tickets Disney World — niño ({child_age_label} años)", disney_child_unit, children_count,
+                "Pase de 4 días, 1 parque/día, sin Park Hopper. El de 13 años (si aplica) paga tarifa adulto.", DISNEY_TICKETS,
+            ))
+        if title == "Universal Studios + Islands of Adventure":
+            expenses.append(blended_expense(
+                "Tours", f"Tickets Universal — adultos ({adults_count} personas)", universal_adult_unit, adults_count,
+                "1 día Park-to-Park (Studios + Islands of Adventure). No incluye Epic Universe.", UNIVERSAL_TICKETS,
+            ))
+            expenses.append(blended_expense(
+                "Tours", f"Tickets Universal — niño ({child_age_label} años)", universal_child_unit, children_count,
+                "1 día Park-to-Park (Studios + Islands of Adventure). No incluye Epic Universe.", UNIVERSAL_TICKETS,
+            ))
+            expenses.append(shared_expense(
+                "Transporte", "Uber ida y vuelta — Universal Studios + Islands of Adventure", uber_total / 2,
+                "Disney va en shuttle gratis del hotel; solo Universal/Epic Universe necesitan Uber.",
+            ))
+        if title == "Universal Epic Universe":
+            expenses.append(blended_expense(
+                "Tours", f"Ticket Epic Universe — adultos ({adults_count} personas)", epic_adult_unit, adults_count,
+                "1 día, 1 parque (4to parque de Universal, abierto desde may-2025).", EPIC_TICKETS,
+            ))
+            expenses.append(blended_expense(
+                "Tours", f"Ticket Epic Universe — niño ({child_age_label} años)", epic_child_unit, children_count,
+                "1 día, 1 parque. Niño estimado a ~97% de la tarifa adulto (ratio Universal).", EPIC_TICKETS,
+            ))
+            expenses.append(shared_expense(
+                "Transporte", "Uber ida y vuelta — Universal Epic Universe", uber_total / 2,
+                "Disney va en shuttle gratis del hotel; solo Universal/Epic Universe necesitan Uber.",
+            ))
+
+        # Comida — 8 de los 9 días (todos menos el de llegada, cubierto por
+        # las comidas del vuelo), igual que el "COMIDA — 8 días" del workbook.
+        if not is_first:
+            food_total_day = food_adult_per_day * adults_count + food_child_per_day * children_count
+            expenses.append(shared_expense(
+                "Comida", "Comida del día (desayuno, almuerzo y cena)", food_total_day,
+                f"Estimado: ${food_adult_per_day:.0f}/adulto + ${food_child_per_day:.0f}/niño ({child_age_label}) por día.",
+            ))
+
+        if is_last:
+            expenses.append({
+                "category": "Transporte", "title": "Vuelo internacional Orlando → Bogotá (regreso)", "amount": 0,
+                "originalAmount": 0, "currency": "USD",
+                "note": "Incluido en la tarifa ida y vuelta del vuelo de ida.", "place": "Orlando", "date": "", "link": None,
+            })
+
+        climate = CITY_CLIMATE["Orlando"]
+        plan_note = itin.get(f"D{5 + index}")
+        plan_caption = itin.get(f"E{5 + index}")
+        has_tours = any(e["category"] == "Tours" for e in expenses)
+        has_lodging = any(e["category"] == "Alojamiento" for e in expenses)
+        day_kind_final = "flight" if is_first else None
+        days.append({
+            "dayKey": day_key, "city": "Orlando", "country": "Estados Unidos", "emoji": "🇺🇸",
+            "image": image_for_day("Orlando", index),
+            "title": title, "dayKind": day_kind_final,
+            "climateCity": "Orlando",
+            "sunrise": climate["sunrise"], "sunset": climate["sunset"], "temp": climate["temp"],
+            "weatherIcon": climate["weatherIcon"], "weather": climate["weather"],
+            "packing": compute_packing("Orlando", day_kind_final, is_last, climate["weather"], climate["temp"], has_lodging, has_tours, climate["packing"]),
+            "weatherUrl": CLIMATE_SOURCE_URL.get("Orlando"), "sunUrl": SUN_SOURCE_URL.get("Orlando"),
+            "planNote": plan_note, "planNoteCaption": plan_caption,
+            "expenses": expenses,
+        })
+
+    total = sum(e["amount"] for day in days for e in day["expenses"])
+
+    # The headline "perPerson" above is a blended average (total ÷
+    # peopleCount) — accurate as a summary, but not what any individual
+    # traveler actually pays when adults and children are priced
+    # differently. perPersonByType gives the real figure for each fare tier,
+    # computed the same way the blended total is (shared costs like the
+    # hotel room split equally per head, fare-specific costs like tickets
+    # kept at their real per-type price) — adults_count·adult + children_count·child
+    # reproduces the exact group total above, just not blended together.
+    shared_per_person = (hotel_total + uber_total + photopass + souvenirs + tips) / people_count
+    food_days = len(DISNEY_DAYS) - 1
+    adult_total_usd = flight_adult_unit + shared_per_person + disney_adult_unit + universal_adult_unit + epic_adult_unit + food_adult_per_day * food_days
+    child_total_usd = flight_child_unit + shared_per_person + disney_child_unit + universal_child_unit + epic_child_unit + food_child_per_day * food_days
+    per_person_by_type = [{"label": "Adulto", "amount": round(adult_total_usd * rate_usd_to_cop)}]
+    if has_adolescent:
+        per_person_by_type.append({"label": "Adolescente (13)", "amount": round(adult_total_usd * rate_usd_to_cop)})
+    per_person_by_type.append({"label": f"Niño ({child_age_label})", "amount": round(child_total_usd * rate_usd_to_cop)})
+
+    return {
+        "name": name, "dates": "20 – 28 mar 2027", "route": "Orlando", "days": len(days),
+        "total": round(total), "perPerson": round(total), "color": color, "description": description,
+        "peopleCount": people_count, "perPersonByType": per_person_by_type, "itinerary": days,
+    }
+
+
+def read_disney_rate() -> float:
+    """TRM (USD→COP) from the Disney workbook's own 'Resumen' sheet — kept
+    separate from the Europa workbook's exchange-rate sheet since this is an
+    independent quote with its own rate, entered by hand, no markup applied."""
+    with zipfile.ZipFile(DISNEY_WORKBOOK) as book:
+        strings = shared_strings(book)
+        cells = _disney_sheet_cells(book, strings, 1)
+    return _disney_num(cells, "B6")
+
+
 def main() -> None:
+    # Only 3 of the workbook's 8 option sheets are active — the rest (2P/4P
+    # cruise headcount variants, the Zürich/Múnich+cruise combos, the Milán
+    # variant of this same sheet) are hidden in the workbook and skipped
+    # here, the same way the 6 in-Excel summary sheets always have been. See
+    # scripts/restructure_2027_plan.py for the migration that dropped them.
     sheets = [
-        (4, "Completo"), (6, "Zúrich y Crucero"), (8, "Múnich y Crucero"), (10, "Solo crucero"),
-        (12, "Solo crucero 2P"), (13, "Solo crucero 4P"), (14, "Crucero Milán"), (15, "Completo Milán"),
+        (4, "Completo"), (12, "Solo crucero 2P"), (14, "Crucero Milán"),
     ]
     rows = [line for sheet, name in sheets for line in read_rows(sheet, name)]
 
@@ -644,26 +907,34 @@ def main() -> None:
     # (see scripts/duplicate_option.py) rather than reading the shared cell.
     shared_people_count = read_people_count()
     options_meta = [
-        ("1 mes por Europa Zúrich", "29 abr – 27 may 2027", "#e9a34c", "El recorrido más completo por Europa", "Completo", shared_people_count),
-        ("1 mes por Europa Milán", "29 abr – 27 may 2027", "#d9a35c", "El recorrido más completo, vía Milán", "Completo Milán", shared_people_count),
+        ("1 mes por Europa", "7 – 31 may 2027", "#e9a34c", "Crucero por el Mediterráneo primero, luego Roma, París, Praga, Múnich y Berlín", "Completo", shared_people_count),
         ("Italia", "30 abr – 16 may 2027", "#7a9b8e", "Milán, Florencia y Mediterráneo", "Crucero Milán", shared_people_count),
-        ("Crucero para 3", "5 – 16 may 2027", "#7f9fc4", "Una escapada mediterránea", "Solo crucero", shared_people_count),
         ("Crucero en pareja", "5 – 16 may 2027", "#a998c9", "Una escapada mediterránea para dos", "Solo crucero 2P", 2),
-        ("Crucero para 4", "5 – 16 may 2027", "#c9a17f", "Una escapada mediterránea para el grupo", "Solo crucero 4P", 4),
-        ("Zúrich y Crucero", "30 abr – 16 may 2027", "#91b9a2", "Ciudad y mar en un solo viaje", "Zúrich y Crucero", shared_people_count),
-        ("Múnich y Crucero", "30 abr – 16 may 2027", "#bf8e9a", "Alemania, España y Mediterráneo", "Múnich y Crucero", shared_people_count),
     ]
     options = [
         build_option(display_name, dates_label, color, description, [r for r in rows if r["option"] == sheet_option], people_count)
         for display_name, dates_label, color, description, sheet_option, people_count in options_meta
     ]
+
+    disney_rate = read_disney_rate()
+    options.append(build_disney_option(
+        "Orlando con Jero", "Disney World, Universal y Epic Universe — 3 adultos + niño de 7 años",
+        "#5b9bd5", budget_sheet=2, itinerary_sheet=4, child_age_label="7",
+        adults_count=3, children_count=1, rate_usd_to_cop=disney_rate,
+    ))
+    options.append(build_disney_option(
+        "Orlando con Pachito y Vale", "Disney World, Universal y Epic Universe — 2 adultos + adolescente (13) y niño (9)",
+        "#ed7d31", budget_sheet=3, itinerary_sheet=5, child_age_label="9",
+        adults_count=3, children_count=1, rate_usd_to_cop=disney_rate, has_adolescent=True,
+    ))
+
     rates, rates_updated = read_rates()
 
     ITINERARY_OUTPUT.write_text(
         "// Generated by scripts/generate_data.py — do not edit manually.\n"
         "export type GeneratedExpense = { category: string; title: string; amount: number; originalAmount: number; currency: string; note: string; place: string; date: string; link: string | null };\n"
-        "export type GeneratedDay = { dayKey: string; city: string; country: string; emoji: string; image: string; title: string; dayKind: 'flight' | 'embark' | null; climateCity: string; sunrise: string; sunset: string; temp: string; weatherIcon: string; weather: string; packing: string[]; weatherUrl: string | null; sunUrl: string | null; expenses: GeneratedExpense[] };\n"
-        "export type GeneratedOption = { name: string; dates: string; route: string; days: number; total: number; perPerson: number; color: string; description: string; peopleCount: number; itinerary: GeneratedDay[] };\n"
+        "export type GeneratedDay = { dayKey: string; city: string; country: string; emoji: string; image: string; title: string; dayKind: 'flight' | 'embark' | null; climateCity: string; sunrise: string; sunset: string; temp: string; weatherIcon: string; weather: string; packing: string[]; weatherUrl: string | null; sunUrl: string | null; planNote: string | null; planNoteCaption: string | null; expenses: GeneratedExpense[] };\n"
+        "export type GeneratedOption = { name: string; dates: string; route: string; days: number; total: number; perPerson: number; color: string; description: string; peopleCount: number; perPersonByType?: { label: string; amount: number }[]; itinerary: GeneratedDay[] };\n"
         "export type ExchangeRate = { code: string; label: string; symbol: string; rate: number; sourceUrl: string };\n"
         f"export const generatedOptions: GeneratedOption[] = {ts(options)};\n"
         f"export const exchangeRates: ExchangeRate[] = {ts(rates)};\n"

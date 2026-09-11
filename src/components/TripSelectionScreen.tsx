@@ -65,6 +65,13 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
               </h3>
               <p>{option.description} · {option.days} días</p>
               <strong>{formatCOP(option.perPerson)}</strong>
+              {option.perPersonByType && (
+                <div className="option-by-type">
+                  {option.perPersonByType.map((entry) => (
+                    <span key={entry.label}>{entry.label}: {formatCOP(entry.amount)}</span>
+                  ))}
+                </div>
+              )}
               <small>{option.dates}</small>
               <div className="route">{option.route}</div>
             </button>

@@ -92,14 +92,16 @@ button{cursor:pointer;border:0;background:none}
 .option-card strong{display:block;font-size:17px;color:var(--text-strong)}
 .option-card small{color:var(--text-muted);font-size:12px}
 .option-card>strong:after{content:' · por persona';color:var(--text-muted);font-size:10px;font-weight:500;white-space:nowrap}
+.option-by-type{display:flex;flex-wrap:wrap;gap:4px 10px;margin:2px 0 4px;font-size:11px;color:var(--text-muted)}
 .route{border-top:1px solid var(--border);margin-top:14px;padding-top:10px;color:var(--text-muted);font-size:12px;line-height:1.4}
 
 /* ============================================================
    Trip summary bar (route + per-person price)
    ============================================================ */
 .trip-summary{max-width:1180px;margin:0 auto 24px;padding:16px 24px;background:var(--bg-accent);color:var(--text-on-accent);border:1px solid var(--border-strong);border-radius:16px;display:flex;align-items:center;gap:16px;min-height:0}
-.summary-copy{flex:1;display:flex;align-items:baseline;gap:8px}
-.summary-copy span{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-on-accent-muted)}
+.summary-copy{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+.summary-copy>span{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-on-accent-muted)}
+.summary-by-type{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--text-on-accent-muted)}
 .summary-cost{margin-left:auto}
 .summary-cost strong{display:block;font-size:20px;color:var(--accent-gold-contrast)}
 .selection-screen .trip-summary,.selection-screen .content-section{display:none}
@@ -323,19 +325,46 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
 }
 
 /* ============================================================
-   WhatsApp CTAs
+   Day plan note (Orlando-style itineraries with a detailed ride/park plan)
+   ============================================================ */
+.day-plan-note{margin:0 24px 18px;padding:14px 16px;border-radius:11px;background:var(--bg-surface-muted);border:1px solid var(--border)}
+.day-plan-title{margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text-muted)}
+.day-plan-text{margin:0;font-size:13.5px;line-height:1.55;white-space:pre-wrap;color:var(--text-body)}
+.day-plan-caption{margin:8px 0 0;font-size:12.5px;font-style:italic;color:var(--text-muted)}
+@media(max-width:640px){.day-plan-note{margin:0 17px 16px}}
+
+/* ============================================================
+   In-app AI chat
    ============================================================ */
 /* `bottom` is deliberately well above the page edge — Netlify's own "Deploys
    by Netlify" badge sits bottom-right on the free tier and would otherwise
    overlap/cover this button. */
-.whatsapp-fab{position:fixed;right:20px;bottom:92px;z-index:15;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#25d366;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .15s}
-.whatsapp-fab:hover{transform:scale(1.06)}
+.chat-fab{position:fixed;right:20px;bottom:92px;z-index:25;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--text-strong);color:var(--bg-surface);box-shadow:0 8px 20px rgba(var(--shadow-rgb),.28);transition:transform .15s}
+.chat-fab:hover{transform:scale(1.06)}
 @media(max-width:640px){
-  .whatsapp-fab{right:14px;bottom:80px;width:50px;height:50px}
+  .chat-fab{right:14px;bottom:80px;width:50px;height:50px}
 }
 
-.whatsapp-inline-cta{display:inline-flex;align-items:center;gap:9px;margin:0 24px 18px;padding:11px 16px;border-radius:11px;background:#e9fbef;color:#128c4a;font-weight:600;font-size:13.5px;width:fit-content;transition:background .15s}
-.whatsapp-inline-cta:hover{background:#d7f5e0}
-:root[data-theme="dark"] .whatsapp-inline-cta{background:#173428;color:#4fd88a}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .whatsapp-inline-cta{background:#173428;color:#4fd88a}}
-@media(max-width:640px){.whatsapp-inline-cta{margin:0 17px 16px}}
+.chat-inline-cta{display:inline-flex;align-items:center;gap:9px;margin:0 24px 18px;padding:11px 16px;border-radius:11px;background:var(--bg-accent);color:var(--text-on-accent-muted);font-weight:600;font-size:13.5px;width:fit-content;transition:background .15s}
+.chat-inline-cta:hover{filter:brightness(0.97)}
+@media(max-width:640px){.chat-inline-cta{margin:0 17px 16px}}
+
+.chat-panel{position:fixed;right:20px;bottom:20px;z-index:25;width:min(360px,calc(100vw - 32px));height:min(520px,calc(100vh - 40px));background:var(--bg-surface);border:1px solid var(--border);border-radius:16px;box-shadow:0 18px 50px rgba(var(--shadow-rgb),.3);display:flex;flex-direction:column;overflow:hidden}
+.chat-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--text-strong);color:var(--bg-surface)}
+.chat-panel-header strong{display:block;font-size:15px}
+.chat-panel-header span{font-size:12px;opacity:.75}
+.chat-panel-header-actions{display:flex;align-items:center;gap:6px}
+.chat-panel-header button{color:inherit;display:flex}
+.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.chat-empty-hint{color:var(--text-muted);font-size:13.5px;margin:0}
+.chat-bubble{max-width:82%;padding:9px 13px;border-radius:13px;font-size:13.5px;line-height:1.4;white-space:pre-wrap;overflow-wrap:break-word}
+.chat-bubble.user{align-self:flex-end;background:var(--accent-teal);color:var(--text-on-accent)}
+.chat-bubble.ai{align-self:flex-start;background:var(--bg-surface-muted);color:var(--text-body)}
+.chat-bubble.chat-typing{color:var(--text-muted);font-style:italic}
+.chat-input-row{display:flex;align-items:flex-end;gap:8px;padding:12px;border-top:1px solid var(--border)}
+.chat-input-row textarea{flex:1;resize:none;border:1px solid var(--border-strong);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:13.5px;line-height:1.4;color:var(--text-body);background:var(--bg-page);min-height:38px;max-height:140px;overflow-y:auto}
+.chat-input-row button{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--text-strong);color:var(--bg-surface);display:flex;align-items:center;justify-content:center;transition:opacity .15s}
+.chat-input-row button:disabled{opacity:.4;cursor:default}
+@media(max-width:640px){
+  .chat-panel{right:14px;bottom:14px;width:calc(100vw - 28px)}
+}

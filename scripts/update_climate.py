@@ -74,6 +74,8 @@ CITY_COORDS = {
     "Praga": (50.0755, 14.4378),
     "Berlín": (52.5200, 13.4050),
     "Múnich": (48.1351, 11.5820),
+    "Milán": (45.4642, 9.1900),
+    "Florencia": (43.7696, 11.2558),
     "En el mar": (40.5, 15.5),
     # Day-trip destination, not a base city — see DAY_TRIP_DESTINATIONS in
     # generate_data.py. Summit coordinates, not the valley town.
@@ -123,7 +125,8 @@ def collect_city_day_pairs(gd) -> list[tuple[str, str]]:
     under — build_itinerary() already resolves which one applies per day."""
     sheets = [
         (4, "Completo"), (6, "Zúrich y Crucero"), (8, "Múnich y Crucero"),
-        (10, "Solo crucero"), (12, "Solo crucero 2P"),
+        (10, "Solo crucero"), (12, "Solo crucero 2P"), (13, "Solo crucero 4P"),
+        (14, "Crucero Milán"), (15, "Completo Milán"),
     ]
     rows = [line for sheet, name in sheets for line in gd.read_rows(sheet, name)]
     seen: dict[tuple[str, str], None] = {}

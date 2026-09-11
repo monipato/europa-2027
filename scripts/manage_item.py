@@ -1,15 +1,15 @@
 """Add or update a single line item in the quote workbook.
 
 Run from the project root:
-    python3 scripts/manage_item.py add    --option "Crucero para 3" --category "Tours y Excursiones" \
+    python3 scripts/manage_item.py add    --option "Italia" --category "Tours y Excursiones" \
         --place "Zadar" --date "14 May 2027" --title "Tour a pie por el casco antiguo" \
         --currency EUR --unit-amount 15 --quantity 3 \
         --note "Tour guiado 2h, incluye entrada a la catedral" --link "https://example.com/tour"
 
-    python3 scripts/manage_item.py update --option "Crucero para 3" --match-title "SIM card" \
+    python3 scripts/manage_item.py update --option "Italia" --match-title "SIM card" \
         --currency USD --unit-amount 45 --quantity 1 --note "..." --link "..."
 
-    python3 scripts/manage_item.py delete --option "Crucero para 3" --match-title "Free tour"
+    python3 scripts/manage_item.py delete --option "Italia" --match-title "Free tour"
 
 This is the only supported way to hand-edit a line item in the workbook — it
 edits the raw .xlsx XML directly (same approach as generate_data.py, no
@@ -56,24 +56,20 @@ WORKBOOK = ROOT / "Europa2027_Cotizacion_plan_completo (1).xlsx"
 NS = {"x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 
 # Option name -> sheet number, matching the mapping in generate_data.py's main().
+# Sheets 6, 8, 10, 13, 15 (Zúrich y Crucero, Múnich y Crucero, Crucero para
+# 3, Crucero para 4, 1 mes por Europa Milán) are hidden in the workbook and
+# no longer active options — see scripts/restructure_2027_plan.py.
 OPTION_SHEETS = {
-    "1 mes por Europa Zúrich": 4,
-    "Zúrich y Crucero": 6,
-    "Múnich y Crucero": 8,
-    "Crucero para 3": 10,
+    "1 mes por Europa": 4,
     "Crucero en pareja": 12,
-    "Crucero para 4": 13,
     "Italia": 14,
-    "1 mes por Europa Milán": 15,
 }
 
 # Options whose per-person headcount differs from the workbook-wide
-# 'Tasas de Cambio'!C5 value (see scripts/duplicate_option.py /
-# scripts/duplicate_option_4p.py) — their K formulas divide by a literal
-# number instead of that shared cell.
+# 'Tasas de Cambio'!C5 value (see scripts/duplicate_option.py) — its K
+# formulas divide by a literal number instead of that shared cell.
 OPTION_PEOPLE_OVERRIDE = {
     "Crucero en pareja": 2,
-    "Crucero para 4": 4,
 }
 
 CATEGORIES = {

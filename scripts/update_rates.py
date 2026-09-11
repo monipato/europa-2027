@@ -51,10 +51,14 @@ NS = {"x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 RATE_ROWS = {"EUR": 11, "CHF": 12, "CZK": 13, "USD": 14}
 DATE_CELL = "C7"
 MARKUP_CELL = "E7"
-SHEET_NUMBERS = [4, 6, 8, 10, 12]
-# sheet12 is the 2-person duplicate (scripts/duplicate_option.py) — its K
-# formulas divide by a literal 2, not the shared people-count cell.
-SHEET_K_DIVISOR = {4: "shared", 6: "shared", 8: "shared", 10: "shared", 12: "2"}
+SHEET_NUMBERS = [4, 6, 8, 10, 12, 13, 14, 15]
+# sheet12/sheet13 are the 2-person/4-person duplicates
+# (scripts/duplicate_option.py / duplicate_option_4p.py) — their K formulas
+# divide by a literal headcount, not the shared people-count cell.
+SHEET_K_DIVISOR = {
+    4: "shared", 6: "shared", 8: "shared", 10: "shared",
+    12: "2", 13: "4", 14: "shared", 15: "shared",
+}
 
 
 def cell_value_text(row_xml: str, col: str, row_num: int) -> str | None:
@@ -187,7 +191,7 @@ def main():
                 continue
             new_rate = new_rates[currency]
             new_total_cop = float(h_val) * new_rate
-            new_per_person = new_total_cop / 2 if divisor == "2" else new_total_cop / people_count
+            new_per_person = new_total_cop / float(divisor) if divisor != "shared" else new_total_cop / people_count
             new_row = set_cell_value(row_xml, "I", rn, str(new_rate))
             new_row = set_cell_value(new_row, "J", rn, str(new_total_cop))
             new_row = set_cell_value(new_row, "K", rn, str(new_per_person))

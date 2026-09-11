@@ -8,7 +8,7 @@ import { getDayDisplayLabel } from '../utils/dayDisplay'
 import { assignDuckStickers } from '../utils/duckStickers'
 import { assignTourDucks } from '../utils/tourDuck'
 import { assignWeatherDucks } from '../utils/weatherDuck'
-import { WhatsAppInlineCTA } from './WhatsAppInlineCTA'
+import { ChatInlineCTA } from './ChatInlineCTA'
 import duckPacking from '../assets/ducks/duck-luggage.png'
 
 interface DayByDayViewProps {
@@ -96,6 +96,13 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
     else if (deltaX > 0 && activeIndex > 0) onSelectDay(activeIndex - 1)
   }
 
+  // Single-city trips (e.g. a theme-park itinerary spent entirely in one
+  // city) show the day's title in the nav instead of the city — repeating
+  // the same city on every row tells the traveler nothing, while the title
+  // ("Magic Kingdom", "Universal Epic Universe"...) is exactly what
+  // distinguishes one day from the next there.
+  const singleCityTrip = days.length > 0 && days.every((day) => day.city === days[0].city)
+
   return (
     <div className="day-layout" ref={layoutRef}>
       <aside className="day-list" ref={dayListRef}>
@@ -110,7 +117,7 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
             >
               <span>{day.dayKey}</span>
               <div>
-                <strong>{label.emoji} {day.city}</strong>
+                <strong>{label.emoji} {singleCityTrip ? day.title : day.city}</strong>
                 <small>{label.label}</small>
               </div>
               <ChevronDown />
@@ -171,7 +178,15 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
           </button>
         </div>
 
-        <WhatsAppInlineCTA
+        {activeDay.planNote && (
+          <div className="day-plan-note">
+            <p className="day-plan-title">Plan recomendado para este día</p>
+            <p className="day-plan-text">{activeDay.planNote}</p>
+            {activeDay.planNoteCaption && <p className="day-plan-caption">{activeDay.planNoteCaption}</p>}
+          </div>
+        )}
+
+        <ChatInlineCTA
           label={`¿Preguntas sobre este día? Escríbenos`}
           message={`Hola! Tengo una pregunta sobre el día ${activeDay.dayKey} (${activeDay.city}) de la opción "${optionName}".`}
         />

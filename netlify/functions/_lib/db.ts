@@ -52,6 +52,28 @@ export function ensureSchema(): Promise<void> {
 
 type ConversationRow = { id: number; phone_number: string; contact_phone: string | null; ai_paused: boolean }
 
+/** Same conversations table, keyed by a "web:<sessionId>" pseudo phone
+ * number instead of a real one — lets the in-app chat widget reuse the exact
+ * same schema/history/dedup machinery as the WhatsApp bot without a
+ * migration, the same way a WhatsApp `From` value is namespaced as
+ * "whatsapp:+57...". */
+export function getOrCreateConversationBySession(sessionId: string): Promise<Conversation> {
+  return getOrCreateConversation(`web:${sessionId}`)
+}
+
+/** Read-only counterpart to getOrCreateConversationBySession — used to load
+ * a session's saved history without creating an (empty) conversation row
+ * for every visitor who merely opens the chat widget without sending a
+ * message. Conversations are never deleted, only ever read or added to. */
+export async function findConversationBySession(sessionId: string): Promise<Conversation | null> {
+  const rows = (await sql`
+    SELECT id, phone_number, contact_phone, ai_paused FROM conversations WHERE phone_number = ${`web:${sessionId}`}
+  `) as ConversationRow[]
+  if (!rows.length) return null
+  const row = rows[0]
+  return { id: row.id, phoneNumber: row.phone_number, contactPhone: row.contact_phone, aiPaused: row.ai_paused }
+}
+
 export async function getOrCreateConversation(phoneNumber: string): Promise<Conversation> {
   const rows = (await sql`
     INSERT INTO conversations (phone_number)
