@@ -1,0 +1,553 @@
+{
+  "name": "Crucero en pareja",
+  "dates": "5 – 16 may 2027",
+  "color": "#a998c9",
+  "description": "Una escapada mediterránea para dos",
+  "peopleCount": 2,
+  "routeOverride": null,
+  "days": [
+    {
+      "dayKey": "05 MAY",
+      "city": "Barcelona",
+      "title": "Vuelo a Barcelona",
+      "dayKind": "flight",
+      "weather": {
+        "sunrise": "6:42 AM",
+        "sunset": "8:53 PM",
+        "temp": "13–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo Lufthansa Bogotá → Barcelona (vía FRA), ida",
+          "currency": "COP",
+          "unitAmount": 1491070.0,
+          "quantity": 2.0,
+          "note": "Lufthansa, BOG 23:30 (hora Colombia) → FRA (escala) → BCN 23:05 +1 día, local España",
+          "place": "Bogota / Barcelona",
+          "date": "5 May 2027",
+          "link": "https://shop.lufthansa.com/booking/cart?cartId=1EA66RSYEOGDFEB1&type=cart&shared=true&origin=BOG&utm_source=sharedcart&utm_medium=referral&consent=true"
+        },
+        {
+          "category": "Otros y Extras",
+          "title": "SIM card de viaje (datos internacionales)",
+          "currency": "USD",
+          "unitAmount": 40.0,
+          "quantity": 1.0,
+          "note": "SIM compartida entre las 2 personas para los 11 días del crucero",
+          "place": "—",
+          "date": "Durante el viaje",
+          "link": "https://esim.holafly.com/es/esim-europa/?selectedDays=11&startDate=2027-05-06&endDate=2027-05-16"
+        },
+        {
+          "category": "Otros y Extras",
+          "title": "Imprevistos / gastos varios (contingencia)",
+          "currency": "EUR",
+          "unitAmount": 200.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "—",
+          "date": "Contingencia",
+          "link": null
+        },
+        {
+          "category": "Seguro de Viaje",
+          "title": "Asistencia médica internacional",
+          "currency": "COP",
+          "unitAmount": 221985.0,
+          "quantity": 2.0,
+          "note": "Asistencia médica internacional, cobertura USD 60.000 (Cuponatic)",
+          "place": "Internacional",
+          "date": "5 – 16 may 2027 (12 días de cobertura)",
+          "link": "https://www.cuponatic.com.co/descuento/asistencia-medica-internacional-cobertura-de-usd-60-000?m=tarjetas-de-asistencia&id_descuento=212587"
+        }
+      ]
+    },
+    {
+      "dayKey": "06 MAY",
+      "city": "Barcelona",
+      "title": "Llegada a Barcelona",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:40 AM",
+        "sunset": "8:55 PM",
+        "temp": "13–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Barcelona — costo total (2 noches)",
+          "currency": "COP",
+          "unitAmount": 1615000.0,
+          "quantity": 1.0,
+          "note": "Sagrada Familia, 2 noches (6-8 may)",
+          "place": "Barcelona, España",
+          "date": "6 – 8 May (2 noches, pre-crucero)",
+          "link": "https://www.booking.com/hotel/es/sagradafamilia.es.html?aid=2311236&label=es-co-booking-desktop-vjGZbEFOhRc3a9njxeT3IwS652829002024%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp9246960%3Ali%3Adec%3Adm&sid=f6a1a9bb810c453f7b5f1225205f1f26&all_sr_blocks=9118810_91908190_0_2_0&checkin=2027-05-06&checkout=2027-05-08&dest_id=-372490&dest_type=city&dist=0&group_adults=2&group_children=0&hapos=1&highlighted_blocks=9118810_91908190_0_2_0&hpos=1&matching_block_id=9118810_91908190_0_2_0&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&sr_pri_blocks=9118810_91908190_0_2_0__32800&srepoch=1787920765&srpvid=c13758fcde590c7a&type=total&ucfs=1"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado aeropuerto → hotel, Barcelona",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "España",
+          "date": "6 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Cena",
+          "currency": "EUR",
+          "unitAmount": 15.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "6 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "07 MAY",
+      "city": "Barcelona",
+      "title": "Tour Barcelona Modernista",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:39 AM",
+        "sunset": "8:56 PM",
+        "temp": "13–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Tour Barcelona Modernista",
+          "currency": "USD",
+          "unitAmount": 10.0,
+          "quantity": 2.0,
+          "note": "Tour guiado por el Modernismo catalán en Barcelona",
+          "place": "Barcelona",
+          "date": "7 May 2027",
+          "link": "https://www.civitatis.com/es/barcelona/tour-barcelona-modernista/"
+        },
+        {
+          "category": "Comidas",
+          "title": "3 comidas",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Bus, 4 trayectos",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Free tour Sagrada Familia",
+          "currency": "USD",
+          "unitAmount": 10.0,
+          "quantity": 2.0,
+          "note": "Free tour guiado por el exterior de la Sagrada Familia",
+          "place": "Barcelona",
+          "date": "7 May 2027",
+          "link": "https://www.civitatis.com/es/barcelona/free-tour-sagrada-familia/"
+        }
+      ]
+    },
+    {
+      "dayKey": "08 MAY",
+      "city": "Barcelona",
+      "title": "Embarque en Barcelona",
+      "dayKind": "embark",
+      "weather": {
+        "sunrise": "6:38 AM",
+        "sunset": "8:57 PM",
+        "temp": "12–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Crucero",
+          "title": "Crucero Barcelona → Ravena — tarifa por persona (cabina)",
+          "currency": "USD",
+          "unitAmount": 1650.0,
+          "quantity": 1.0,
+          "note": "Crucero Barcelona-Ravena, 7 noches, incluye propinas",
+          "place": "Mediterráneo",
+          "date": "8 – 15 May (7 noches)",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → puerto (embarque crucero), Barcelona",
+          "currency": "USD",
+          "unitAmount": 15.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "España",
+          "date": "8 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Desayuno",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "8 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "09 MAY",
+      "city": "En el mar",
+      "title": "Día de navegación",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:46 AM",
+        "sunset": "8:02 PM",
+        "temp": "9–20°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Otros y Extras",
+          "title": "Día de navegación",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Día de navegación, incluido en la tarifa del crucero",
+          "place": "Navegación",
+          "date": "9 May 2027",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        }
+      ]
+    },
+    {
+      "dayKey": "10 MAY",
+      "city": "La Spezia",
+      "title": "Panoramic Pisa",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:58 AM",
+        "sunset": "8:35 PM",
+        "temp": "12–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Panoramic Pisa",
+          "currency": "USD",
+          "unitAmount": 70.0,
+          "quantity": 2.0,
+          "note": "Excursión panorámica por Pisa desde el crucero",
+          "place": "La Spezia (Florencia/Pisa)",
+          "date": "10 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/Y8RO?bookingId=3113096&shipCode=BR&sailDate=20270508"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "La Spezia (Florencia/Pisa)",
+          "date": "10 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "11 MAY",
+      "city": "Roma",
+      "title": "Visit to Rome",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:52 AM",
+        "sunset": "8:20 PM",
+        "temp": "13–23°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Visit to Rome",
+          "currency": "USD",
+          "unitAmount": 142.0,
+          "quantity": 2.0,
+          "note": "Excursión a Roma desde el crucero",
+          "place": "Civitavecchia (Roma)",
+          "date": "11 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/CV1F?bookingId=3113096&shipCode=BR&sailDate=20270508"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "Civitavecchia (Roma)",
+          "date": "11 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "12 MAY",
+      "city": "Salerno",
+      "title": "Tour a pie gratis",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:45 AM",
+        "sunset": "8:09 PM",
+        "temp": "14–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Tour a pie gratis",
+          "currency": "EUR",
+          "unitAmount": 0.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Salerno (Costa Amalfitana)",
+          "date": "12 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluida en el crucero (come a bordo)",
+          "currency": "EUR",
+          "unitAmount": 0.0,
+          "quantity": 3.0,
+          "note": "Comida incluida en el paquete del crucero, sin costo adicional",
+          "place": "Salerno (Costa Amalfitana)",
+          "date": "12 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "13 MAY",
+      "city": "En el mar",
+      "title": "Día de navegación",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:42 AM",
+        "sunset": "8:06 PM",
+        "temp": "11–22°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Otros y Extras",
+          "title": "Día de navegación",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Día de navegación, incluido en la tarifa del crucero",
+          "place": "Navegación",
+          "date": "13 May 2027",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        }
+      ]
+    },
+    {
+      "dayKey": "14 MAY",
+      "city": "Zadar",
+      "title": "Día en Zadar",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:32 AM",
+        "sunset": "8:18 PM",
+        "temp": "14–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Traslados",
+          "title": "Transporte - Tour a pie gratis",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "Zadar, Croacia",
+          "date": "14 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluida en el crucero (come a bordo)",
+          "currency": "EUR",
+          "unitAmount": 0.0,
+          "quantity": 3.0,
+          "note": "Comida incluida en el paquete del crucero, sin costo adicional",
+          "place": "Zadar, Croacia",
+          "date": "14 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "15 MAY",
+      "city": "Venecia",
+      "title": "Llegada a Venecia",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:38 AM",
+        "sunset": "8:35 PM",
+        "temp": "14–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Venecia — costo total (1 noche)",
+          "currency": "COP",
+          "unitAmount": 1100000.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "Venecia, Italia",
+          "date": "15 – 16 May (1 noche, post-crucero)",
+          "link": "https://www.booking.com/hotel/it/alloggi-arlecchino.es.html?aid=304142&label=gen173bo-10CAsocUISYWxsb2dnaS1hcmxlY2NoaW5vSApYA2gyiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBmAIEqAIBuAKxisbUBsACAdICJDYzYjI0MDkzLWUwMDQtNGE1NS05ZjIwLWYwODllODdiODI1ONgCAeACAQ&sid=f6a1a9bb810c453f7b5f1225205f1f26&all_sr_blocks=466062001_143466186_0_0_0&checkin=2027-05-15&checkout=2027-05-16&dest_id=-132007&dest_type=city&dist=0&group_adults=2&group_children=0&hapos=1&highlighted_blocks=466062001_143466186_0_0_0&hpos=1&matching_block_id=466062001_143466186_0_0_0&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&sr_pri_blocks=466062001_143466186_0_0_0__29079&srepoch=1787921833&srpvid=be9c5b0e91871d4a&type=total&ucfs=1"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado puerto → Estación Ravenna",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "Italia",
+          "date": "15 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Almuerzo y cena",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 2.0,
+          "note": "",
+          "place": "Rávena (Venecia)",
+          "date": "15 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Free tour Venecia",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 2.0,
+          "note": "Free tour guiado por el centro histórico de Venecia",
+          "place": "Venecia",
+          "date": "15 May 2027",
+          "link": "https://www.civitatis.com/es/venecia/free-tour-venecia/?_gl=1*1ijxuzi*_up*MQ..*_ga*ODU4MDQyNjAyLjE3ODc4Nzc2ODY.*_ga_QJQ54CTKPM*czE3ODc4Nzc2ODYkbzEkZzEkdDE3ODc4Nzc2OTEkajU1JGwwJGgxNTA2MDA0ODU0"
+        },
+        {
+          "category": "Traslados",
+          "title": "Vaporetti ACTV",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 2.0,
+          "note": "Boletos de vaporetto (transporte acuático) por Venecia",
+          "place": "Venecia",
+          "date": "15 May 2027",
+          "link": "https://book.tickets-venice.com/es/book/8748/select/?_gl=1%2A1073ils%2A_gcl_aw%2AR0NMLjE3ODc4NzgwODMuRUFJYUlRb2JDaE1JaFpPNjdZekNsZ01Wd1lSYUJSM2Y1U1JPRUFBWUF5QUFFZ0tjeFBEX0J3RQ..%2A_gcl_au%2ANzIxMTA1MTQ5LjE3ODc4NzgwODMuLS4tLjE3ODc4NzgwODMuMTE2MDU2ODc1MS4xNzg3ODc4MDg0LjE3ODc4NzgwODM.%2A_ga%2ANDcyOTU3MzYyLjE3ODc4NzgwODM.%2A_ga_Y45PC9R73C%2AczE3ODc4NzgwODMkbzEkZzAkdDE3ODc4NzgwODQkajU5JGwwJGgw&cookieBanner=false&date=2027-05-15&tourId=15560&variantId=15560"
+        },
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Tren Ravenna - Venecia St Lucia",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 2.0,
+          "note": "Tren regional desde Ravenna hasta Venecia Santa Lucia",
+          "place": "Italia",
+          "date": "15 May 2027",
+          "link": "https://www.trenitalia.com/en.html"
+        }
+      ]
+    },
+    {
+      "dayKey": "16 MAY",
+      "city": "Venecia",
+      "title": "Vuelo de regreso",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:37 AM",
+        "sunset": "8:36 PM",
+        "temp": "14–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo Lufthansa Venecia → Bogotá (vía FRA), regreso",
+          "currency": "COP",
+          "unitAmount": 1491070.0,
+          "quantity": 2.0,
+          "note": "Lufthansa, VCE 10:55 local → FRA (escala) → BOG 18:55 (hora Colombia aprox)",
+          "place": "Venecia / Bogota",
+          "date": "16 May 2027",
+          "link": "https://shop.lufthansa.com/booking/cart?cartId=1EA66RSYEOGDFEB1&type=cart&shared=true&origin=BOG&utm_source=sharedcart&utm_medium=referral&consent=true"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → aeropuerto, Venecia",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "Italia",
+          "date": "16 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Desayuno",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 2.0,
+          "note": "Almuerzo y cena incluidos en el vuelo de regreso (15h, sale 10:55am)",
+          "place": "Venecia",
+          "date": "16 May 2027",
+          "link": null
+        }
+      ]
+    }
+  ]
+}

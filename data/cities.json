@@ -1,0 +1,407 @@
+{
+  "cities": {
+    "Zúrich": {
+      "country": "Suiza",
+      "emoji": "🇨🇭",
+      "images": [
+        "https://images.unsplash.com/photo-1527668752968-14dc70a27c95?auto=format&fit=crop&w=900&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Zurich_after_sunset.jpg/960px-Zurich_after_sunset.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Lake_Z%C3%BCrich_from_Uetliberg.jpg/960px-Lake_Z%C3%BCrich_from_Uetliberg.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Z%C3%BCrich_view_Quaibr%C3%BCcke_20200702.jpg/960px-Z%C3%BCrich_view_Quaibr%C3%BCcke_20200702.jpg"
+      ],
+      "climate": {
+        "sunrise": "6:09 AM",
+        "sunset": "8:36 PM",
+        "temp": "6–16°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna",
+        "packing": "Chaqueta ligera y zapatos cómodos"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,zurich,Switzerland",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Zurich"
+    },
+    "París": {
+      "country": "Francia",
+      "emoji": "🇫🇷",
+      "images": [
+        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "6:00 AM",
+        "sunset": "9:33 PM",
+        "temp": "11–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado",
+        "packing": "Chaqueta ligera y paraguas compacto"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,paris,France",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Paris"
+    },
+    "Barcelona": {
+      "country": "España",
+      "emoji": "🇪🇸",
+      "images": [
+        "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "6:39 AM",
+        "sunset": "8:56 PM",
+        "temp": "13–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado",
+        "packing": "Ropa ligera y gafas de sol"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,barcelona,Spain",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Barcelona"
+    },
+    "La Spezia": {
+      "country": "Italia",
+      "emoji": "🇮🇹",
+      "images": [
+        "https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?auto=format&fit=crop&w=900&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Vernazza%2C_Cinque_Terre_%28panorama%29.jpg/960px-Vernazza%2C_Cinque_Terre_%28panorama%29.jpg"
+      ],
+      "climate": {
+        "sunrise": "5:57 AM",
+        "sunset": "8:36 PM",
+        "temp": "12–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado",
+        "packing": "Zapatos cómodos para caminar"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,la-spezia,Italy",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=La+Spezia"
+    },
+    "Salerno": {
+      "country": "Italia",
+      "emoji": "🇮🇹",
+      "images": [
+        "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=900&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Positano_at_dusk%2C_Amalfi_Coast%2C_Italy.jpg/960px-Positano_at_dusk%2C_Amalfi_Coast%2C_Italy.jpg"
+      ],
+      "climate": {
+        "sunrise": "5:44 AM",
+        "sunset": "8:10 PM",
+        "temp": "14–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado",
+        "packing": "Traje de baño y bloqueador solar"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,salerno,Italy",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Salerno"
+    },
+    "Zadar": {
+      "country": "Croacia",
+      "emoji": "🇭🇷",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sunset_over_the_Adriatic_Sea_as_seen_from_the_Sea_Organ_in_Zadar_%2848670423612%29.jpg/960px-Sunset_over_the_Adriatic_Sea_as_seen_from_the_Sea_Organ_in_Zadar_%2848670423612%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/The_Sea_Organ_on_the_waterfront_of_Zadar%2C_Croatia_%2848607630256%29.jpg/960px-The_Sea_Organ_on_the_waterfront_of_Zadar%2C_Croatia_%2848607630256%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Zadar_%2848947016376%29.jpg/960px-Zadar_%2848947016376%29.jpg"
+      ],
+      "climate": {
+        "sunrise": "5:31 AM",
+        "sunset": "8:19 PM",
+        "temp": "14–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado",
+        "packing": "Ropa cómoda y calzado para caminar"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,zadar,Croatia",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Zadar"
+    },
+    "Venecia": {
+      "country": "Italia",
+      "emoji": "🇮🇹",
+      "images": [
+        "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1514890547357-a9ee288728e0?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "5:37 AM",
+        "sunset": "8:36 PM",
+        "temp": "14–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado",
+        "packing": "Zapatos cómodos, el suelo puede estar húmedo"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,venice,Italy",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Venice"
+    },
+    "Roma": {
+      "country": "Italia",
+      "emoji": "🇮🇹",
+      "images": [
+        "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1531572753322-ad063cecc140?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "5:51 AM",
+        "sunset": "8:21 PM",
+        "temp": "13–24°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado",
+        "packing": "Ropa ligera y zapatos para caminar"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,rome,Italy",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Rome"
+    },
+    "Praga": {
+      "country": "República Checa",
+      "emoji": "🇨🇿",
+      "images": [
+        "https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=900&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Charles_Bridge_at_Sunset%2C_Prague_%2850489016846%29.jpg/960px-Charles_Bridge_at_Sunset%2C_Prague_%2850489016846%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Prague_Old_Town_2021_13.jpg/960px-Prague_Old_Town_2021_13.jpg"
+      ],
+      "climate": {
+        "sunrise": "5:04 AM",
+        "sunset": "8:53 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna",
+        "packing": "Chaqueta y capas ligeras"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,prague,Czech-Republic",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Prague"
+    },
+    "Berlín": {
+      "country": "Alemania",
+      "emoji": "🇩🇪",
+      "images": [
+        "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=900&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Skyline_Berlin.jpg/960px-Skyline_Berlin.jpg",
+        "https://images.unsplash.com/photo-1528728329032-2972f65dfb3f?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "4:51 AM",
+        "sunset": "9:16 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna",
+        "packing": "Chaqueta impermeable"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,berlin,Germany",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Berlin"
+    },
+    "Múnich": {
+      "country": "Alemania",
+      "emoji": "🇩🇪",
+      "images": [
+        "https://images.unsplash.com/photo-1595867818082-083862f3d630?auto=format&fit=crop&w=900&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Vista_panor%C3%A1mica_desde_Olympiapark%2C_M%C3%BAnich%2C_Alemania_2012-04-28%2C_DD_03.JPG/960px-Vista_panor%C3%A1mica_desde_Olympiapark%2C_M%C3%BAnich%2C_Alemania_2012-04-28%2C_DD_03.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Munich%2C_Nuevo_Ayuntamiento_01.jpg/960px-Munich%2C_Nuevo_Ayuntamiento_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Historische_Altstadt_Muenchen_01.JPG/960px-Historische_Altstadt_Muenchen_01.JPG"
+      ],
+      "climate": {
+        "sunrise": "5:20 AM",
+        "sunset": "9:00 PM",
+        "temp": "10–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado",
+        "packing": "Chaqueta ligera y zapatos cómodos"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,munich,Germany",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Munich"
+    },
+    "Milán": {
+      "country": "Italia",
+      "emoji": "🇮🇹",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Milan_Cathedral_%28Duomo_di_Milano%29.jpg/960px-Milan_Cathedral_%28Duomo_di_Milano%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Galleria-Vittorio-Emanuele-II_Milan.jpg/960px-Galleria-Vittorio-Emanuele-II_Milan.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Milano_Porta_Nuova_1.jpg/960px-Milano_Porta_Nuova_1.jpg"
+      ],
+      "climate": {
+        "sunrise": "5:48 AM",
+        "sunset": "8:50 PM",
+        "temp": "14–23°C",
+        "weatherIcon": "🌧️",
+        "weather": "Lluvia",
+        "packing": "Ropa por capas y zapatos cómodos"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,milan,Italy",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Milan"
+    },
+    "Florencia": {
+      "country": "Italia",
+      "emoji": "🇮🇹",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Panorama_of_the_Ponte_Vecchio_in_Florence%2C_Italy.jpg/960px-Panorama_of_the_Ponte_Vecchio_in_Florence%2C_Italy.jpg"
+      ],
+      "climate": {
+        "sunrise": "6:00 AM",
+        "sunset": "8:15 PM",
+        "temp": "12–20°C",
+        "weatherIcon": "⛅",
+        "weather": "Variable",
+        "packing": "Ropa por capas y zapatos cómodos"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,florence,Italy",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Florence"
+    },
+    "Colmar": {
+      "country": "Francia",
+      "emoji": "🇫🇷",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Colmar-Petite_Venise_%283%29.jpg/960px-Colmar-Petite_Venise_%283%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Maison_Pfister_Colmar_2011-04.jpg/960px-Maison_Pfister_Colmar_2011-04.jpg"
+      ],
+      "climate": {
+        "sunrise": "6:05 AM",
+        "sunset": "8:49 PM",
+        "temp": "9–19°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna",
+        "packing": "Chaqueta ligera y zapatos cómodos"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,colmar,France",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Colmar"
+    },
+    "Basilea": {
+      "country": "Suiza",
+      "emoji": "🇨🇭",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Basel_skyline.jpg/960px-Basel_skyline.jpg"
+      ],
+      "climate": {
+        "sunrise": "6:03 AM",
+        "sunset": "8:49 PM",
+        "temp": "9–19°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna",
+        "packing": "Chaqueta ligera y zapatos cómodos"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,basel,Switzerland",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Basel"
+    },
+    "Diavolezza": {
+      "country": "Suiza",
+      "emoji": "🇨🇭",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Diavolezza.jpg/960px-Diavolezza.jpg"
+      ],
+      "climate": {
+        "sunrise": "5:40 AM",
+        "sunset": "8:52 PM",
+        "temp": "-5–2°C",
+        "weatherIcon": "⛅",
+        "weather": "Parcialmente nublado",
+        "packing": "Ropa de abrigo tipo montaña y gafas de sol para la nieve"
+      },
+      "weatherSourceUrl": "https://www.weather-and-climate.com/average-monthly-Rainfall-Temperature-Sunshine,pontresina,Switzerland",
+      "sunSourceUrl": "https://sunrise-sunset.org/search?location=Diavolezza"
+    },
+    "En el mar": {
+      "country": "Mediterráneo",
+      "emoji": "🛳️",
+      "images": [
+        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Cruising_into_the_sunset_%28Explored%29_-_Flickr_-_M_McBey.jpg/960px-Cruising_into_the_sunset_%28Explored%29_-_Flickr_-_M_McBey.jpg",
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "5:45 AM",
+        "sunset": "8:03 PM",
+        "temp": "10–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna",
+        "packing": "Traje de baño y ropa casual"
+      },
+      "weatherSourceUrl": null,
+      "sunSourceUrl": null
+    },
+    "Orlando": {
+      "country": "Estados Unidos",
+      "emoji": "🇺🇸",
+      "images": [
+        "https://images.unsplash.com/photo-1578089815509-ed664d5b66d3?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1597466599360-3b9775841aec?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1524008279394-3aed4643b30b?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "7:20 AM",
+        "sunset": "7:26 PM",
+        "temp": "16–27°C",
+        "weatherIcon": "☀️",
+        "weather": "Soleado",
+        "packing": "Ropa ligera, bloqueador solar y gorra"
+      },
+      "weatherSourceUrl": null,
+      "sunSourceUrl": null
+    },
+    "Los Ángeles": {
+      "country": "Estados Unidos",
+      "emoji": "🇺🇸",
+      "images": [
+        "https://images.unsplash.com/photo-1597982087634-9884f03198ce?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "6:50 AM",
+        "sunset": "7:10 PM",
+        "temp": "10–21°C",
+        "weatherIcon": "☀️",
+        "weather": "Soleado",
+        "packing": "Chaqueta ligera para la noche"
+      },
+      "weatherSourceUrl": null,
+      "sunSourceUrl": null
+    },
+    "Tokio": {
+      "country": "Japón",
+      "emoji": "🇯🇵",
+      "images": [
+        "https://images.unsplash.com/photo-1547448526-5e9d57fa28f7?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "5:35 AM",
+        "sunset": "5:55 PM",
+        "temp": "7–14°C",
+        "weatherIcon": "🌸",
+        "weather": "Parcialmente nublado (temporada de cerezos)",
+        "packing": "Chaqueta de abrigo, capas ligeras"
+      },
+      "weatherSourceUrl": null,
+      "sunSourceUrl": null
+    },
+    "Osaka": {
+      "country": "Japón",
+      "emoji": "🇯🇵",
+      "images": [
+        "https://images.unsplash.com/photo-1575489129683-4f7d23379975?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "6:00 AM",
+        "sunset": "6:15 PM",
+        "temp": "8–16°C",
+        "weatherIcon": "🌤️",
+        "weather": "Parcialmente nublado",
+        "packing": "Chaqueta de abrigo, capas ligeras"
+      },
+      "weatherSourceUrl": null,
+      "sunSourceUrl": null
+    },
+    "En vuelo": {
+      "country": "En tránsito",
+      "emoji": "✈️",
+      "images": [
+        "https://images.unsplash.com/photo-1565444007614-6b38c78224df?auto=format&fit=crop&w=900&q=80"
+      ],
+      "climate": {
+        "sunrise": "—",
+        "sunset": "—",
+        "temp": "N/A",
+        "weatherIcon": "✈️",
+        "weather": "En tránsito",
+        "packing": "Documentos de viaje y entretenimiento para el vuelo"
+      },
+      "weatherSourceUrl": null,
+      "sunSourceUrl": null
+    }
+  }
+}

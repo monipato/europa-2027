@@ -10,9 +10,8 @@ interface ExchangeRatesCardProps {
 }
 
 /** Reference exchange rates card, shown both on the trip-selection screen and
- * in the itinerary planner header. Rates come from the workbook's "Tasas de
- * Cambio" sheet (see `read_rates` in `scripts/generate_data.py`) — they are
- * informational only and are not used to convert any displayed amount. */
+ * in the itinerary planner header. Rates come from `data/rates.json` — they
+ * are informational only and are not used to convert any displayed amount. */
 export function ExchangeRatesCard({ className, occupancyNote }: ExchangeRatesCardProps) {
   return (
     <div className={className ? `rates-card ${className}` : 'rates-card'}>

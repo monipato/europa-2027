@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, ChevronDown, ChevronLeft, ChevronRight, ExternalLink, MapPin, X } from 'lucide-react'
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Download, ExternalLink, MapPin, X } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
 import { CATEGORY_META } from '../categoryMeta'
 import { formatCOP, formatExpenseAmount } from '../utils/currency'
+import { expenseLinkLabel, isDownloadableLink } from '../utils/expenseLink'
 import { getDayDisplayLabel } from '../utils/dayDisplay'
 import { assignDuckStickers } from '../utils/duckStickers'
 import { assignTourDucks } from '../utils/tourDuck'
@@ -281,9 +282,14 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
               <div className="expense-info">
                 <strong>{expense.title}</strong>
                 <span>{expense.category}{expense.note && ` · ${expense.note}`}</span>
-                {expense.link && (
+                {expense.link && isDownloadableLink(expense.link) && (
+                  <a href={expense.link} download rel="noreferrer">
+                    {expenseLinkLabel(expense.link)} <Download size={14} />
+                  </a>
+                )}
+                {expense.link && !isDownloadableLink(expense.link) && (
                   <a href={expense.link} target="_blank" rel="noreferrer">
-                    Ver tour o sitio web <ExternalLink size={14} />
+                    {expenseLinkLabel(expense.link)} <ExternalLink size={14} />
                   </a>
                 )}
               </div>

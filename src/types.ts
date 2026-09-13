@@ -2,9 +2,9 @@
  * UI-facing domain types.
  *
  * The itinerary data itself (trip options, days, expenses) is generated from
- * the quote spreadsheet — see `src/data/generated/itinerary.generated.ts`
- * and `scripts/generate_data.py`. This file only holds types used to
- * *render* that data.
+ * data/*.json — see `src/data/generated/itinerary.generated.ts` and
+ * `scripts/generate_data.py`. This file only holds types used to *render*
+ * that data.
  */
 
 /**

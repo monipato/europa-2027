@@ -1,0 +1,76 @@
+{
+  "name": "Orlando con Pachito y Vale",
+  "description": "Disney World, Universal y Epic Universe — 2 adultos + adolescente (13) y niño (9)",
+  "color": "#ed7d31",
+  "rateUsdToCop": 3120.0,
+  "composition": {
+    "adultsCount": 3,
+    "childrenCount": 1,
+    "childAgeLabel": "9",
+    "hasAdolescent": true
+  },
+  "budget": {
+    "flightAdultUnit": 680.0,
+    "flightChildUnit": 680.0,
+    "hotelTotal": 2560.0,
+    "disneyAdultUnit": 773.12,
+    "disneyChildUnit": 753.73,
+    "universalAdultUnit": 238.55,
+    "universalChildUnit": 231.4,
+    "epicAdultUnit": 206.27,
+    "epicChildUnit": 200.08,
+    "foodAdultPerDay": 55.0,
+    "foodChildPerDay": 35.0,
+    "uberTotal": 70.0,
+    "photopass": 110.0,
+    "souvenirs": 200.0,
+    "tips": 100.0
+  },
+  "dayPlans": [
+    {
+      "dayKey": "20 MAR",
+      "planNote": "Día libre en familia — piscina del resort, Disney Springs, descanso. Sin plan de parque.",
+      "planNoteCaption": null
+    },
+    {
+      "dayKey": "21 MAR",
+      "planNote": "• Mañana: Space Mountain (44\"), TRON Lightcycle / Run (48\"), Big Thunder Mountain\n• Mediodía: Seven Dwarfs Mine Train, Pirates of the Caribbean, Haunted Mansion\n• Tarde: Tiana's Bayou Adventure (40\"), Tomorrowland Speedway (13 años puede manejar solo, 54\")\n• Noche: fuegos artificiales cerca del castillo",
+      "planNoteCaption": "TRON requiere 48\" — verificar altura del de 9 años."
+    },
+    {
+      "dayKey": "22 MAR",
+      "planNote": "• Mañana: Guardians of the Galaxy: Cosmic Rewind (42\"), Test Track (40\")\n• Mediodía: Mission: SPACE, Soarin'\n• Tarde: World Showcase con más autonomía para el de 13",
+      "planNoteCaption": "El de 13 ya disfruta la parte cultural de World Showcase."
+    },
+    {
+      "dayKey": "23 MAR",
+      "planNote": "• Mañana: VelociCoaster (51\"), Jurassic World, Hagrid's Magical Creatures Motorbike Adventure (48\")\n• Mediodía: The Amazing Adventures of Spider-Man (40\"), Hollywood Rip Ride Rockit (51\")\n• Tarde: Harry Potter and the Forbidden Journey, Escape from Gringotts",
+      "planNoteCaption": "Si el de 9 no llega a 48-51\", usar Child Swap / Single Rider."
+    },
+    {
+      "dayKey": "24 MAR",
+      "planNote": "• Mañana: Rise of the Resistance, Millennium Falcon: Smugglers Run\n• Mediodía: Tower of Terror, Rock 'n' Roller Coaster\n• Tarde: Toy Story Land, Star Tours\n• Noche: Fantasmic",
+      "planNoteCaption": "Galaxy's Edge es el sector estrella para el de 13."
+    },
+    {
+      "dayKey": "25 MAR",
+      "planNote": "• Mañana: Stardust Racers (42\", coaster insignia), Harry Potter and the Battle at the Ministry (40\")\n• Mediodía: Monsters Unchained (48\"), Curse of the Werewolf (40\")\n• Tarde: Hiccup's Wing Gliders (40\"), Mario Kart: Bowser's Challenge (40\")\n• El de 9 puede necesitar Child Swap en Stardust Racers/Monsters Unchained (48\"+)",
+      "planNoteCaption": "Stardust Racers y Battle at the Ministry son de lo más esperado del parque."
+    },
+    {
+      "dayKey": "26 MAR",
+      "planNote": "• Mañana: Avatar Flight of Passage (44\"), Expedition Everest (44\")\n• Mediodía: Kali River Rapids (38\", se mojan), Kilimanjaro Safaris junto a la familia\n• Tarde: Na'vi River Journey, Dinosaur (40\")",
+      "planNoteCaption": "Expedition Everest y Flight of Passage son de lo mejor del parque para esta edad."
+    },
+    {
+      "dayKey": "27 MAR",
+      "planNote": "Día libre en familia — piscina del resort, Disney Springs, descanso. Sin plan de parque.",
+      "planNoteCaption": null
+    },
+    {
+      "dayKey": "28 MAR",
+      "planNote": "Check-out, traslado al aeropuerto, vuelo de regreso a Bogotá.",
+      "planNoteCaption": null
+    }
+  ]
+}

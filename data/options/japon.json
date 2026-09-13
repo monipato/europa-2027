@@ -1,0 +1,331 @@
+{
+  "name": "Japón",
+  "dates": "19 – 28 mar 2027",
+  "color": "#c0504d",
+  "description": "Tokyo Disney Resort + Universal Studios Japan — 4 adultos + adolescente (13) y niño (9)",
+  "peopleCount": 6,
+  "composition": {
+    "adults": 4,
+    "adolescents": 1,
+    "children": 1
+  },
+  "jpyPerUsd": 152.0,
+  "days": [
+    {
+      "dayKey": "19 MAR",
+      "city": "Los Ángeles",
+      "title": "Vuelo a Los Ángeles",
+      "dayKind": "flight",
+      "items": [
+        {
+          "category": "Transporte",
+          "title": "Vuelo internacional Bogotá → Los Ángeles (ida y vuelta)",
+          "currency": "COP",
+          "unitAmount": 2017294,
+          "quantity": 6,
+          "note": "Volaris, BOG 1:07pm (hora Colombia) → Guadalajara (GDL) 5:26pm local ✅; escala 3h25 (sale 8:51pm) → LAX 11:18pm local ✅. Duración total 12h11. Precio confirmado (Google Flights). Incluye tramo de regreso.",
+          "place": "Bogotá / Japón",
+          "link": "https://www.google.com/travel/flights"
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel cerca de LAX — costo total (2 noches)",
+          "currency": "USD",
+          "unitAmount": 520,
+          "quantity": 1,
+          "note": "Hyatt Regency Los Angeles Airport — shuttle gratis 24/7. 2 noches no seguidas (ida y vuelta), 2 habitaciones.",
+          "link": "https://www.hyatt.com/hyatt-regency/en-US/laxla-hyatt-regency-los-angeles-international-airport"
+        },
+        {
+          "category": "Transporte",
+          "title": "Transporte local (Narita, metro Tokio/Osaka, shuttle LAX)",
+          "currency": "USD",
+          "unitAmount": 750,
+          "quantity": 1,
+          "note": "Estimado para todo el viaje, compartido entre el grupo.",
+          "link": null
+        },
+        {
+          "category": "Otros",
+          "title": "Souvenirs y varios",
+          "currency": "USD",
+          "unitAmount": 240,
+          "quantity": 1,
+          "note": "Estimado para todo el viaje, compartido entre el grupo.",
+          "link": null
+        },
+        {
+          "category": "Comida",
+          "title": "Comidas a bordo",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Incluidas en el vuelo internacional.",
+          "place": "—",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "20 MAR",
+      "city": "Los Ángeles",
+      "title": "Día libre en Los Ángeles",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Transporte",
+          "title": "Vuelo internacional Los Ángeles → Tokio (ida y vuelta)",
+          "currency": "COP",
+          "unitAmount": 2409162,
+          "quantity": 6,
+          "note": "STARLUX Airlines, LAX 11:50pm local ✅ → escala Taipéi (TPE) ~13h de vuelo, llega ~3:50-4:00am 🟡 estimado → sale Taipéi ~8:40am 🟡 estimado → Narita (NRT) 12:35pm hora Japón, 22 mar ✅. Precio confirmado (Kiwi.com/Google Flights). Incluye tramo de regreso.",
+          "place": "Bogotá / Japón",
+          "link": "https://www.google.com/travel/flights"
+        },
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día para las 9 días de comida del viaje.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "21 MAR",
+      "city": "En vuelo",
+      "title": "En tránsito (Los Ángeles → Tokio)",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día. Este día casi entero se va en el vuelo LAX → Tokio.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "22 MAR",
+      "city": "Tokio",
+      "title": "Llegada a Tokio",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Alojamiento",
+          "title": "Hotel MyStays Maihama — costo total (3 noches)",
+          "currency": "JPY",
+          "unitAmount": 136080,
+          "quantity": 1,
+          "note": "Habitación Triple Deluxe (2 camas dobles + 1 sofá cama), zona Maihama, junto a Tokyo Disney Resort. Reserva confirmada por Booking.com, check-in 22 mar 15:00–23:00, check-out 25 mar hasta las 10:00, 1 habitación para las 6 personas.",
+          "link": "/hoteles/tokio-mystays-maihama.pdf"
+        },
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día. Llegada NRT 12:35pm ✅, traslado a Maihama ~1-1.5h.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "23 MAR",
+      "city": "Tokio",
+      "title": "Tokyo Disneyland",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Tours",
+          "title": "Tickets Tokyo Disneyland + DisneySea (pase 2 días)",
+          "currency": "USD",
+          "tiers": [
+            {
+              "label": "adulto (18+)",
+              "unitAmount": 143.42105263157896,
+              "count": 4
+            },
+            {
+              "label": "adolescente 13 (Junior, 12-17)",
+              "unitAmount": 118.42105263157895,
+              "count": 1
+            },
+            {
+              "label": "niño de 9 años (4-11)",
+              "unitAmount": 73.6842105263158,
+              "count": 1
+            }
+          ],
+          "note": "Pase para Disneyland (hoy) + DisneySea (mañana), 1 parque/día. Tarifa estimada temporada alta — Tokyo Disney libera fechas de 2027 ~2 meses antes.",
+          "link": "https://www.tokyodisneyresort.jp/en/"
+        },
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "24 MAR",
+      "city": "Tokio",
+      "title": "Tokyo DisneySea",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día. Noche: show \"Believe! Sea of Dreams\" en Mediterranean Harbor, incluido en la entrada al parque.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "25 MAR",
+      "city": "Osaka",
+      "title": "Traslado a Osaka",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Transporte",
+          "title": "Shinkansen Tokio → Osaka (Nozomi, ida)",
+          "currency": "USD",
+          "unitAmount": 96.84210526315789,
+          "quantity": 6,
+          "note": "Tren bala, ~2h30, sin escalas, asiento reservado. US$96.84/persona.",
+          "link": "https://smart-ex.jp/en/"
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Sakurajima Building — costo total (2 noches)",
+          "currency": "JPY",
+          "unitAmount": 81935,
+          "quantity": 1,
+          "note": "Casa de 3 dormitorios, zona Konohana junto a Universal Studios Japan. Reserva confirmada por Booking.com, check-in 25 mar 16:00–00:00, check-out 27 mar hasta las 10:00, 1 casa para las 6 personas (incluye suplemento de limpieza).",
+          "link": "/hoteles/osaka-sakurajima.pdf"
+        },
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "26 MAR",
+      "city": "Osaka",
+      "title": "Universal Studios Japan",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Tours",
+          "title": "Ticket Universal Studios Japan (1 día)",
+          "currency": "USD",
+          "tiers": [
+            {
+              "label": "adulto/adolescente 13 (12+)",
+              "unitAmount": 78.28947368421052,
+              "count": 5
+            },
+            {
+              "label": "niño de 9 años (4-11)",
+              "unitAmount": 37.5,
+              "count": 1
+            }
+          ],
+          "note": "Super Nintendo World, The Wizarding World of Harry Potter, Minion Park. USJ usa solo 2 categorías de edad (no tiene tarifa 'junior' aparte).",
+          "link": "https://www.usj.co.jp/e/"
+        },
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "27 MAR",
+      "city": "Tokio",
+      "title": "Regreso a Tokio + vuelo a Los Ángeles",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Transporte",
+          "title": "Shinkansen Osaka → Tokio (Nozomi, vuelta)",
+          "currency": "USD",
+          "unitAmount": 96.84210526315789,
+          "quantity": 6,
+          "note": "Tren bala, ~2h30, sin escalas. US$96.84/persona.",
+          "link": "https://smart-ex.jp/en/"
+        },
+        {
+          "category": "Transporte",
+          "title": "Vuelo internacional Tokio → Los Ángeles (regreso)",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Incluido en la tarifa ida y vuelta del vuelo de ida. STARLUX: Narita 3:40pm ✅ → escala Taipéi ~5:35-11:45pm 🟡 estimado → LAX 8:05pm hora local, mismo día por cruce de línea de fecha ✅.",
+          "link": null
+        },
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "28 MAR",
+      "city": "Los Ángeles",
+      "title": "Vuelo de regreso a Bogotá",
+      "dayKind": null,
+      "items": [
+        {
+          "category": "Transporte",
+          "title": "Vuelo internacional Los Ángeles → Bogotá (regreso)",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Incluido en la tarifa ida y vuelta del vuelo de ida. COPA: LAX 2:28am ✅ → escala Panamá (PTY) ~10:28-11:50am hora Panamá 🟡 estimado → Bogotá 1:30pm hora Colombia ✅.",
+          "place": "Bogotá / Japón",
+          "link": null
+        },
+        {
+          "category": "Comida",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "USD",
+          "unitAmount": 40,
+          "quantity": 6,
+          "note": "Estimado: ~US$40/persona/día.",
+          "link": null
+        }
+      ]
+    }
+  ]
+}

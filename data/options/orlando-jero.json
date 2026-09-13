@@ -1,0 +1,76 @@
+{
+  "name": "Orlando con Jero",
+  "description": "Disney World, Universal y Epic Universe — 3 adultos + niño de 7 años",
+  "color": "#5b9bd5",
+  "rateUsdToCop": 3120.0,
+  "composition": {
+    "adultsCount": 3,
+    "childrenCount": 1,
+    "childAgeLabel": "7",
+    "hasAdolescent": false
+  },
+  "budget": {
+    "flightAdultUnit": 680.0,
+    "flightChildUnit": 680.0,
+    "hotelTotal": 2560.0,
+    "disneyAdultUnit": 773.12,
+    "disneyChildUnit": 753.73,
+    "universalAdultUnit": 238.55,
+    "universalChildUnit": 231.4,
+    "epicAdultUnit": 206.27,
+    "epicChildUnit": 200.08,
+    "foodAdultPerDay": 55.0,
+    "foodChildPerDay": 35.0,
+    "uberTotal": 70.0,
+    "photopass": 110.0,
+    "souvenirs": 200.0,
+    "tips": 100.0
+  },
+  "dayPlans": [
+    {
+      "dayKey": "20 MAR",
+      "planNote": "Día libre en familia — piscina del resort, Disney Springs, descanso. Sin plan de parque.",
+      "planNoteCaption": null
+    },
+    {
+      "dayKey": "21 MAR",
+      "planNote": "• Mañana: Seven Dwarfs Mine Train (38\"), Peter Pan's Flight, Jungle Cruise, it's a small world\n• Mediodía: Casey Jr. Splash 'N' Soak, almuerzo en Main Street\n• Tarde: The Barnstormer (35\"), Philharmonic, Enchanted Tiki Room\n• Noche: desfile / fuegos artificiales desde Main Street",
+      "planNoteCaption": "Mayoría de atracciones de MK no tienen requisito de altura."
+    },
+    {
+      "dayKey": "22 MAR",
+      "planNote": "• Mañana: Frozen Ever After, The Seas with Nemo & Friends, Turtle Talk with Crush\n• Mediodía: Journey of Water, Kidcot stops en World Showcase\n• Tarde: Recorrido por pabellones, snacks internacionales\n• Evitar: Guardians of the Galaxy (42\"), Test Track (40\") salvo que el niño llegue a esa altura",
+      "planNoteCaption": "Frozen Ever After y The Seas no tienen requisito de altura."
+    },
+    {
+      "dayKey": "23 MAR",
+      "planNote": "• Mañana: Camp Jurassic, Caro-Seuss-el, Cat in the Hat (36\"), One Fish Two Fish\n• Mediodía: Wizarding World Hogsmeade (tienda de varitas, Butterbeer)\n• Tarde: Hogwarts Express (sin restricción), show de personajes\n• Nota: Hagrid's (48\") y VelociCoaster (51\") no disponibles para 7 años típico",
+      "planNoteCaption": "Universal es más intenso que Disney en general."
+    },
+    {
+      "dayKey": "24 MAR",
+      "planNote": "• Mañana: Slinky Dog Dash (38\"), Toy Story Mania\n• Mediodía: Mickey and Minnie's Runaway Railway, Muppets Vision 3D\n• Tarde: Star Tours, Disney Junior show\n• Noche: Fantasmic (si el horario lo permite)",
+      "planNoteCaption": "Toy Story Land es el sector ideal para esta edad."
+    },
+    {
+      "dayKey": "25 MAR",
+      "planNote": "• Mañana: Yoshi's Adventure (34\", sin acompañante), Mine-Cart Madness (36\"/48\" solo)\n• Mediodía: Constellation Carousel (sin restricción), Dragon Racer's Rally (36\")\n• Tarde: Fyre Drill (sin restricción, se mojan), Power-Up Bands interactivas en Super Nintendo World\n• Evitar: Stardust Racers (42\"), Monsters Unchained (48\"), Hiccup's Wing Gliders (40\")",
+      "planNoteCaption": "Super Nintendo World e Isle of Berk son las zonas más accesibles del parque para 7 años."
+    },
+    {
+      "dayKey": "26 MAR",
+      "planNote": "• Mañana: Kilimanjaro Safaris (sin restricción), Na'vi River Journey (sin restricción)\n• Mediodía: The Boneyard, Finding Nemo show\n• Tarde: Gorilla Falls / Maharajah Jungle Trek, Festival of the Lion King\n• Si mide 44\"+: Avatar Flight of Passage junto al Grupo B",
+      "planNoteCaption": "Uno de los mejores parques para esta edad."
+    },
+    {
+      "dayKey": "27 MAR",
+      "planNote": "Día libre en familia — piscina del resort, Disney Springs, descanso. Sin plan de parque.",
+      "planNoteCaption": null
+    },
+    {
+      "dayKey": "28 MAR",
+      "planNote": "Check-out, traslado al aeropuerto, vuelo de regreso a Bogotá.",
+      "planNoteCaption": null
+    }
+  ]
+}

@@ -1,0 +1,1254 @@
+{
+  "name": "1 mes por Europa",
+  "dates": "7 – 31 may 2027",
+  "color": "#e9a34c",
+  "description": "Crucero por el Mediterráneo primero, luego Roma, París, Praga, Múnich y Berlín",
+  "peopleCount": 3,
+  "routeOverride": null,
+  "days": [
+    {
+      "dayKey": "07 MAY",
+      "city": "Barcelona",
+      "title": "Llegada a Barcelona",
+      "dayKind": "flight",
+      "weather": {
+        "sunrise": "6:39 AM",
+        "sunset": "8:56 PM",
+        "temp": "13–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo internacional Bogotá → Barcelona (ida y vuelta)",
+          "currency": "COP",
+          "unitAmount": 2740300.0,
+          "quantity": 3.0,
+          "note": "Iberia IB0156, BOG 12:35 (hora Colombia) → MAD 05:15 (+1, local); conexión → BCN 08:25 local. Incluye regreso",
+          "place": "Bogota / Barcelona",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado aeropuerto → hotel, Barcelona",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "España",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Barcelona — costo total (2 noches)",
+          "currency": "COP",
+          "unitAmount": 1900000.0,
+          "quantity": 1.0,
+          "note": "Sagrada Familia, 2 noches (7-9 may)",
+          "place": "Barcelona, España",
+          "date": "7 – 9 May (2 noches, pre-crucero)",
+          "link": "https://www.booking.com/hotel/es/sagradafamilia.es.html?aid=2311236&label=es-co-booking-desktop-vjGZbEFOhRc3a9njxeT3IwS652829002024%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp9246960%3Ali%3Adec%3Adm&sid=f6a1a9bb810c453f7b5f1225205f1f26&all_sr_blocks=9118812_91908190_0_2_0&checkin=2027-05-07&checkout=2027-05-09&dest_id=-372490&dest_type=city&dist=0&group_adults=3&group_children=0&hapos=1&highlighted_blocks=9118812_91908190_0_2_0&hpos=1&matching_block_id=9118812_91908190_0_2_0&no_rooms=1&req_adults=3&req_children=0&room1=A%2CA%2CA&sb_price_type=total&sr_order=popularity&sr_pri_blocks=9118812_91908190_0_2_0__37600&srepoch=1787875557&srpvid=a2d600b07c230149&type=total&ucfs=1"
+        },
+        {
+          "category": "Comidas",
+          "title": "Cena",
+          "currency": "EUR",
+          "unitAmount": 15.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Comidas a bordo",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Incluidas en el vuelo internacional",
+          "place": "—",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Seguro de Viaje",
+          "title": "Asistencia médica internacional",
+          "currency": "COP",
+          "unitAmount": 443970.0,
+          "quantity": 3.0,
+          "note": "Asistencia médica internacional, cobertura USD 60.000 (Cuponatic)",
+          "place": "Internacional",
+          "date": "7 – 31 May 2027 (25 días de cobertura)",
+          "link": "https://www.cuponatic.com.co/descuento/asistencia-medica-internacional-cobertura-de-usd-60-000?m=tarjetas-de-asistencia&id_descuento=212587"
+        },
+        {
+          "category": "Otros y Extras",
+          "title": "Imprevistos / gastos varios (contingencia)",
+          "currency": "EUR",
+          "unitAmount": 200.0,
+          "quantity": 3.0,
+          "note": "Aplica solo al plan corto — revisar si alcanza para 30 días",
+          "place": "—",
+          "date": "Contingencia",
+          "link": null
+        },
+        {
+          "category": "Otros y Extras",
+          "title": "SIM card de viaje (datos internacionales)",
+          "currency": "USD",
+          "unitAmount": 54.0,
+          "quantity": 1.0,
+          "note": "SIM compartida entre las 3 personas para 17 días del viaje",
+          "place": "—",
+          "date": "Durante el viaje",
+          "link": "https://esim.holafly.com/es/esim-europa/?selectedDays=17&startDate=2027-04-30&endDate=2027-05-16"
+        }
+      ]
+    },
+    {
+      "dayKey": "08 MAY",
+      "city": "Barcelona",
+      "title": "Tour Barcelona Modernista",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:38 AM",
+        "sunset": "8:57 PM",
+        "temp": "12–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Traslados",
+          "title": "Bus, 4 trayectos",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "8 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Tour Barcelona Modernista",
+          "currency": "USD",
+          "unitAmount": 10.0,
+          "quantity": 3.0,
+          "note": "Tour guiado por el Modernismo catalán en Barcelona",
+          "place": "Barcelona",
+          "date": "8 May 2027",
+          "link": "https://www.civitatis.com/es/barcelona/tour-barcelona-modernista/"
+        },
+        {
+          "category": "Comidas",
+          "title": "3 comidas",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "8 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Free tour Sagrada Familia",
+          "currency": "USD",
+          "unitAmount": 10.0,
+          "quantity": 3.0,
+          "note": "Free tour guiado por el exterior de la Sagrada Familia",
+          "place": "Barcelona",
+          "date": "8 May 2027",
+          "link": "https://www.civitatis.com/es/barcelona/free-tour-sagrada-familia/"
+        }
+      ]
+    },
+    {
+      "dayKey": "09 MAY",
+      "city": "Barcelona",
+      "title": "Embarque en Barcelona",
+      "dayKind": "embark",
+      "weather": {
+        "sunrise": "6:37 AM",
+        "sunset": "8:58 PM",
+        "temp": "13–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → puerto (embarque crucero), Barcelona",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "España",
+          "date": "9 May 2027",
+          "link": null
+        },
+        {
+          "category": "Crucero",
+          "title": "Crucero Barcelona → Ravena — tarifa por persona (cabina)",
+          "currency": "USD",
+          "unitAmount": 670.0,
+          "quantity": 3.0,
+          "note": "Crucero Barcelona-Ravena, 7 noches, incluye propinas",
+          "place": "Mediterráneo",
+          "date": "9 – 16 May (7 noches)",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        },
+        {
+          "category": "Comidas",
+          "title": "Desayuno",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "9 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "10 MAY",
+      "city": "En el mar",
+      "title": "Día de navegación",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:45 AM",
+        "sunset": "8:03 PM",
+        "temp": "10–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Otros y Extras",
+          "title": "Día de navegación",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Día de navegación, incluido en la tarifa del crucero",
+          "place": "Navegación",
+          "date": "10 May 2027",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluidas en el crucero (come a bordo)",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "Navegación",
+          "date": "10 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "11 MAY",
+      "city": "La Spezia",
+      "title": "Panoramic Pisa",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:57 AM",
+        "sunset": "8:36 PM",
+        "temp": "12–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Panoramic Pisa",
+          "currency": "USD",
+          "unitAmount": 70.0,
+          "quantity": 3.0,
+          "note": "Excursión panorámica por Pisa desde el crucero",
+          "place": "La Spezia (Florencia/Pisa)",
+          "date": "11 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/Y8RO?bookingId=3113096&shipCode=BR&sailDate=20270508"
+        },
+        {
+          "category": "Comidas",
+          "title": "Almuerzo en tierra",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 3.0,
+          "note": "Desayuno y cena incluidos en el crucero, almuerzo en Pisa/Florencia",
+          "place": "La Spezia (Florencia/Pisa)",
+          "date": "11 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "12 MAY",
+      "city": "Roma",
+      "title": "Visit to Rome",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:51 AM",
+        "sunset": "8:21 PM",
+        "temp": "13–24°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Visit to Rome",
+          "currency": "USD",
+          "unitAmount": 142.0,
+          "quantity": 3.0,
+          "note": "Excursión a Roma desde el crucero",
+          "place": "Civitavecchia (Roma)",
+          "date": "12 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/CV1F?bookingId=3113096&shipCode=BR&sailDate=20270508"
+        },
+        {
+          "category": "Comidas",
+          "title": "Almuerzo en tierra",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 3.0,
+          "note": "Desayuno y cena incluidos en el crucero, almuerzo en Roma",
+          "place": "Civitavecchia (Roma)",
+          "date": "12 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "13 MAY",
+      "city": "Salerno",
+      "title": "Tour a pie gratis",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:44 AM",
+        "sunset": "8:10 PM",
+        "temp": "14–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Tour a pie gratis",
+          "currency": "EUR",
+          "unitAmount": 0.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Salerno (Costa Amalfitana)",
+          "date": "13 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluida en el crucero (come a bordo)",
+          "currency": "EUR",
+          "unitAmount": 0.0,
+          "quantity": 3.0,
+          "note": "Comida incluida en el paquete del crucero, sin costo adicional",
+          "place": "Salerno (Costa Amalfitana)",
+          "date": "13 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "14 MAY",
+      "city": "En el mar",
+      "title": "Día de navegación",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:41 AM",
+        "sunset": "8:07 PM",
+        "temp": "11–22°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Otros y Extras",
+          "title": "Día de navegación",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Día de navegación, incluido en la tarifa del crucero",
+          "place": "Navegación",
+          "date": "14 May 2027",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluidas en el crucero (come a bordo)",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "Navegación",
+          "date": "14 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "15 MAY",
+      "city": "Zadar",
+      "title": "Día en Zadar",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:31 AM",
+        "sunset": "8:19 PM",
+        "temp": "14–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Traslados",
+          "title": "Transporte - Tour a pie gratis",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Zadar, Croacia",
+          "date": "15 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluida en el crucero (come a bordo)",
+          "currency": "EUR",
+          "unitAmount": 0.0,
+          "quantity": 3.0,
+          "note": "Comida incluida en el paquete del crucero, sin costo adicional",
+          "place": "Zadar, Croacia",
+          "date": "15 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "16 MAY",
+      "city": "Venecia",
+      "title": "Llegada a Venecia",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:37 AM",
+        "sunset": "8:36 PM",
+        "temp": "14–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Traslados",
+          "title": "Vaporetti ACTV",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 3.0,
+          "note": "Boletos de vaporetto (transporte acuático) por Venecia",
+          "place": "Venecia",
+          "date": "16 May 2027",
+          "link": "https://book.tickets-venice.com/es/book/8748/select/?_gl=1%2A1073ils%2A_gcl_aw%2AR0NMLjE3ODc4NzgwODMuRUFJYUlRb2JDaE1JaFpPNjdZekNsZ01Wd1lSYUJSM2Y1U1JPRUFBWUF5QUFFZ0tjeFBEX0J3RQ..%2A_gcl_au%2ANzIxMTA1MTQ5LjE3ODc4NzgwODMuLS4tLjE3ODc4NzgwODMuMTE2MDU2ODc1MS4xNzg3ODc4MDg0LjE3ODc4NzgwODM.%2A_ga%2ANDcyOTU3MzYyLjE3ODc4NzgwODM.%2A_ga_Y45PC9R73C%2AczE3ODc4NzgwODMkbzEkZzAkdDE3ODc4NzgwODQkajU5JGwwJGgw&cookieBanner=false&date=2027-05-15&tourId=15560&variantId=15560"
+        },
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Tren Ravenna - Venecia St Lucia",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 3.0,
+          "note": "Tren regional desde Ravenna hasta Venecia Santa Lucia",
+          "place": "Italia",
+          "date": "16 May 2027",
+          "link": "https://www.trenitalia.com/en.html"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado puerto → Estación Ravenna",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Italia",
+          "date": "16 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Venecia — costo total (1 noche)",
+          "currency": "EUR",
+          "unitAmount": 400.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "Venecia, Italia",
+          "date": "16 – 17 May (1 noche, post-crucero)",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Almuerzo y cena",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Rávena (Venecia)",
+          "date": "16 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Free tour Venecia",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 3.0,
+          "note": "Free tour guiado por el centro histórico de Venecia",
+          "place": "Venecia",
+          "date": "16 May 2027",
+          "link": "https://www.civitatis.com/es/venecia/free-tour-venecia/?_gl=1*1ijxuzi*_up*MQ..*_ga*ODU4MDQyNjAyLjE3ODc4Nzc2ODY.*_ga_QJQ54CTKPM*czE3ODc4Nzc2ODYkbzEkZzEkdDE3ODc4Nzc2OTEkajU1JGwwJGgxNTA2MDA0ODU0"
+        }
+      ]
+    },
+    {
+      "dayKey": "17 MAY",
+      "city": "Milán",
+      "title": "Llegada a Milán",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:48 AM",
+        "sunset": "8:50 PM",
+        "temp": "14–23°C",
+        "weatherIcon": "🌧️",
+        "weather": "Lluvia"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Tren Venecia → Milán, directo",
+          "currency": "EUR",
+          "unitAmount": 35.0,
+          "quantity": 3.0,
+          "note": "Frecciarossa, Venezia Santa Lucia → Milano Centrale, directo, ~2h27m",
+          "place": "Italia",
+          "date": "17 May 2027",
+          "link": "https://www.thetrainline.com/en/train-times/venezia-santa-lucia-to-milan-central-station"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → estación (tren a Milán), Venecia",
+          "currency": "EUR",
+          "unitAmount": 20.0,
+          "quantity": 1.0,
+          "note": "Estimado: vaporetto/water taxi compartido a la estación Santa Lucia (en Venecia no circulan autos), ~€20 total para el grupo con equipaje",
+          "place": "Italia",
+          "date": "17 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado estación → hotel, Milán",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 1.0,
+          "note": "Estimado: taxi corto desde Milano Centrale al hotel, ~10 min, €10-15",
+          "place": "Italia",
+          "date": "17 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Milán — costo por noche",
+          "currency": "EUR",
+          "unitAmount": 115.0,
+          "quantity": 3.0,
+          "note": "Recomendado: ibis Milano Centro, junto a Milano Centrale, 3 noches",
+          "place": "Milán, Italia",
+          "date": "17 – 20 May (3 noches)",
+          "link": "https://www.booking.com/landmark/it/centrale-fs.html"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Venecia",
+          "date": "17 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "18 MAY",
+      "city": "Milán",
+      "title": "Duomo di Milano y terrazas (entrada)",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:47 AM",
+        "sunset": "8:51 PM",
+        "temp": "14–23°C",
+        "weatherIcon": "🌧️",
+        "weather": "Lluvia"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Duomo di Milano y terrazas (entrada)",
+          "currency": "EUR",
+          "unitAmount": 16.0,
+          "quantity": 3.0,
+          "note": "Entrada terrazas con ascensor, precio oficial",
+          "place": "Milán",
+          "date": "18 May 2027",
+          "link": "https://ticket.duomomilano.it/en/categoria/terrazze/"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 57.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Milán",
+          "date": "18 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "19 MAY",
+      "city": "Diavolezza",
+      "title": "Alpine Wonders: almuerzo en Diavolezza y tren Bernina",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:40 AM",
+        "sunset": "8:52 PM",
+        "temp": "-5–2°C",
+        "weatherIcon": "⛅",
+        "weather": "Parcialmente nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Alpine Wonders: almuerzo en Diavolezza y tren Bernina",
+          "currency": "USD",
+          "unitAmount": 250.0,
+          "quantity": 3.0,
+          "note": "Excursión de día completo desde Milán, tren panorámico Bernina",
+          "place": "Milán",
+          "date": "19 May 2027",
+          "link": "https://www.tripadvisor.com/AttractionProductReview-g187849-d15090556-From_Milan_Alpine_Wonders_Lunch_at_Diavolezza_and_Bernina_Train-Milan_Lombardy.html"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 57.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Milán",
+          "date": "19 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "20 MAY",
+      "city": "París",
+      "title": "Llegada a París",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:00 AM",
+        "sunset": "9:33 PM",
+        "temp": "11–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Traslados",
+          "title": "Traslado aeropuerto → hotel, París",
+          "currency": "EUR",
+          "unitAmount": 50.0,
+          "quantity": 1.0,
+          "note": "Estimado: Uber/taxi desde el aeropuerto (CDG/Orly) al hotel, ~45-60 min, €45-60",
+          "place": "Francia",
+          "date": "20 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel París — costo por noche",
+          "currency": "EUR",
+          "unitAmount": 150.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Hôtel Augustin - Astotel, boutique 4*, a 1 min de Boulevard Haussmann y 500m de Gare Saint-Lazare (zona Opéra/Grands Boulevards, muy céntrica y bien conectada). Cadena Astotel, buena calificación en Booking (~8.5+)",
+          "place": "París, Francia",
+          "date": "20 – 23 May (3 noches)",
+          "link": "https://www.booking.com/budget/city/fr/paris.en-gb.html"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 62.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "París",
+          "date": "20 May 2027",
+          "link": null
+        },
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo interno Milán → París",
+          "currency": "EUR",
+          "unitAmount": 90.0,
+          "quantity": 3.0,
+          "note": "Vuelo low-cost (easyJet/Vueling), Milán → París, directo, ~1h35m. Maleta de mano incluida; facturada aparte",
+          "place": "Italia / Francia",
+          "date": "20 May 2027",
+          "link": "https://www.skyscanner.net/routes/mila/pari/milan-to-paris.html"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → aeropuerto, Milán",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 1.0,
+          "note": "Estimado: taxi tarifa fija al aeropuerto (Linate/Malpensa), ~30-45 min, €30-45",
+          "place": "Italia",
+          "date": "20 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "21 MAY",
+      "city": "París",
+      "title": "Entrada Disneyland Paris — 1 día / 2 parques",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:59 AM",
+        "sunset": "9:34 PM",
+        "temp": "11–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Entrada Disneyland Paris — 1 día / 2 parques",
+          "currency": "EUR",
+          "unitAmount": 110.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Ticket 1 día / 2 parques, tarifa media temporada",
+          "place": "Francia",
+          "date": "21 May 2027",
+          "link": "https://www.attractiontickets.com/en/paris-attraction-tickets/disneyland-paris-tickets/1-day-2-parks-disneyland-paris-hopper-ticket"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 62.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "París",
+          "date": "21 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "22 MAY",
+      "city": "París",
+      "title": "Crucero por el Sena",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:58 AM",
+        "sunset": "9:35 PM",
+        "temp": "11–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Crucero por el Sena",
+          "currency": "EUR",
+          "unitAmount": 19.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Crucero panorámico Bateaux Mouches, 1h10m",
+          "place": "Francia",
+          "date": "22 May 2027",
+          "link": "https://ryo.co/en/articles/france/paris/how-to-take-seine-cruise-paris/"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 62.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "París",
+          "date": "22 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "23 MAY",
+      "city": "Praga",
+      "title": "Llegada a Praga",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:04 AM",
+        "sunset": "8:53 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo interno París → Praga",
+          "currency": "EUR",
+          "unitAmount": 85.0,
+          "quantity": 3.0,
+          "note": "Vuelo low-cost, París → Praga, directo, ~1h50m. Maleta de mano incluida; facturada aparte",
+          "place": "Francia / Rep. Checa",
+          "date": "23 May 2027",
+          "link": "https://www.skyscanner.com/routes/pari/prg/paris-to-prague.html"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → aeropuerto, París",
+          "currency": "EUR",
+          "unitAmount": 50.0,
+          "quantity": 1.0,
+          "note": "Estimado: Uber/taxi al aeropuerto (CDG/Orly), ~45-60 min, €45-60",
+          "place": "Francia",
+          "date": "23 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado aeropuerto → hotel, Praga",
+          "currency": "EUR",
+          "unitAmount": 28.0,
+          "quantity": 1.0,
+          "note": "Estimado: Uber/taxi desde el aeropuerto de Praga al hotel (Nové Město), ~20-25 min, €25-30",
+          "place": "Rep. Checa",
+          "date": "23 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Praga — costo por noche",
+          "currency": "CZK",
+          "unitAmount": 2000.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Mosaic House Design Hotel, Odborů 4, Praga 2 (Nové Město / Ciudad Nueva), a 10 min caminando de la Plaza de la Ciudad Vieja. Calificación ~8.5/10 en Booking, buena relación precio-ubicación",
+          "place": "Praga, Rep. Checa",
+          "date": "23 – 26 May (3 noches)",
+          "link": "https://www.helloprague.net/budget-hotels-prague/"
+        },
+        {
+          "category": "Comidas",
+          "title": "Cena",
+          "currency": "CZK",
+          "unitAmount": 280.0,
+          "quantity": 3.0,
+          "note": "Cena de llegada",
+          "place": "Praga",
+          "date": "23 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "24 MAY",
+      "city": "Praga",
+      "title": "Castillo de Praga + Puente de Carlos con guía",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:03 AM",
+        "sunset": "8:55 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Castillo de Praga + Puente de Carlos con guía",
+          "currency": "CZK",
+          "unitAmount": 1150.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Tour guiado interiores (Salón Dorado, Catedral San Vito, Basílica San Jorge, Palacio Real Viejo), incluye entradas",
+          "place": "Rep. Checa",
+          "date": "24 May 2027",
+          "link": "https://www.tours-prague.eu/tour-castleinter.phtml"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "CZK",
+          "unitAmount": 700.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Praga",
+          "date": "24 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "25 MAY",
+      "city": "Praga",
+      "title": "Crucero por el río Moldava",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:01 AM",
+        "sunset": "8:56 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Crucero por el río Moldava",
+          "currency": "CZK",
+          "unitAmount": 500.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Crucero panorámico 1h por el Moldava",
+          "place": "Rep. Checa",
+          "date": "25 May 2027",
+          "link": "https://www.viator.com/tours/Prague/Panoramic-Vltava-River-Cruise/d462-10919P19"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "CZK",
+          "unitAmount": 700.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Praga",
+          "date": "25 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "26 MAY",
+      "city": "Múnich",
+      "title": "Llegada a Múnich",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:20 AM",
+        "sunset": "9:00 PM",
+        "temp": "10–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Tren de alta velocidad Praga → Múnich",
+          "currency": "EUR",
+          "unitAmount": 50.0,
+          "quantity": 3.0,
+          "note": "Tren EuroCity, Praga → Múnich Hbf, directo, ~5h43m. Equipaje incluido sin cargo extra",
+          "place": "Rep. Checa / Alemania",
+          "date": "26 May 2027",
+          "link": "https://www.seat61.com/trains-and-routes/munich-to-prague-by-train.htm"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado estación → hotel, Múnich",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 1.0,
+          "note": "Estimado: el hotel está muy cerca de la Estación Central, Uber corto o caminando, €8-12",
+          "place": "Alemania",
+          "date": "26 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Múnich — costo por noche",
+          "currency": "EUR",
+          "unitAmount": 130.0,
+          "quantity": 2.0,
+          "note": "Recomendado: Eden Hotel Wolff, cerca de la Estación Central de Múnich (Hauptbahnhof), ~10-15 min a pie o en tranvía a Marienplatz. 4*, buena relación calidad-precio según reseñas",
+          "place": "Múnich, Alemania",
+          "date": "26 – 28 May (2 noches)",
+          "link": "https://www.travelocity.com/Marienplatz-Hotels.0-l508534-0.Travel-Guide-Filter-Hotels"
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Tour a pie Múnich (Marienplatz, Jardín Inglés)",
+          "currency": "USD",
+          "unitAmount": 23.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Tour a pie 2h, Marienplatz + Jardín Inglés",
+          "place": "Alemania",
+          "date": "26 May 2027",
+          "link": "https://www.travelersuniverse.com/munich-city-marienplatz-and-english-garden-walking-tour/"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → estación, Múnich",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 1.0,
+          "note": "Estimado: el hotel está muy cerca de la Estación Central, Uber corto o caminando, €8-12",
+          "place": "Alemania",
+          "date": "26 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Cena",
+          "currency": "EUR",
+          "unitAmount": 20.0,
+          "quantity": 3.0,
+          "note": "Cena de llegada",
+          "place": "Múnich",
+          "date": "26 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "27 MAY",
+      "city": "Múnich",
+      "title": "Excursión Castillo de Neuschwanstein",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:19 AM",
+        "sunset": "9:01 PM",
+        "temp": "10–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 52.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Múnich",
+          "date": "27 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Excursión Castillo de Neuschwanstein",
+          "currency": "EUR",
+          "unitAmount": 80.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Excursión de día completo desde Múnich, incluye transporte + guía + entrada al castillo",
+          "place": "Alemania",
+          "date": "27 May 2027",
+          "link": "https://www.machupicchu.org/best-neuschwanstein-castle-tours-2026-complete-guide.htm"
+        }
+      ]
+    },
+    {
+      "dayKey": "28 MAY",
+      "city": "Berlín",
+      "title": "Llegada a Berlín",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "4:51 AM",
+        "sunset": "9:16 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Tren de alta velocidad Múnich → Berlín",
+          "currency": "EUR",
+          "unitAmount": 55.0,
+          "quantity": 3.0,
+          "note": "Tren ICE (Intercity Express), Múnich Hbf → Berlín Hbf, directo, ~3h53m. Equipaje incluido sin cargo extra",
+          "place": "Alemania",
+          "date": "28 May 2027",
+          "link": "https://rail.cc/train/berlin-to-munich"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado estación → hotel, Berlín",
+          "currency": "EUR",
+          "unitAmount": 18.0,
+          "quantity": 1.0,
+          "note": "Estimado: Uber/taxi desde Berlín Hbf al hotel (Alexanderplatz/Mitte), ~15 min, €15-20",
+          "place": "Alemania",
+          "date": "28 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Berlín — costo por noche",
+          "currency": "EUR",
+          "unitAmount": 95.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Motel One Berlin-Alexanderplatz, Mitte, muy cerca de Alexanderplatz y bien conectado en metro/tren. Calificación 9.2/10 en Booking - excelente para el precio",
+          "place": "Berlín, Alemania",
+          "date": "28 – 31 May (3 noches)",
+          "link": "https://www.expedia.com/Mitte-Berlin-Hotels-Cheap-Hotels.0-n178779-0-tCheapHotels.Travel-Guide-Filter-Hotels"
+        },
+        {
+          "category": "Comidas",
+          "title": "Cena",
+          "currency": "EUR",
+          "unitAmount": 15.0,
+          "quantity": 3.0,
+          "note": "Cena de llegada",
+          "place": "Berlín",
+          "date": "28 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "29 MAY",
+      "city": "Berlín",
+      "title": "Tour histórico Berlín (Muro, Reichstag, East Side Gallery)",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "4:50 AM",
+        "sunset": "9:17 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Tour histórico Berlín (Muro, Reichstag, East Side Gallery)",
+          "currency": "USD",
+          "unitAmount": 30.0,
+          "quantity": 3.0,
+          "note": "Recomendado: Tour a pie medio día, Muro/Reichstag/East Side Gallery",
+          "place": "Alemania",
+          "date": "29 May 2027",
+          "link": "https://www.viator.com/Berlin-attractions/Berlin-Wall/d488-a637"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Berlín",
+          "date": "29 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "30 MAY",
+      "city": "Berlín",
+      "title": "Isla de los Museos - tour guiado (Pérgamo, Neues Museum, etc.)",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "4:49 AM",
+        "sunset": "9:18 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Tours y Excursiones",
+          "title": "Isla de los Museos - tour guiado (Pérgamo, Neues Museum, etc.)",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 3.0,
+          "note": "Recomendado - día completo de 5 museos, mejor con guía",
+          "place": "Alemania",
+          "date": "30 May 2027",
+          "link": "https://www.getyourguide.com/museum-island-l3075/"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Berlín",
+          "date": "30 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "31 MAY",
+      "city": "Berlín",
+      "title": "Vuelo de regreso",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "4:48 AM",
+        "sunset": "9:19 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → aeropuerto, Berlín",
+          "currency": "EUR",
+          "unitAmount": 65.0,
+          "quantity": 1.0,
+          "note": "Estimado: Uber/taxi al aeropuerto BER desde Alexanderplatz/Mitte, ~35-45 min, €60-75",
+          "place": "Alemania",
+          "date": "31 May 2027",
+          "link": null
+        },
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo internacional Berlín → Bogotá (regreso)",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Iberia IB0782, BER 11:35 local → MAD 14:50; conexión IB0153 → BOG 20:00 (hora Colombia). Incluido en ida",
+          "place": "Alemania / Colombia",
+          "date": "31 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 52.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Berlín",
+          "date": "31 May 2027",
+          "link": null
+        }
+      ]
+    }
+  ]
+}

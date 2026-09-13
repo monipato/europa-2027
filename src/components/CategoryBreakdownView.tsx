@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
-import { ExternalLink, X } from 'lucide-react'
+import { Download, ExternalLink, X } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
 import { CATEGORY_META } from '../categoryMeta'
 import { formatCOP, formatExpenseAmount } from '../utils/currency'
 import { collectExpensesByCategory, sumExpensesByCategory } from '../utils/tripStats'
+import { expenseLinkLabel, isDownloadableLink } from '../utils/expenseLink'
 
 interface CategoryBreakdownViewProps {
   days: GeneratedDay[]
@@ -73,9 +74,14 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
                 <strong>{expense.title}</strong>
                 {expense.note && <p>{expense.note}</p>}
                 <b>{formatExpenseAmount(expense)}</b>
-                {expense.link && (
+                {expense.link && isDownloadableLink(expense.link) && (
+                  <a href={expense.link} download rel="noreferrer">
+                    {expenseLinkLabel(expense.link)} <Download size={13} />
+                  </a>
+                )}
+                {expense.link && !isDownloadableLink(expense.link) && (
                   <a href={expense.link} target="_blank" rel="noreferrer">
-                    Ver tour o sitio web <ExternalLink size={13} />
+                    {expenseLinkLabel(expense.link)} <ExternalLink size={13} />
                   </a>
                 )}
               </div>
