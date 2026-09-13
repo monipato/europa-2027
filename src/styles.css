@@ -276,7 +276,12 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   .day-hero-overlay{left:17px;bottom:14px}
   .day-hero img.day-duck-sticker{width:48px;right:12px;bottom:10px}
   .day-hero-overlay h2{font-size:24px}
-  .day-conditions{padding:12px 16px 0}
+  /* Wrap instead of the base rule's horizontal scroll: on a narrow phone
+     these 4 chips don't fit on one line anyway, and a scrollable row put
+     "Qué llevar" at a fixed spot that landed right under .chat-fab (fixed,
+     bottom-right) — half-hidden, or a forced swipe to reach it either way.
+     Wrapping drops it to its own second line, clear of the fab entirely. */
+  .day-conditions{padding:12px 16px 0;flex-wrap:wrap;overflow-x:visible;row-gap:8px}
   .climate-away-note{margin:10px 16px 0}
   .day-condition{font-size:11px;padding:7px 8px}
   .packing-modal-stats{grid-template-columns:repeat(3,1fr)}
@@ -346,7 +351,9 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
 
 .chat-inline-cta{display:inline-flex;align-items:center;gap:9px;margin:0 24px 18px;padding:11px 16px;border-radius:11px;background:var(--bg-accent);color:var(--text-on-accent-muted);font-weight:600;font-size:13.5px;width:fit-content;transition:background .15s}
 .chat-inline-cta:hover{filter:brightness(0.97)}
-@media(max-width:640px){.chat-inline-cta{margin:0 17px 16px}}
+/* Same .chat-fab clearance as .day-conditions above — this banner sits
+   right below it and was getting its trailing text covered too. */
+@media(max-width:640px){.chat-inline-cta{margin:0 76px 16px 17px}}
 
 /* `bottom` clears Netlify's own "Powered by Netlify" badge (free-tier
    hosting), same reason .chat-fab sits above it instead of at the page
