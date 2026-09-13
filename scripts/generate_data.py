@@ -367,8 +367,8 @@ def build_disney_option(doc: dict[str, object]) -> dict[str, object]:
                 "note": "Incluido en la tarifa ida y vuelta del vuelo de ida.", "place": "Orlando", "date": "", "link": None,
             })
 
-        climate = city_climate("Orlando")
         day_plan = doc["dayPlans"][index]
+        climate = {**city_climate("Orlando"), **day_plan["weather"]}
         has_tours = any(e["category"] == "Tours" for e in expenses)
         has_lodging = any(e["category"] == "Alojamiento" for e in expenses)
         day_kind_final = "flight" if is_first else None
@@ -449,7 +449,7 @@ def build_japan_option(doc: dict[str, object], rate_usd_to_cop: float, rate_jpy_
     for index, day_doc in enumerate(day_docs):
         is_last = index == len(day_docs) - 1
         city = day_doc["city"]
-        climate = city_climate(city)
+        climate = {**city_climate(city), **day_doc["weather"]}
         expenses = [build_japan_expense(item, people_count, rate_usd_to_cop, rate_jpy_to_cop) for item in day_doc["items"]]
         has_lodging = any(e["category"] == "Alojamiento" for e in expenses)
         has_tours = any(e["category"] == "Tours" for e in expenses)

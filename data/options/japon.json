@@ -64,7 +64,14 @@
           "place": "—",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "6:56 AM",
+        "sunset": "7:04 PM",
+        "temp": "10–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      }
     },
     {
       "dayKey": "20 MAR",
@@ -91,7 +98,14 @@
           "note": "Estimado: ~US$40/persona/día para las 9 días de comida del viaje.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "6:55 AM",
+        "sunset": "7:05 PM",
+        "temp": "10–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      }
     },
     {
       "dayKey": "21 MAR",
@@ -108,7 +122,14 @@
           "note": "Estimado: ~US$40/persona/día. Este día casi entero se va en el vuelo LAX → Tokio.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "—",
+        "sunset": "—",
+        "temp": "N/A",
+        "weatherIcon": "✈️",
+        "weather": "En tránsito"
+      }
     },
     {
       "dayKey": "22 MAR",
@@ -134,7 +155,14 @@
           "note": "Estimado: ~US$40/persona/día. Llegada NRT 12:35pm ✅, traslado a Maihama ~1-1.5h.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "5:41 AM",
+        "sunset": "5:55 PM",
+        "temp": "7–15°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      }
     },
     {
       "dayKey": "23 MAR",
@@ -175,7 +203,14 @@
           "note": "Estimado: ~US$40/persona/día.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "5:40 AM",
+        "sunset": "5:56 PM",
+        "temp": "7–15°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      }
     },
     {
       "dayKey": "24 MAR",
@@ -192,7 +227,14 @@
           "note": "Estimado: ~US$40/persona/día. Noche: show \"Believe! Sea of Dreams\" en Mediterranean Harbor, incluido en la entrada al parque.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "5:38 AM",
+        "sunset": "5:56 PM",
+        "temp": "7–15°C",
+        "weatherIcon": "🌧️",
+        "weather": "Lluvia"
+      }
     },
     {
       "dayKey": "25 MAR",
@@ -227,7 +269,14 @@
           "note": "Estimado: ~US$40/persona/día.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "5:54 AM",
+        "sunset": "6:14 PM",
+        "temp": "7–15°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      }
     },
     {
       "dayKey": "26 MAR",
@@ -263,7 +312,14 @@
           "note": "Estimado: ~US$40/persona/día.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "5:52 AM",
+        "sunset": "6:14 PM",
+        "temp": "7–16°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      }
     },
     {
       "dayKey": "27 MAR",
@@ -298,7 +354,14 @@
           "note": "Estimado: ~US$40/persona/día.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "5:34 AM",
+        "sunset": "5:59 PM",
+        "temp": "7–16°C",
+        "weatherIcon": "🌧️",
+        "weather": "Lluvia"
+      }
     },
     {
       "dayKey": "28 MAR",
@@ -325,7 +388,14 @@
           "note": "Estimado: ~US$40/persona/día.",
           "link": null
         }
-      ]
+      ],
+      "weather": {
+        "sunrise": "6:44 AM",
+        "sunset": "7:11 PM",
+        "temp": "9–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      }
     }
   ]
 }

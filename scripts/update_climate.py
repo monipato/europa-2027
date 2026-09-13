@@ -18,15 +18,18 @@ What "live" means here, since no real forecast exists ~a year out:
     key is absent — see "Day trips" below), and writes the result straight
     into that day's own `weather` object. A city visited on two different
     dates gets two different readings.
-  - Orlando and Japón are NOT touched by this script — both use a single
-    seasonal estimate (data/cities.json's per-city `climate`), which is
-    accurate enough for them and isn't meant to be this precise; edit
-    those by hand if they ever need refining.
+  - Japón's own days (data/options/japon.json) get the same per-day
+    treatment, except "En vuelo" (the transit day has no real location and
+    keeps its static placeholder). Orlando's 9-day calendar
+    (data/options/orlando-*.json's `dayPlans`) is fixed and shared by both
+    Orlando options, so it's fetched once and written into both files.
+    Non-Europe cities each need their own UTC offset for the sunrise/sunset
+    conversion — see `CITY_UTC_OFFSET` — since the CEST default only holds
+    for the Europa-trip cities.
   - data/cities.json's per-city `climate` field is also refreshed here,
-    from each city's first-occurrence date across the 3 options above —
-    it's dead weight for those cities today (their days already carry
-    their own weather), but it's the fallback a brand-new day would get
-    before its own exact-date fetch has run once.
+    from each city's first-occurrence date — it's dead weight for a city
+    whose every day already carries its own weather, but it's the fallback
+    a brand-new day would get before its own exact-date fetch has run once.
   - "packing" tips are editorial, not fetched data, and are left untouched.
 
 Day trips: a day whose weather belongs to a different place than the day's
@@ -51,9 +54,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 OPTION_IDS = ["europa", "alpes-suizos", "crucero-en-pareja"]
+JAPAN_OPTION_ID = "japon"
+ORLANDO_OPTION_IDS = ["orlando-jero", "orlando-pachito-vale"]
 
 TRIP_YEAR = 2027
-LOCAL_UTC_OFFSET_HOURS = 2  # CEST, shared by every city in this itinerary in April/May
 HISTORY_YEARS = [2022, 2023, 2024]
 WINDOW_DAYS = 7  # +/- around each exact date, per history year
 
@@ -77,6 +81,24 @@ CITY_COORDS = {
     # Day-trip destinations, not base cities (see the module docstring).
     "Jungfraujoch": (46.5475, 7.9847),  # summit, not the Interlaken valley
     "Diavolezza": (46.4106, 9.9671),  # mountain station, not the Pontresina valley
+    # Orlando + Japón cities — see "Orlando and Japón" below.
+    "Orlando": (28.5383, -81.3792),
+    "Los Ángeles": (34.0522, -118.2437),
+    "Tokio": (35.6762, 139.6503),
+    "Osaka": (34.6937, 135.5023),
+}
+
+# UTC offset per city, for converting sunrise-sunset.org's UTC times to
+# local. Every Europa-trip city shares CEST (UTC+2) in April/May, so that's
+# the default; Orlando/Los Ángeles/Tokio/Osaka each need their own (and, for
+# the US cities, this already accounts for DST — both trips fall after the
+# 2nd Sunday of March, when US clocks have sprung forward).
+DEFAULT_UTC_OFFSET = 2
+CITY_UTC_OFFSET = {
+    "Orlando": -4,  # EDT
+    "Los Ángeles": -7,  # PDT
+    "Tokio": 9,  # JST, no DST
+    "Osaka": 9,  # JST, no DST
 }
 
 WMO_ICON_LABEL = {
@@ -125,6 +147,26 @@ def collect_city_day_pairs(docs: dict[str, dict]) -> list[tuple[str, str]]:
     return list(seen.keys())
 
 
+def collect_japan_pairs(japan_doc: dict) -> list[tuple[str, str]]:
+    """(city, dayKey) pairs for every Japón day with a real location —
+    "En vuelo" (the transit day) has no coordinates and is skipped."""
+    seen: dict[tuple[str, str], None] = {}
+    for day in japan_doc["days"]:
+        if day["city"] == "En vuelo":
+            continue
+        seen[(day["city"], day["dayKey"])] = None
+    return list(seen.keys())
+
+
+def collect_orlando_pairs(orlando_docs: list[dict]) -> list[tuple[str, str]]:
+    """(Orlando, dayKey) pairs — both Orlando options share the same fixed
+    9-day calendar and city, so this only needs one of them."""
+    seen: dict[tuple[str, str], None] = {}
+    for day_plan in orlando_docs[0]["dayPlans"]:
+        seen[("Orlando", day_plan["dayKey"])] = None
+    return list(seen.keys())
+
+
 def fetch_json(url: str, attempts: int = 4) -> dict:
     request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; patitours-climate-update/1.0)"})
     last_error: Exception | None = None
@@ -139,16 +181,16 @@ def fetch_json(url: str, attempts: int = 4) -> dict:
     raise SystemExit(f"update_climate.py: failed to fetch {url} after {attempts} attempts: {last_error}")
 
 
-def fetch_sun_times(lat: float, lon: float, on_date: date) -> tuple[str, str]:
+def fetch_sun_times(lat: float, lon: float, on_date: date, utc_offset: int) -> tuple[str, str]:
     url = f"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&date={on_date}&formatted=0"
     data = fetch_json(url)["results"]
-    return _to_local_12h(data["sunrise"]), _to_local_12h(data["sunset"])
+    return _to_local_12h(data["sunrise"], utc_offset), _to_local_12h(data["sunset"], utc_offset)
 
 
-def _to_local_12h(iso_utc: str) -> str:
+def _to_local_12h(iso_utc: str, utc_offset: int) -> str:
     hour_utc = int(iso_utc[11:13])
     minute = iso_utc[14:16]
-    hour_local = (hour_utc + LOCAL_UTC_OFFSET_HOURS) % 24
+    hour_local = (hour_utc + utc_offset) % 24
     suffix = "AM" if hour_local < 12 else "PM"
     hour_12 = hour_local % 12
     if hour_12 == 0:
@@ -189,18 +231,26 @@ MAX_WORKERS = 8  # concurrent (city, day) fetches — polite to the free APIs, s
 def _fetch_one(city: str, day_key: str) -> tuple[str, str, dict[str, str]]:
     lat, lon = CITY_COORDS[city]
     on_date = day_key_to_date(day_key)
-    sunrise, sunset = fetch_sun_times(lat, lon, on_date)
+    utc_offset = CITY_UTC_OFFSET.get(city, DEFAULT_UTC_OFFSET)
+    sunrise, sunset = fetch_sun_times(lat, lon, on_date, utc_offset)
     temp, icon, weather = fetch_climate_normal(lat, lon, on_date)
     return city, day_key, {"sunrise": sunrise, "sunset": sunset, "temp": temp, "weatherIcon": icon, "weather": weather}
 
 
 def main() -> None:
     docs = {option_id: load_option(option_id) for option_id in OPTION_IDS}
-    pairs = collect_city_day_pairs(docs)
-    print(f"Found {len(pairs)} (city, day) pairs across {len(OPTION_IDS)} options.")
+    japan_doc = load_option(JAPAN_OPTION_ID)
+    orlando_docs = [load_option(option_id) for option_id in ORLANDO_OPTION_IDS]
 
-    fetchable = [(city, day_key) for city, day_key in pairs if city in CITY_COORDS]
-    for city, day_key in pairs:
+    pairs = collect_city_day_pairs(docs)
+    japan_pairs = collect_japan_pairs(japan_doc)
+    orlando_pairs = collect_orlando_pairs(orlando_docs)
+    all_pairs = list(dict.fromkeys(pairs + japan_pairs + orlando_pairs))  # dedup, keep order
+    print(f"Found {len(pairs)} (city, day) pairs across {len(OPTION_IDS)} Europa-shaped options, "
+          f"{len(japan_pairs)} for Japón, {len(orlando_pairs)} for Orlando.")
+
+    fetchable = [(city, day_key) for city, day_key in all_pairs if city in CITY_COORDS]
+    for city, day_key in all_pairs:
         if city not in CITY_COORDS:
             print(f"  skipping {city!r} ({day_key}) — no coordinates on file (add one to CITY_COORDS)")
 
@@ -223,6 +273,25 @@ def main() -> None:
                 updated += 1
         save_option(option_id, doc)
         print(f"{option_id}: updated {updated}/{len(doc['days'])} days")
+
+    japan_updated = 0
+    for day in japan_doc["days"]:
+        key = f"{day['city']}|{day['dayKey']}"
+        if key in by_day:
+            day["weather"] = by_day[key]
+            japan_updated += 1
+    save_option(JAPAN_OPTION_ID, japan_doc)
+    print(f"{JAPAN_OPTION_ID}: updated {japan_updated}/{len(japan_doc['days'])} days")
+
+    for option_id, doc in zip(ORLANDO_OPTION_IDS, orlando_docs):
+        updated = 0
+        for day_plan in doc["dayPlans"]:
+            key = f"Orlando|{day_plan['dayKey']}"
+            if key in by_day:
+                day_plan["weather"] = by_day[key]
+                updated += 1
+        save_option(option_id, doc)
+        print(f"{option_id}: updated {updated}/{len(doc['dayPlans'])} days")
 
     # Per-city fallback in data/cities.json, from each city's first-occurrence
     # date — dead weight for cities whose every day already has its own

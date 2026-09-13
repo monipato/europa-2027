@@ -159,6 +159,15 @@ def check_orlando_option(option_id: str, doc: dict) -> list[tuple[str, str]]:
             err(f"{option_id}: budget.{k} is not a non-negative number: {v!r}")
     if len(doc["dayPlans"]) != 9:
         warn(f"{option_id}: dayPlans has {len(doc['dayPlans'])} entries, expected 9 (fixed DISNEY_DAYS calendar)")
+    for day_plan in doc["dayPlans"]:
+        where = f"{option_id} day {day_plan.get('dayKey', '?')}"
+        weather = day_plan.get("weather")
+        if not weather:
+            err(f"{where}: dayPlans entry missing 'weather'")
+            continue
+        for field in ("sunrise", "sunset", "temp", "weatherIcon", "weather"):
+            if field not in weather:
+                err(f"{where}: weather missing field {field!r}")
     return links
 
 
@@ -169,6 +178,13 @@ def check_japan_option(doc: dict) -> list[tuple[str, str]]:
             err(f"japon: missing top-level field {field!r}")
     for day in doc.get("days", []):
         where = f"japon day {day.get('dayKey', '?')}"
+        weather = day.get("weather")
+        if not weather:
+            err(f"{where}: missing 'weather'")
+        else:
+            for field in ("sunrise", "sunset", "temp", "weatherIcon", "weather"):
+                if field not in weather:
+                    err(f"{where}: weather missing field {field!r}")
         for item in day.get("items", []):
             check_item(item, where, JAPAN_CATEGORIES)
             if item.get("link"):
