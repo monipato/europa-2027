@@ -61,7 +61,7 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
           <div className="category-detail">
             <div className="detail-title">
               <div>
-                <p className="eyebrow">Detalle del rubro</p>
+                <p className="eyebrow">Detalle de la categoría</p>
                 <h3>{CATEGORY_META[selectedCategory].icon} {selectedCategory}</h3>
               </div>
               <button onClick={() => onSelectCategory(null)} aria-label="Cerrar detalle">

@@ -122,7 +122,7 @@ export function App() {
               <CalendarDays /> Por día
             </button>
             <button className={view === 'category' ? 'selected' : ''} onClick={() => handleChangeView('category')}>
-              <Wallet /> Por rubro
+              <Wallet /> Por categoría
             </button>
           </div>
 

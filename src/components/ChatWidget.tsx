@@ -143,7 +143,8 @@ export function ChatWidget({ contextMessage }: { contextMessage: string }) {
     <>
       {!open && (
         <button className="chat-fab" onClick={() => setOpen(true)} aria-label="Abrir chat con PatiTours">
-          <MessageCircle size={26} />
+          <MessageCircle size={22} />
+          <span>¿Dudas?</span>
         </button>
       )}
 

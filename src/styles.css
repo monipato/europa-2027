@@ -301,6 +301,9 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   .section-heading{align-items:flex-start;gap:10px;flex-direction:column}
   .section-heading h2{font-size:26px}
   .hint{display:none}
+  /* This one stays: it's the first-screen "the cards are the buttons"
+     explanation, on the narrow phones where that's least obvious. */
+  .hint.hint-always{display:block;font-size:12px}
   .option-grid{gap:9px}
   .option-card{padding:19px 13px 13px;min-height:245px}
   .option-card h3{font-size:19px}
@@ -343,17 +346,21 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
 /* `bottom` is deliberately well above the page edge — Netlify's own "Deploys
    by Netlify" badge sits bottom-right on the free tier and would otherwise
    overlap/cover this button. */
-.chat-fab{position:fixed;right:20px;bottom:92px;z-index:25;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--text-strong);color:var(--bg-surface);box-shadow:0 8px 20px rgba(var(--shadow-rgb),.28);transition:transform .15s}
-.chat-fab:hover{transform:scale(1.06)}
+/* A pill (icon + visible "¿Dudas?" label), not just an icon — an unlabeled
+   speech-bubble icon isn't obviously "ask a question here" to someone who
+   hasn't seen a chat widget before; the whole point of this button is
+   self-service instead of texting the trip organizer directly. */
+.chat-fab{position:fixed;right:20px;bottom:92px;z-index:25;height:52px;border-radius:26px;padding:0 20px 0 16px;display:inline-flex;align-items:center;gap:8px;background:var(--text-strong);color:var(--bg-surface);font:700 15px inherit;white-space:nowrap;box-shadow:0 8px 20px rgba(var(--shadow-rgb),.28);transition:transform .15s}
+.chat-fab:hover{transform:scale(1.04)}
 @media(max-width:640px){
-  .chat-fab{right:14px;bottom:80px;width:50px;height:50px}
+  .chat-fab{right:14px;bottom:80px;height:46px;padding:0 16px 0 13px;font-size:13.5px}
 }
 
 .chat-inline-cta{display:inline-flex;align-items:center;gap:9px;margin:0 24px 18px;padding:11px 16px;border-radius:11px;background:var(--bg-accent);color:var(--text-on-accent-muted);font-weight:600;font-size:13.5px;width:fit-content;transition:background .15s}
 .chat-inline-cta:hover{filter:brightness(0.97)}
 /* Same .chat-fab clearance as .day-conditions above — this banner sits
    right below it and was getting its trailing text covered too. */
-@media(max-width:640px){.chat-inline-cta{margin:0 76px 16px 17px}}
+@media(max-width:640px){.chat-inline-cta{margin:0 140px 16px 17px}}
 
 /* `bottom` clears Netlify's own "Powered by Netlify" badge (free-tier
    hosting), same reason .chat-fab sits above it instead of at the page

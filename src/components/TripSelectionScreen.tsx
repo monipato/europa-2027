@@ -37,6 +37,7 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
             <p className="eyebrow">Paso 1 de 2</p>
             <h2>Selecciona una cotización</h2>
           </div>
+          <span className="hint hint-always">Toca una tarjeta para elegir tu viaje</span>
         </div>
         <div className="option-grid">
           {options.map((option, index) => (
