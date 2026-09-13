@@ -11,6 +11,12 @@ interface AppHeaderProps {
   theme: Theme
   onToggleTheme: () => void
   onGoHome: () => void
+  /** Whether a trip is picked yet — the nav links jump to the itinerary
+   * section, which doesn't exist (visually — it's `display:none`) until
+   * then, so there's nothing for them to do on the selection screen. */
+  hasStartedPlanning: boolean
+  onGoToDayView: () => void
+  onGoToCategoryView: () => void
 }
 
 /**
@@ -19,7 +25,7 @@ interface AppHeaderProps {
  * and the mobile-collapsible nav links. Clicking the logo returns to the
  * trip-selection screen, like a normal site home link.
  */
-export function AppHeader({ menuOpen, onToggleMenu, onCloseMenu, theme, onToggleTheme, onGoHome }: AppHeaderProps) {
+export function AppHeader({ menuOpen, onToggleMenu, onCloseMenu, theme, onToggleTheme, onGoHome, hasStartedPlanning, onGoToDayView, onGoToCategoryView }: AppHeaderProps) {
   return (
     <header className="topbar">
       <button className="brand" onClick={onGoHome} aria-label="Ir al inicio">
@@ -28,14 +34,18 @@ export function AppHeader({ menuOpen, onToggleMenu, onCloseMenu, theme, onToggle
       </button>
       <div className="header-actions">
         <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-        <button className="menu-button" aria-label="Abrir menú" onClick={onToggleMenu}>
-          {menuOpen ? <X /> : <Menu />}
-        </button>
+        {hasStartedPlanning && (
+          <button className="menu-button" aria-label="Abrir menú" onClick={onToggleMenu}>
+            {menuOpen ? <X /> : <Menu />}
+          </button>
+        )}
       </div>
-      <nav className={menuOpen ? 'open' : ''}>
-        <a href="#itinerario" onClick={onCloseMenu}>Itinerario</a>
-        <a href="#resumen" onClick={onCloseMenu}>Resumen de gastos</a>
-      </nav>
+      {hasStartedPlanning && (
+        <nav className={menuOpen ? 'open' : ''}>
+          <button onClick={() => { onGoToDayView(); onCloseMenu() }}>Itinerario</button>
+          <button onClick={() => { onGoToCategoryView(); onCloseMenu() }}>Resumen de gastos</button>
+        </nav>
+      )}
     </header>
   )
 }

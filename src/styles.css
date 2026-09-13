@@ -58,7 +58,7 @@ button{cursor:pointer;border:0;background:none}
 .brand-logo{height:70px;width:auto;display:block}
 .brand small{font-size:11px;line-height:1.6;letter-spacing:2px;color:var(--text-muted)}
 .topbar nav{display:flex;gap:30px}
-.topbar nav a{color:var(--text-strong);text-decoration:none;font-size:14px;font-weight:600}
+.topbar nav button{color:var(--text-strong);text-decoration:none;font-size:14px;font-weight:600;background:none;border:none;padding:0;cursor:pointer;font-family:inherit}
 .header-actions{display:flex;align-items:center;gap:10px}
 .theme-toggle{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--bg-surface-muted);color:var(--text-strong)}
 .theme-toggle:hover{background:var(--border-strong)}

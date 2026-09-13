@@ -82,6 +82,24 @@ export function App() {
     }
   }
 
+  // The header's "Itinerario"/"Resumen de gastos" links can be clicked from
+  // anywhere on the page (scrolled deep into the footer, say), unlike the
+  // in-page tab buttons above — so these explicitly scroll the itinerary
+  // section into view themselves, rather than relying on handleChangeView's
+  // own .day-layout-focused scroll effect.
+  function scrollToItinerary() {
+    document.getElementById('itinerario')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+  function handleGoToDayView() {
+    setView('day')
+    setSelectedCategory(null)
+    scrollToItinerary()
+  }
+  function handleGoToCategoryView() {
+    setView('category')
+    scrollToItinerary()
+  }
+
   return (
     <div className={`app-shell ${hasStartedPlanning ? 'planner-open' : 'selection-screen'}`}>
       <AppHeader
@@ -91,6 +109,9 @@ export function App() {
         theme={theme}
         onToggleTheme={toggleTheme}
         onGoHome={handleChangeTrip}
+        hasStartedPlanning={hasStartedPlanning}
+        onGoToDayView={handleGoToDayView}
+        onGoToCategoryView={handleGoToCategoryView}
       />
 
       <main>
