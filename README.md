@@ -43,5 +43,9 @@ see `.claude/skills/trip-item/SKILL.md` for the full field reference.
 `python3 scripts/update_rates.py` / `python3 scripts/update_climate.py` —
 both fetch live data and write straight into `data/`.
 
+**To check the data is well-formed** (no typo'd category, no missing
+field, no broken cross-reference), run `npm run validate`. It also runs
+automatically as part of `npm run build`.
+
 See `CLAUDE.md` for the full architecture (the exact JSON shape for each
 file, the app's component structure, and the WhatsApp/chat assistant).

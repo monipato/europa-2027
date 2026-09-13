@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.app.json && vite build",
+    "validate": "python3 scripts/validate_data.py",
+    "build": "npm run validate && tsc -p tsconfig.app.json && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
