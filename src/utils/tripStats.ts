@@ -32,13 +32,20 @@ export function collectExpensesByCategory(days: GeneratedDay[], category: Catego
  * aren't a real country, so they're excluded rather than showing a boat
  * emoji next to a row of flags. */
 export function collectCountryFlags(days: GeneratedDay[]): string[] {
+  return collectCountryFlagsWithNames(days).map((entry) => entry.emoji)
+}
+
+/** Same de-duplicated, first-appearance-order list as `collectCountryFlags`,
+ * but keeping the country name alongside each flag — used wherever the flag
+ * needs to read as "🇪🇸 España" instead of a bare row of flags. */
+export function collectCountryFlagsWithNames(days: GeneratedDay[]): Array<{ emoji: string; country: string }> {
   const seen = new Set<string>()
-  const flags: string[] = []
+  const flags: Array<{ emoji: string; country: string }> = []
   for (const day of days) {
     if (day.country === 'Mediterráneo' || day.country === 'Europa') continue
     if (seen.has(day.emoji)) continue
     seen.add(day.emoji)
-    flags.push(day.emoji)
+    flags.push({ emoji: day.emoji, country: day.country })
   }
   return flags
 }

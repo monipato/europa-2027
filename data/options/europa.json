@@ -549,7 +549,7 @@
           "currency": "EUR",
           "unitAmount": 20.0,
           "quantity": 1.0,
-          "note": "Estimado: vaporetto/water taxi compartido a la estación Santa Lucia (en Venecia no circulan autos), ~€20 total para el grupo con equipaje",
+          "note": "Vaporetto/water taxi compartido a Santa Lucia — en Venecia no circulan autos. ~€20 para el grupo.",
           "place": "Italia",
           "date": "17 May 2027",
           "link": null
@@ -693,7 +693,7 @@
           "currency": "EUR",
           "unitAmount": 150.0,
           "quantity": 3.0,
-          "note": "Recomendado: Hôtel Augustin - Astotel, boutique 4*, a 1 min de Boulevard Haussmann y 500m de Gare Saint-Lazare (zona Opéra/Grands Boulevards, muy céntrica y bien conectada). Cadena Astotel, buena calificación en Booking (~8.5+)",
+          "note": "Hôtel Augustin - Astotel, boutique 4*, cerca de Boulevard Haussmann y Gare Saint-Lazare (Opéra). Buena calificación en Booking (~8.5+).",
           "place": "París, Francia",
           "date": "20 – 23 May (3 noches)",
           "link": "https://www.booking.com/budget/city/fr/paris.en-gb.html"
@@ -859,7 +859,7 @@
           "currency": "CZK",
           "unitAmount": 2000.0,
           "quantity": 3.0,
-          "note": "Recomendado: Mosaic House Design Hotel, Odborů 4, Praga 2 (Nové Město / Ciudad Nueva), a 10 min caminando de la Plaza de la Ciudad Vieja. Calificación ~8.5/10 en Booking, buena relación precio-ubicación",
+          "note": "Mosaic House Design Hotel, Nové Město, a 10 min de la Plaza de la Ciudad Vieja. Calificación ~8.5/10 en Booking.",
           "place": "Praga, Rep. Checa",
           "date": "23 – 26 May (3 noches)",
           "link": "https://www.helloprague.net/budget-hotels-prague/"
@@ -992,7 +992,7 @@
           "currency": "EUR",
           "unitAmount": 130.0,
           "quantity": 2.0,
-          "note": "Recomendado: Eden Hotel Wolff, cerca de la Estación Central de Múnich (Hauptbahnhof), ~10-15 min a pie o en tranvía a Marienplatz. 4*, buena relación calidad-precio según reseñas",
+          "note": "Eden Hotel Wolff, cerca de la Estación Central, 10-15 min a Marienplatz. 4*, buena relación calidad-precio.",
           "place": "Múnich, Alemania",
           "date": "26 – 28 May (2 noches)",
           "link": "https://www.travelocity.com/Marienplatz-Hotels.0-l508534-0.Travel-Guide-Filter-Hotels"
@@ -1110,7 +1110,7 @@
           "currency": "EUR",
           "unitAmount": 95.0,
           "quantity": 3.0,
-          "note": "Recomendado: Motel One Berlin-Alexanderplatz, Mitte, muy cerca de Alexanderplatz y bien conectado en metro/tren. Calificación 9.2/10 en Booking - excelente para el precio",
+          "note": "Motel One Berlin-Alexanderplatz, Mitte, muy cerca de Alexanderplatz y bien conectado en metro. Calificación 9.2/10.",
           "place": "Berlín, Alemania",
           "date": "28 – 31 May (3 noches)",
           "link": "https://www.expedia.com/Mitte-Berlin-Hotels-Cheap-Hotels.0-n178779-0-tCheapHotels.Travel-Guide-Filter-Hotels"

@@ -14,16 +14,18 @@ interface ExchangeRatesCardProps {
  * are informational only and are not used to convert any displayed amount. */
 export function ExchangeRatesCard({ className, occupancyNote }: ExchangeRatesCardProps) {
   return (
-    <div className={className ? `rates-card ${className}` : 'rates-card'}>
-      <strong>Tasas estimadas · {ratesUpdatedAt}</strong>
-      <div>
-        {exchangeRates.map(rate => (
-          <a key={rate.code} href={rate.sourceUrl} target="_blank" rel="noreferrer" title="Ver fuente de esta tasa">
-            <b>{rate.code}</b> {rate.symbol} 1 = {new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(rate.rate)} COP
-          </a>
-        ))}
+    <details className={className ? `rates-card ${className}` : 'rates-card'}>
+      <summary>Ver tasas de cambio · {ratesUpdatedAt}</summary>
+      <div className="rates-card-body">
+        <div>
+          {exchangeRates.map(rate => (
+            <a key={rate.code} href={rate.sourceUrl} target="_blank" rel="noreferrer" title="Ver fuente de esta tasa">
+              <b>{rate.code}</b> {rate.symbol} 1 = {new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(rate.rate)} COP
+            </a>
+          ))}
+        </div>
+        <p className="occupancy-note">👤 {occupancyNote}</p>
       </div>
-      <p className="occupancy-note">👤 {occupancyNote}</p>
-    </div>
+    </details>
   )
 }

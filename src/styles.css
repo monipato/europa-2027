@@ -1,49 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
 
 /* ============================================================
-   PatiTours design tokens — light theme (default) + dark theme.
+   PatiTours design tokens — "Correo del mundo" (postal + passport):
+   a kraft-paper light theme and a warm espresso dark theme, both under
+   a header bar that's always a dark navy/near-black surface (see
+   `--bg-header` and `--text-on-header` below, used only by .topbar).
    `useTheme` (src/hooks/useTheme.ts) sets <html data-theme="light|dark">;
    the @media block below only covers the instant before that JS runs.
-   Palette matches the logo: navy ink, gold duck/sparkle, teal globe/canoe.
+   `--stamp-red`/`--stamp-navy` are the postal "airmail stripe" colors —
+   deliberately the same in both themes (see `.airmail` below).
    ============================================================ */
 :root{
-  --bg-page:#f7f4ef;
-  --bg-surface:#fff;
-  --bg-surface-muted:#e8eeeb;
-  --bg-header:var(--bg-surface-muted);
-  --bg-accent:#f6e6c2;
-  --text-strong:#1c2b4a;
-  --text-body:#33455e;
-  --text-muted:#6c8285;
-  --text-on-accent:#1c2b4a;
-  --text-on-accent-muted:#7a6b47;
-  --border:#e5e8e3;
-  --border-strong:#d3e0da;
+  --bg-page:#f1e2c0;
+  --bg-surface:#fff8ec;
+  --bg-surface-muted:#f3e4ce;
+  --bg-header:#16233f;
+  --text-on-header:#fff8ec;
+  --bg-accent:#eae0bf;
+  --text-strong:#1b2a4a;
+  --text-body:#4a3b23;
+  --text-muted:#8a7a5c;
+  --text-on-accent:#1b2a4a;
+  --text-on-accent-muted:#6e5e43;
+  --border:#e4dbc0;
+  --border-strong:#d8cfa9;
   --accent-gold:#b8842f;
-  --accent-gold-strong:#dba53f;
+  --accent-gold-strong:#e0a324;
   --accent-gold-contrast:#b8842f;
-  --accent-teal:#77a995;
-  --shadow-rgb:28,43,74;
+  --accent-teal:#2f5d55;
+  --accent-coral:#b23a2f;
+  --stamp-red:#b23a2f;
+  --stamp-navy:#1b2a4a;
+  --airmail-stripe:repeating-linear-gradient(45deg,var(--stamp-red) 0 8px,#fff 8px 16px,var(--stamp-navy) 16px 24px,#fff 24px 32px);
+  --shadow-rgb:27,42,74;
 }
+/* The postal "airmail stripe" — a small reusable motif, always the same
+   red/white/navy regardless of theme (see --stamp-red/--stamp-navy above). */
+.airmail{background:var(--airmail-stripe)}
 @media(prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg-page:#101a2e;--bg-surface:#182b44;--bg-surface-muted:#1c2b46;--bg-header:#101a2e;--bg-accent:#24314f;
-    --text-strong:#f3f0e8;--text-body:#ccd6e3;--text-muted:#93a4b0;--text-on-accent:#f3f0e8;--text-on-accent-muted:#9fb3c9;
-    --border:#263450;--border-strong:#33456b;--accent-gold:#f0c369;--accent-gold-strong:#f0c369;--accent-gold-contrast:#f0c369;
-    --accent-teal:#7fc0b3;--shadow-rgb:0,0,0;
+    --bg-page:#201911;--bg-surface:#2c2318;--bg-surface-muted:#33281a;--bg-header:#0f0b07;--bg-accent:#33281a;
+    --text-strong:#f5efe0;--text-body:#d8ccb8;--text-muted:#b7a88c;--text-on-accent:#f5efe0;--text-on-accent-muted:#c9bba0;
+    --border:#4a3b2a;--border-strong:#5c4a34;--accent-gold:#e0a324;--accent-gold-strong:#e0a324;--accent-gold-contrast:#e0a324;
+    --accent-teal:#7fd4c7;--accent-coral:#ff8a6b;--shadow-rgb:0,0,0;
   }
 }
 :root[data-theme="dark"]{
-  --bg-page:#101a2e;--bg-surface:#182b44;--bg-surface-muted:#1c2b46;--bg-header:#101a2e;--bg-accent:#24314f;
-  --text-strong:#f3f0e8;--text-body:#ccd6e3;--text-muted:#93a4b0;--text-on-accent:#f3f0e8;--text-on-accent-muted:#9fb3c9;
-  --border:#263450;--border-strong:#33456b;--accent-gold:#f0c369;--accent-gold-strong:#f0c369;--accent-gold-contrast:#f0c369;
-  --accent-teal:#7fc0b3;--shadow-rgb:0,0,0;
+  --bg-page:#201911;--bg-surface:#2c2318;--bg-surface-muted:#33281a;--bg-header:#0f0b07;--bg-accent:#33281a;
+  --text-strong:#f5efe0;--text-body:#d8ccb8;--text-muted:#b7a88c;--text-on-accent:#f5efe0;--text-on-accent-muted:#c9bba0;
+  --border:#4a3b2a;--border-strong:#5c4a34;--accent-gold:#e0a324;--accent-gold-strong:#e0a324;--accent-gold-contrast:#e0a324;
+  --accent-teal:#7fd4c7;--accent-coral:#ff8a6b;--shadow-rgb:0,0,0;
 }
 
 /* ============================================================
    Base
    ============================================================ */
-:root{font-family:'DM Sans',sans-serif;color:var(--text-body);background:var(--bg-page);font-size:16px;line-height:1.45}
+:root{font-family:'Karla',sans-serif;color:var(--text-body);background:var(--bg-page);font-size:16px;line-height:1.45}
+.stamp-label{font-family:'IBM Plex Mono',monospace}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg-page);overflow-anchor:none}
 button,a{font:inherit}
@@ -51,19 +64,20 @@ button{cursor:pointer;border:0;background:none}
 .app-shell{min-height:100vh}
 
 /* ============================================================
-   Header
+   Header — always a dark navy (light theme) / near-black espresso (dark
+   theme) bar, so its own text/icons use --text-on-header rather than
+   --text-strong (which flips to a light color in dark theme, the wrong
+   direction here). A postal "airmail stripe" (.airmail) runs along its
+   bottom edge in both themes.
    ============================================================ */
-.topbar{height:112px;background:var(--bg-header);border-bottom:1px solid var(--border);color:var(--text-strong);display:flex;align-items:center;padding:0 max(24px,calc((100% - 1180px)/2));justify-content:space-between}
-.brand{display:flex;gap:13px;align-items:center;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;text-align:left}
-.brand-logo{height:70px;width:auto;display:block}
-.brand small{font-size:11px;line-height:1.6;letter-spacing:2px;color:var(--text-muted)}
-.topbar nav{display:flex;gap:30px}
-.topbar nav button{color:var(--text-strong);text-decoration:none;font-size:14px;font-weight:600;background:none;border:none;padding:0;cursor:pointer;font-family:inherit}
+.topbar{height:112px;background:var(--bg-header);color:var(--text-on-header);display:flex;align-items:center;padding:0 max(24px,calc((100% - 1180px)/2));justify-content:space-between;position:relative}
+.topbar:after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:6px;background:var(--airmail-stripe)}
+.brand{display:flex;gap:14px;align-items:center;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;text-align:left}
+.brand-icon{height:44px;width:auto;display:block;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+.brand-wordmark{height:36px;width:auto;display:block;filter:brightness(1.3) drop-shadow(0 0 6px rgba(224,163,36,.35))}
 .header-actions{display:flex;align-items:center;gap:10px}
-.theme-toggle{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--bg-surface-muted);color:var(--text-strong)}
-.theme-toggle:hover{background:var(--border-strong)}
-.menu-button{display:none;color:var(--text-strong)}
-.menu-button svg{width:28px}
+.theme-toggle{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.1);color:var(--text-on-header)}
+.theme-toggle:hover{background:rgba(255,255,255,.18)}
 
 /* ============================================================
    Trip-selection screen (welcome + option cards)
@@ -71,67 +85,88 @@ button{cursor:pointer;border:0;background:none}
 .welcome{max-width:1180px;margin:0 auto;padding:56px 24px 38px}
 .welcome-copy{min-width:0}
 .eyebrow{margin:0 0 7px;color:var(--accent-gold);text-transform:uppercase;font-size:12px;letter-spacing:1.5px;font-weight:700}
-.welcome h1{font:700 clamp(30px,4.2vw,50px)/1.04 Fraunces,serif;max-width:650px;margin:0 0 18px;color:var(--text-strong)}
+.welcome h1{font:700 clamp(26px,3.2vw,38px)/1.15 Fraunces,serif;max-width:650px;margin:0 0 18px;color:var(--text-strong)}
 .accent-word{color:var(--accent-gold)}
-.intro{font-size:18px;color:var(--text-muted);max-width:590px;margin:0}
-.option-area,.content-section{max-width:1180px;margin:0 auto;padding:18px 24px 46px}
-.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}
-.section-heading h2{font:700 30px Fraunces,serif;margin:0;color:var(--text-strong)}
-.option-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.option-card{position:relative;text-align:left;background:var(--bg-surface);border:2px solid transparent;border-radius:15px;padding:22px 18px 18px;box-shadow:0 4px 18px rgba(var(--shadow-rgb),.06);transition:.2s;min-height:225px;color:var(--text-body);display:flex;flex-direction:column;align-items:stretch}
-.option-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(var(--shadow-rgb),.09)}
-.option-card.active{border-color:var(--accent-gold-strong);box-shadow:0 0 0 3px rgba(219,165,63,.15)}
-.option-top{margin-bottom:8px}
-.option-flags{font-size:20px;letter-spacing:3px;overflow-x:auto;white-space:nowrap;display:block;scrollbar-width:none}
-.option-flags::-webkit-scrollbar{display:none}
-.option-people{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;background:var(--bg-surface-muted);border-radius:14px;padding:3px 8px 3px 4px;margin-bottom:10px;font-size:11px;font-weight:600;color:var(--text-strong);white-space:nowrap}
-.option-people img{width:16px;height:16px;display:block;border-radius:4px}
-.option-card h3{font:700 22px Fraunces,serif;margin:0 0 4px;color:var(--text-strong)}
-.option-card p{font-size:13px;color:var(--text-muted);margin:0 0 16px}
-.option-card strong{display:block;font-size:17px;color:var(--text-strong)}
+.intro{font-size:18px;color:var(--text-muted);max-width:none;margin:0}
+/* `width:100%` matters here: inside `.planner-open main`'s column flex
+   layout, `margin:0 auto` alone lets the browser treat the auto side-
+   margins as flex "auto margins" that absorb free space instead of
+   centering a stretched box — so without an explicit width, this element
+   shrinks to fit its own content (the day's title/note/expenses) rather
+   than filling up to max-width, making the whole day-by-day column visibly
+   change width from one day to the next. */
+.option-area,.content-section{width:100%;max-width:1180px;margin:0 auto;padding:18px 24px 46px}
+.option-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.option-card{position:relative;text-align:left;background:var(--bg-surface);border:1.5px solid var(--stamp-navy);border-radius:14px;overflow:hidden;box-shadow:0 8px 18px rgba(var(--shadow-rgb),.14);transition:transform .2s,box-shadow .2s;color:var(--text-body);display:flex;flex-direction:column;align-items:stretch}
+.option-card:nth-child(odd){transform:rotate(-0.6deg)}
+.option-card:nth-child(even){transform:rotate(0.6deg)}
+.option-card:nth-child(odd):hover{transform:rotate(-0.6deg) translateY(-2px);box-shadow:0 10px 24px rgba(var(--shadow-rgb),.18)}
+.option-card:nth-child(even):hover{transform:rotate(0.6deg) translateY(-2px);box-shadow:0 10px 24px rgba(var(--shadow-rgb),.18)}
+.option-card.active{border-color:var(--accent-gold-strong);border-width:2.5px;box-shadow:0 0 0 3px rgba(219,165,63,.15)}
+.option-card-stripe{display:block;height:4px;width:100%;background:var(--airmail-stripe)}
+.option-photo{position:relative;height:132px;flex-shrink:0}
+.option-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.option-people-badge{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:5px;background:rgba(27,42,74,.78);color:#fff8ec;border-radius:14px;padding:5px 10px 5px 5px;font-size:11px;font-weight:700;white-space:nowrap}
+.option-people-badge img{width:16px;height:16px;display:block;border-radius:4px}
+.option-stamp{position:absolute;top:8px;right:8px;width:52px;height:52px;border-radius:50%;background:rgba(20,30,55,.72);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff8ec;text-align:center;line-height:1.05;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.option-stamp-ring{position:absolute;inset:0;border-radius:50%;border:1.4px dashed rgba(255,248,236,.85)}
+.option-stamp strong{font-family:'Bricolage Grotesque',sans-serif;font-size:15px}
+.option-stamp small{font-size:8.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff8ec;opacity:.95}
+.option-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+.option-flags{display:flex;flex-wrap:wrap;gap:4px 10px;margin:0 0 6px;font-size:11.5px;color:var(--text-muted)}
+.option-flags span{white-space:nowrap}
+.option-card h3{font:700 19px 'Bricolage Grotesque',sans-serif;margin:0 0 6px;color:var(--text-strong)}
+.option-card p{font-size:12.5px;color:var(--text-muted);margin:0 0 12px}
+.option-price-row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:6px}
+.option-price-label{display:block;font-size:9.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--text-muted)}
+.option-price-row strong{display:block;font-size:19px;color:var(--text-strong)}
+.option-cta{flex-shrink:0;background:var(--accent-coral);color:#fff8ec;font-size:12px;font-weight:700;padding:8px 12px;border-radius:8px;white-space:nowrap}
 .option-card small{color:var(--text-muted);font-size:12px}
-.option-card>strong:after{content:' · por persona';color:var(--text-muted);font-size:10px;font-weight:500;white-space:nowrap}
 .option-by-type{display:flex;flex-wrap:wrap;gap:4px 10px;margin:2px 0 4px;font-size:11px;color:var(--text-muted)}
 .route{border-top:1px solid var(--border);margin-top:14px;padding-top:10px;color:var(--text-muted);font-size:12px;line-height:1.4}
 
 /* ============================================================
    Trip summary bar (route + per-person price)
    ============================================================ */
-.trip-summary{max-width:1180px;margin:0 auto 24px;padding:16px 24px;background:var(--bg-accent);color:var(--text-on-accent);border:1px solid var(--border-strong);border-radius:16px;display:flex;align-items:center;gap:16px;min-height:0}
+.trip-summary{width:100%;max-width:1180px;margin:0 auto 14px;padding:4px 24px;color:var(--text-strong);display:flex;align-items:center;gap:16px;min-height:0}
 .summary-copy{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
-.summary-copy>span{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-on-accent-muted)}
-.summary-by-type{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--text-on-accent-muted)}
-.summary-cost{margin-left:auto}
-.summary-cost strong{display:block;font-size:20px;color:var(--accent-gold-contrast)}
+.summary-copy>span{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-muted);font-weight:600}
+.summary-by-type{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--text-muted)}
+.summary-cost{margin-left:auto;flex-shrink:0}
+.summary-cost strong{display:block;font-size:20px;color:var(--text-strong)}
 .selection-screen .trip-summary,.selection-screen .content-section{display:none}
 
 /* ============================================================
    Planner heading (back link + rates card), shown once a trip is picked
    ============================================================ */
 .planner-heading{max-width:1180px;margin:0 auto;padding:16px 24px 0}
-.planner-heading .eyebrow{margin:12px 0 0}
+.planner-top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .planner-back{display:flex;align-items:center;gap:4px;color:var(--accent-gold);font-weight:700;font-size:14px;padding:4px 0}
 .planner-back:hover{text-decoration:underline}
-.rates-card{background:var(--bg-surface-muted);border:1px solid var(--border);border-radius:12px;margin-top:12px;padding:12px 15px;color:var(--text-body)}
-.rates-card strong{display:block;font-size:13px;color:var(--text-strong)}
-.rates-card div{display:flex;flex-wrap:wrap;gap:7px 18px;margin-top:6px}
+/* A collapsed <details> by default — just the summary line — so this
+   useful-but-secondary info doesn't push everything else down the page. */
+.rates-card{background:var(--bg-surface-muted);border:1px solid var(--border);border-radius:12px;margin-top:12px;padding:10px 15px;color:var(--text-body)}
+.rates-card summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--accent-coral);list-style:none;display:flex;align-items:center;gap:6px;user-select:none}
+.rates-card summary::-webkit-details-marker{display:none}
+.rates-card summary:before{content:'▸';font-size:10px;transition:transform .15s;flex-shrink:0}
+.rates-card[open] summary:before{transform:rotate(90deg)}
+.rates-card-body{margin-top:8px}
+.rates-card-body>div{display:flex;flex-wrap:wrap;gap:7px 18px}
 .rates-card a{font-size:12px;color:inherit;text-decoration:none;border-bottom:1px dashed var(--text-muted)}
 .rates-card a:hover{border-bottom-color:var(--accent-gold)}
 .rates-card b{color:var(--text-strong)}
 .occupancy-note{border-top:1px solid var(--border);margin:10px 0 0;padding-top:9px;color:var(--text-muted);font-size:12px;line-height:1.4}
 .occupancy-note b{color:var(--text-strong)}
 
-@media(min-width:801px){.planner-open main{display:flex;flex-direction:column}.planner-open .planner-heading{display:contents}.planner-open .planner-heading .planner-back{order:1;max-width:1180px;width:100%;margin:16px auto 0;padding-left:24px}.planner-open .planner-heading>.eyebrow{order:2;max-width:1180px;width:100%;margin:8px auto 0;padding:0 24px}.planner-open .trip-summary{order:3}.planner-open .content-section{order:5}.planner-open .planner-heading .rates-card{order:6;max-width:1132px;width:calc(100% - 48px);margin:0 auto 18px}.planner-open footer{order:7}}
-@media(max-width:800px){.planner-open main{display:flex;flex-direction:column}.planner-open .planner-heading{display:contents}.planner-open .planner-heading .planner-back{order:1;margin:12px 16px 0}.planner-open .planner-heading>.eyebrow{order:2;margin:8px 16px 0}.planner-open .trip-summary{order:3}.planner-open .content-section{order:5}.planner-open .planner-heading .rates-card{order:6;margin:0 16px 14px}.planner-open footer{order:7}}
+@media(min-width:801px){.planner-open main{display:flex;flex-direction:column}.planner-open .planner-heading{display:contents}.planner-open .planner-heading .planner-top-row{order:1;max-width:1180px;width:100%;margin:16px auto 0;padding:0 24px}.planner-open .trip-summary{order:3}.planner-open .content-section{order:5}.planner-open .planner-heading .rates-card{order:6;max-width:1132px;width:calc(100% - 48px);margin:0 auto 18px}}
+@media(max-width:800px){.planner-open main{display:flex;flex-direction:column}.planner-open .planner-heading{display:contents}.planner-open .planner-heading .planner-top-row{order:1;margin:12px 16px 0}.planner-open .trip-summary{order:3}.planner-open .content-section{order:5}.planner-open .planner-heading .rates-card{order:6;margin:0 16px 14px}}
 
 /* ============================================================
    View toggle (Por día / Por rubro)
    ============================================================ */
-.view-toggle{display:flex;gap:8px;background:var(--bg-surface-muted);border-radius:12px;padding:5px;width:max-content;margin-bottom:22px}
-.view-toggle button{display:flex;align-items:center;gap:8px;border-radius:9px;padding:11px 18px;color:var(--text-muted);font-weight:700}
-.view-toggle svg{width:18px}
-.view-toggle button.selected{background:var(--bg-surface);color:var(--text-strong);box-shadow:0 2px 8px rgba(var(--shadow-rgb),.08)}
-.hint{color:var(--text-muted);font-size:13px}
+.view-toggle{display:flex;gap:4px;background:var(--bg-surface-muted);border:1px solid var(--border);border-radius:9px;padding:3px;width:max-content;flex-shrink:0}
+.view-toggle button{display:flex;align-items:center;gap:5px;border-radius:7px;padding:6px 10px;color:var(--text-muted);font-size:12.5px;font-weight:700;white-space:nowrap}
+.view-toggle button.selected{background:var(--bg-surface);color:var(--text-strong);box-shadow:0 2px 6px rgba(var(--shadow-rgb),.1)}
 .content-section{padding-top:20px}
 
 /* ============================================================
@@ -151,7 +186,8 @@ button{cursor:pointer;border:0;background:none}
 .day-hero:after{content:'';position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#102f38dd)}
 .day-hero-overlay{position:absolute;z-index:1;bottom:20px;left:24px;color:#fff}
 .day-hero-overlay span{font-size:13px;font-weight:600}
-.day-hero-overlay h2{font:700 30px Fraunces,serif;margin:5px 0}
+.day-stamp-badge{display:inline-block;margin-left:8px;padding:2px 9px;border:1px dashed rgba(255,255,255,.7);border-radius:12px;font-size:10.5px;letter-spacing:.03em;font-weight:600}
+.day-hero-overlay h2{font:700 30px 'Bricolage Grotesque',sans-serif;margin:5px 0}
 .day-hero-overlay p{display:flex;align-items:center;gap:5px;margin:0;font-size:14px}
 .day-hero img.day-duck-sticker{position:absolute;z-index:1;bottom:14px;right:18px;width:64px;height:auto;transform:rotate(-6deg);filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
 .day-hero-nav{position:absolute;z-index:2;top:16px;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:none;background:rgba(16,47,56,.45);color:#fff;cursor:pointer;transition:background .15s}
@@ -159,6 +195,11 @@ button{cursor:pointer;border:0;background:none}
 .day-hero-nav svg{width:20px;height:20px}
 .day-hero-nav.prev{left:12px}
 .day-hero-nav.next{right:12px}
+/* Postal-style "customs declaration" note box — a real, curated fact about
+   the day (see getDayNote), not invented flavor text. */
+.day-note{position:relative;margin:14px 24px 0;padding:13px 15px 12px;border-radius:8px;background:var(--bg-surface-muted);border:1.5px dashed var(--accent-coral)}
+.day-note-tab{position:absolute;top:-9px;left:12px;padding:0 8px;background:var(--bg-surface);color:var(--accent-coral);font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.day-note p{margin:2px 0 0;font-size:13.5px;line-height:1.5;color:var(--text-body);font-style:italic}
 .climate-away-note{margin:12px 24px 0;font-size:12px;font-weight:700;color:var(--text-muted)}
 .packing-modal .climate-away-note{margin:2px 0 0}
 .day-conditions{display:flex;flex-wrap:nowrap;gap:7px;padding:14px 24px 0;overflow-x:auto;scrollbar-width:none}
@@ -182,10 +223,10 @@ button{cursor:pointer;border:0;background:none}
 .packing-modal-stats small{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted)}
 .packing-modal-stats strong{display:block;font-size:13px;color:var(--text-strong)}
 .packing-checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.packing-checklist li{display:flex;align-items:flex-start;gap:10px;background:var(--bg-surface-muted);border:1px solid var(--border);color:var(--text-strong);border-radius:14px;padding:10px 14px;font:700 14px Fraunces,serif}
+.packing-checklist li{display:flex;align-items:flex-start;gap:10px;background:var(--bg-surface-muted);border:1px solid var(--border);color:var(--text-strong);border-radius:14px;padding:10px 14px;font:700 14px 'Bricolage Grotesque',sans-serif}
 .packing-checklist li svg{flex-shrink:0;margin-top:2px;color:var(--accent-gold-strong)}
 .expense-header{display:flex;justify-content:space-between;align-items:end;padding:22px 24px 14px}
-.expense-header h3{font:700 22px Fraunces,serif;margin:0;color:var(--text-strong)}
+.expense-header h3{font:700 22px 'Bricolage Grotesque',sans-serif;margin:0;color:var(--text-strong)}
 .expense-header>strong{font-size:20px;color:var(--accent-gold)}
 .expense-header>strong:after{content:' · por persona';display:block;color:var(--text-muted);font-size:10px;font-weight:500}
 .expense-list{padding:0 24px 20px}
@@ -214,14 +255,14 @@ button{cursor:pointer;border:0;background:none}
 .category-card>strong:after{content:' · por persona';display:block;color:var(--text-muted);font-size:10px;font-weight:500}
 .category-total{background:var(--bg-surface-muted);border-radius:14px;margin-top:18px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center}
 .category-total span,.category-total p{color:var(--text-muted);font-size:13px}
-.category-total strong{display:block;font:700 25px Fraunces,serif;color:var(--text-strong)}
+.category-total strong{display:block;font:700 25px 'Bricolage Grotesque',sans-serif;color:var(--text-strong)}
 .category-total strong:after{content:' · por persona';display:block;color:var(--text-muted);font-size:10px;font-weight:500}
 .category-total p{margin:0;max-width:300px}
 .category-detail-backdrop{position:fixed;inset:0;z-index:19;background:rgba(var(--shadow-rgb),.35)}
 .category-detail{background:var(--bg-surface);padding:22px;border-radius:15px;position:fixed;z-index:20;left:50%;top:50%;transform:translate(-50%,-50%);width:min(680px,calc(100% - 32px));max-height:calc(100vh - 32px);overflow:auto;box-shadow:0 18px 50px rgba(var(--shadow-rgb),.25);border:1px solid var(--border)}
 .category-detail:after{content:'Cada gasto se muestra en su moneda original de cotización y su equivalente en pesos colombianos (COP)';display:block;background:var(--bg-surface-muted);color:var(--text-body);border-radius:8px;padding:9px 11px;margin-top:12px;font-size:11px;font-weight:600}
 .detail-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.detail-title h3{font:700 23px Fraunces,serif;margin:0;color:var(--text-strong)}
+.detail-title h3{font:700 23px 'Bricolage Grotesque',sans-serif;margin:0;color:var(--text-strong)}
 .detail-title button{background:var(--bg-surface-muted);border-radius:50%;padding:6px;color:var(--text-strong);display:flex}
 .detail-title button:after{content:' Volver';font-size:12px;font-weight:700;vertical-align:middle;margin-left:3px}
 .mini-row{display:grid;grid-template-columns:100px 1fr auto;gap:10px;align-items:center;border-top:1px solid var(--border);padding:12px 0;font-size:13px}
@@ -234,9 +275,6 @@ button{cursor:pointer;border:0;background:none}
 /* ============================================================
    Footer
    ============================================================ */
-footer{padding:22px max(24px,calc((100% - 1180px)/2));display:flex;justify-content:space-between;color:var(--text-muted);font-size:12px;border-top:1px solid var(--border)}
-footer span:last-child{display:flex;gap:5px;align-items:center}
-.footer-duck{width:22px;display:block;border-radius:6px}
 
 /* ============================================================
    Responsive
@@ -244,27 +282,25 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
 @media(max-width:800px){
   body{background:var(--bg-page)}
   .app-shell{max-width:520px;margin:0 auto;background:var(--bg-page);box-shadow:0 0 28px rgba(var(--shadow-rgb),.09);min-height:100vh}
-  .topbar{height:84px;padding:0 16px;position:sticky;top:0;z-index:10}
-  .day-layout{scroll-margin-top:84px}
-  .brand-logo{height:52px}
-  .topbar nav{display:none;position:absolute;z-index:5;top:84px;left:0;right:0;background:var(--bg-header);border-bottom:1px solid var(--border);padding:18px 24px;flex-direction:column;gap:18px;box-shadow:0 8px 15px rgba(var(--shadow-rgb),.12)}
-  .topbar nav.open{display:flex}
-  .menu-button{display:block}
+  .topbar{height:84px;padding:0 16px}
+  .brand-icon{height:32px}
+  .brand-wordmark{height:28px}
   .welcome{padding:24px 18px 18px}
   .welcome h1{font-size:32px;margin-bottom:10px}
   .intro{font-size:15px}
   .option-area,.content-section{padding:12px 16px 28px}
-  .section-heading{margin-bottom:13px}
-  .section-heading h2{font-size:25px}
-  .option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:2px 1px 4px}
-  .option-card{min-width:0;min-height:190px;padding:17px 13px 12px}
-  .option-card p{margin-bottom:10px}
+  .option-grid{display:flex;flex-direction:column;gap:16px;padding:2px 1px 4px}
+  .option-card{min-width:0}
+  .option-photo{height:150px}
   .route{margin-top:10px}
-  .trip-summary{margin:0 16px 15px;padding:14px 16px;gap:10px;border-radius:13px}
+  /* Gutter via padding, not a side margin — this element is `width:100%`
+     (see the base rule, needed to stop it shrink-fitting its own content),
+     and a `width:100%` element with extra side margins on top demands
+     more than the viewport's width, overflowing the page horizontally and
+     clipping the price at the right edge. */
+  .trip-summary{margin:0 0 10px;padding:12px 16px;gap:10px}
   .summary-cost strong{font-size:15px}
   .content-section{padding-top:10px}
-  .view-toggle{width:100%;margin-bottom:16px}
-  .view-toggle button{flex:1;justify-content:center;padding:10px 12px}
   .day-layout{grid-template-columns:1fr}
   .day-list{position:relative;display:flex;flex-direction:row;overflow-x:auto;max-height:none;padding-left:0;padding-right:0;padding-bottom:7px;gap:7px;scroll-snap-type:x proximity;scrollbar-width:none}
   .day-list::-webkit-scrollbar{display:none}
@@ -291,24 +327,16 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   .category-grid{grid-template-columns:repeat(2,1fr);gap:9px}
   .category-card{padding:12px 13px}
   .category-card strong{font-size:15px}
-  footer{padding:18px 16px}
 }
 @media(max-width:480px){
   :root{font-size:16px}
-  .brand small{font-size:8px}
   .welcome h1{font-size:34px}
   .intro{font-size:16px}
-  .section-heading{align-items:flex-start;gap:10px;flex-direction:column}
-  .section-heading h2{font-size:26px}
-  .hint{display:none}
-  /* This one stays: it's the first-screen "the cards are the buttons"
-     explanation, on the narrow phones where that's least obvious. */
-  .hint.hint-always{display:block;font-size:12px}
   .option-grid{gap:9px}
-  .option-card{padding:19px 13px 13px;min-height:245px}
-  .option-card h3{font-size:19px}
+  .option-body{padding:13px}
+  .option-card h3{font-size:17px}
   .option-card p{font-size:12px}
-  .option-card strong{font-size:14px}
+  .option-price-row strong{font-size:16px}
   .route{font-size:11px}
   .trip-summary{align-items:flex-start}
   .summary-cost{text-align:left}
@@ -327,8 +355,6 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
   .mini-row{grid-template-columns:80px 1fr}
   .mini-row b{grid-column:2}
   .mini-row a{grid-column:2}
-  footer{padding:20px 18px;display:block}
-  footer span{display:block;margin:5px 0}
 }
 
 /* ============================================================
@@ -338,7 +364,7 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
 .day-plan-title{margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text-muted)}
 .day-plan-text{margin:0;font-size:13.5px;line-height:1.55;white-space:pre-wrap;color:var(--text-body)}
 .day-plan-caption{margin:8px 0 0;font-size:12.5px;font-style:italic;color:var(--text-muted)}
-@media(max-width:640px){.day-plan-note{margin:0 17px 16px}}
+@media(max-width:640px){.day-plan-note{margin:0 17px 16px}.day-note{margin:14px 17px 0}}
 
 /* ============================================================
    In-app AI chat
@@ -350,37 +376,51 @@ footer span:last-child{display:flex;gap:5px;align-items:center}
    speech-bubble icon isn't obviously "ask a question here" to someone who
    hasn't seen a chat widget before; the whole point of this button is
    self-service instead of texting the trip organizer directly. */
-.chat-fab{position:fixed;right:20px;bottom:92px;z-index:25;height:52px;border-radius:26px;padding:0 20px 0 16px;display:inline-flex;align-items:center;gap:8px;background:var(--text-strong);color:var(--bg-surface);font:700 15px inherit;white-space:nowrap;box-shadow:0 8px 20px rgba(var(--shadow-rgb),.28);transition:transform .15s}
+/* Deliberately quieter than the coral "Ver detalle" buttons — an outlined
+   stamp rather than a solid one, so it never competes for attention with
+   the actual call-to-action on a card. */
+.chat-fab{position:fixed;right:20px;bottom:92px;z-index:25;height:46px;border-radius:23px;padding:0 18px 0 14px;display:inline-flex;align-items:center;gap:7px;background:var(--bg-surface);color:var(--accent-coral);border:1.5px dashed var(--accent-coral);font:700 13.5px 'Bricolage Grotesque',sans-serif;white-space:nowrap;box-shadow:0 6px 14px rgba(var(--shadow-rgb),.18);transition:transform .15s}
 .chat-fab:hover{transform:scale(1.04)}
 @media(max-width:640px){
   .chat-fab{right:14px;bottom:80px;height:46px;padding:0 16px 0 13px;font-size:13.5px}
 }
 
-.chat-inline-cta{display:inline-flex;align-items:center;gap:9px;margin:0 24px 18px;padding:11px 16px;border-radius:11px;background:var(--bg-accent);color:var(--text-on-accent-muted);font-weight:600;font-size:13.5px;width:fit-content;transition:background .15s}
-.chat-inline-cta:hover{filter:brightness(0.97)}
-/* Same .chat-fab clearance as .day-conditions above — this banner sits
-   right below it and was getting its trailing text covered too. */
-@media(max-width:640px){.chat-inline-cta{margin:0 140px 16px 17px}}
-
 /* `bottom` clears Netlify's own "Powered by Netlify" badge (free-tier
    hosting), same reason .chat-fab sits above it instead of at the page
    edge — otherwise the badge overlaps the panel's input row/send button. */
-.chat-panel{position:fixed;right:20px;bottom:92px;z-index:25;width:min(360px,calc(100vw - 32px));height:min(520px,calc(100vh - 112px));background:var(--bg-surface);border:1px solid var(--border);border-radius:16px;box-shadow:0 18px 50px rgba(var(--shadow-rgb),.3);display:flex;flex-direction:column;overflow:hidden}
-.chat-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--text-strong);color:var(--bg-surface)}
-.chat-panel-header strong{display:block;font-size:15px}
-.chat-panel-header span{font-size:12px;opacity:.75}
+/* Framed like the postal cards on the selection screen: a thin airmail-
+   stripe border running all the way around the panel (.chat-panel is the
+   striped frame; .chat-panel-inner is the actual white/dark window). */
+.chat-panel{position:fixed;right:20px;bottom:92px;z-index:25;width:min(360px,calc(100vw - 32px));height:min(520px,calc(100vh - 112px));padding:4px;border-radius:18px;background:var(--airmail-stripe);box-shadow:0 18px 50px rgba(var(--shadow-rgb),.3)}
+.chat-panel-inner{width:100%;height:100%;background:var(--bg-surface);border-radius:14px;display:flex;flex-direction:column;overflow:hidden}
+.chat-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--bg-header);color:var(--text-on-header)}
+.chat-panel-brand{display:flex;align-items:center;gap:8px}
+.chat-panel-brand img:first-child{height:22px;width:auto;flex-shrink:0}
+.chat-panel-brand img:last-child{height:15px;width:auto}
 .chat-panel-header-actions{display:flex;align-items:center;gap:6px}
 .chat-panel-header button{color:inherit;display:flex}
-.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-.chat-empty-hint{color:var(--text-muted);font-size:13.5px;margin:0}
-.chat-bubble{max-width:82%;padding:9px 13px;border-radius:13px;font-size:13.5px;line-height:1.4;white-space:pre-wrap;overflow-wrap:break-word}
-.chat-bubble.user{align-self:flex-end;background:var(--accent-teal);color:var(--text-on-accent)}
-.chat-bubble.ai{align-self:flex-start;background:var(--bg-surface-muted);color:var(--text-body)}
-.chat-bubble.chat-typing{color:var(--text-muted);font-style:italic}
+/* "Buzón de postales" — every message is a small postcard: a slight
+   rotation, a torn/washi-tape strip at the top, drop shadow. The AI's
+   postcard carries a small duck "stamp" the same way the app's other
+   cards do. */
+.chat-messages{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:18px;background:var(--bg-page)}
+.chat-empty-hint{color:var(--text-muted);font-size:13.5px;margin:0;text-align:center}
+.chat-bubble{position:relative;max-width:84%;padding:11px 14px;border-radius:5px;font-size:13.5px;line-height:1.5;white-space:pre-wrap;overflow-wrap:break-word;background:var(--bg-surface);box-shadow:0 6px 14px rgba(var(--shadow-rgb),.16)}
+.chat-bubble-tape{position:absolute;top:-7px;width:34px;height:12px;border-radius:1px}
+.chat-bubble.user{align-self:flex-end;color:#fff8ec;background:var(--accent-coral);transform:rotate(1deg)}
+.chat-bubble.user .chat-bubble-tape{right:16px;transform:rotate(-4deg);background:rgba(255,248,236,.45)}
+.chat-bubble.ai{align-self:flex-start;color:var(--text-body);display:flex;gap:9px;transform:rotate(-1deg)}
+.chat-bubble.ai .chat-bubble-tape{left:16px;transform:rotate(-4deg);background:rgba(178,58,47,.35)}
+.chat-bubble-avatar{width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0;margin-top:1px}
+.chat-bubble-text{flex:1;min-width:0}
+.chat-bubble.chat-typing .chat-bubble-text{color:var(--text-muted);font-style:italic}
 .chat-input-row{display:flex;align-items:flex-end;gap:8px;padding:12px;border-top:1px solid var(--border)}
 .chat-input-row textarea{flex:1;resize:none;border:1px solid var(--border-strong);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:13.5px;line-height:1.4;color:var(--text-body);background:var(--bg-page);min-height:38px;max-height:140px;overflow-y:auto}
-.chat-input-row button{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--text-strong);color:var(--bg-surface);display:flex;align-items:center;justify-content:center;transition:opacity .15s}
+.chat-input-row button{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--accent-coral);color:#fff8ec;display:flex;align-items:center;justify-content:center;transition:opacity .15s}
 .chat-input-row button:disabled{opacity:.4;cursor:default}
 @media(max-width:640px){
-  .chat-panel{right:14px;bottom:80px;width:calc(100vw - 28px);height:min(520px,calc(100vh - 100px))}
+  /* Near-full-screen on mobile — a postcard-stacked conversation deserves
+     real room, not a tiny corner box (still clearing the Netlify badge and
+     the fab's own position at the bottom, same as everywhere else here). */
+  .chat-panel{left:8px;right:8px;top:16px;bottom:80px;width:auto;height:auto}
 }

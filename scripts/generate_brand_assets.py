@@ -8,6 +8,8 @@ Reads src/patitours.jpg (the flat, white-background logo lockup) and writes:
     src/assets/brand/patitours-logo-dark.png   full lockup, dark theme (cream ink)
     src/assets/brand/patitours-icon.png        icon only (badge, no wordmark), light
     src/assets/brand/patitours-icon-dark.png   icon only, dark
+    src/assets/brand/patitours-wordmark.png    "PATITOURS" wordmark only (no icon), light
+    src/assets/brand/patitours-wordmark-dark.png  wordmark only, dark
     public/favicon.png                         square favicon, from the icon
 
 The source file is a plain JPEG on a white background with no transparency,
@@ -103,9 +105,9 @@ def resize_to_height(img: Image.Image, height: int) -> Image.Image:
     return img.resize((width, height), Image.LANCZOS)
 
 
-def split_icon_from_wordmark(logo: Image.Image) -> Image.Image:
+def _find_icon_wordmark_gap(logo: Image.Image) -> tuple[int, int]:
     """The lockup is [circular icon] [gap] [wordmark]; find the widest fully
-    transparent vertical gap and crop everything left of it."""
+    transparent vertical gap and return (gap_start, gap_end)."""
     w, h = logo.size
     alpha = logo.split()[3]
     apx = alpha.load()
@@ -121,10 +123,22 @@ def split_icon_from_wordmark(logo: Image.Image) -> Image.Image:
             gaps.append((start, x))
         else:
             x += 1
-    gap_start, _ = max(gaps, key=lambda g: g[1] - g[0])
+    return max(gaps, key=lambda g: g[1] - g[0])
 
-    icon = logo.crop((0, 0, gap_start, h))
+
+def split_icon_from_wordmark(logo: Image.Image) -> Image.Image:
+    """Everything left of the icon/wordmark gap — the circular icon alone."""
+    gap_start, _ = _find_icon_wordmark_gap(logo)
+    icon = logo.crop((0, 0, gap_start, logo.height))
     return icon.crop(icon.getbbox())
+
+
+def split_wordmark_from_icon(logo: Image.Image) -> Image.Image:
+    """Everything right of the icon/wordmark gap — the "PATITOURS" wordmark
+    (with its star) alone, no icon."""
+    _, gap_end = _find_icon_wordmark_gap(logo)
+    wordmark = logo.crop((gap_end, 0, logo.width, logo.height))
+    return wordmark.crop(wordmark.getbbox())
 
 
 def make_favicon(icon: Image.Image) -> Image.Image:
@@ -145,10 +159,15 @@ def main() -> None:
     icon_light = resize_to_height(split_icon_from_wordmark(logo_light), ICON_HEIGHT)
     icon_dark = recolor_ink_for_dark_theme(icon_light)
 
+    wordmark_light = resize_to_height(split_wordmark_from_icon(logo_light), ICON_HEIGHT)
+    wordmark_dark = recolor_ink_for_dark_theme(wordmark_light)
+
     logo_light.save(ASSETS_DIR / "patitours-logo.png")
     logo_dark.save(ASSETS_DIR / "patitours-logo-dark.png")
     icon_light.save(ASSETS_DIR / "patitours-icon.png")
     icon_dark.save(ASSETS_DIR / "patitours-icon-dark.png")
+    wordmark_light.save(ASSETS_DIR / "patitours-wordmark.png")
+    wordmark_dark.save(ASSETS_DIR / "patitours-wordmark-dark.png")
     make_favicon(icon_light).save(PUBLIC_DIR / "favicon.png")
 
     print("Generated logo/icon/favicon assets in src/assets/brand/ and public/")

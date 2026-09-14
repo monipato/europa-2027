@@ -47,7 +47,8 @@ Every trip price, date, and note is plain JSON you can open and read directly �
 - **A new day, or changing which city/title/weather a day itself shows** — edit `data/options/<id>.json` directly; a day needs more than one line item's worth of fields (city, title, weather), so there's no guided command for it. Always re-run `python3 scripts/generate_data.py` afterward (or let `manage_item.py`/`update_rates.py`/`update_climate.py` do it for you, since they all call it at the end).
 - **Exchange rates** — `python3 scripts/update_rates.py` (the `update-rates` skill).
 - **Weather/sunrise/sunset** — `python3 scripts/update_climate.py` (the `update-climate` skill).
-- `manage_item.py` only covers the 3 day-by-day options (`europa`, `alpes-suizos`, `crucero-en-pareja` — the `--option` flag takes this file id, not the display name shown in the app, so renaming an option's `"name"` field never requires touching this script). Orlando and Japón are edited by hand in their own JSON files, for the reasons described above.
+- **A brand-new trip option** (day-by-day shape only) — two skills run back to back: `new-trip` turns a plain-language description of the trip into `data/options/<id>.json`, then `wire-up-trip` registers that id in the 3 scripts that hardcode the day-by-day option list (`generate_data.py`, `manage_item.py`, `validate_data.py`), adds any new cities to `data/cities.json`, and regenerates/validates.
+- `manage_item.py` only covers the day-by-day options (`europa`, `alpes-suizos`, `crucero-en-pareja`, and any added since via `new-trip`/`wire-up-trip` — the `--option` flag takes this file id, not the display name shown in the app, so renaming an option's `"name"` field never requires touching this script). Orlando and Japón are edited by hand in their own JSON files, for the reasons described above.
 
 ### App layer (`src/`)
 

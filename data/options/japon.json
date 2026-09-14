@@ -23,7 +23,7 @@
           "currency": "COP",
           "unitAmount": 2017294,
           "quantity": 6,
-          "note": "Volaris, BOG 1:07pm (hora Colombia) → Guadalajara (GDL) 5:26pm local ✅; escala 3h25 (sale 8:51pm) → LAX 11:18pm local ✅. Duración total 12h11. Precio confirmado (Google Flights). Incluye tramo de regreso.",
+          "note": "Volaris, BOG 1:07pm → Guadalajara 5:26pm ✅; escala 3h25 → LAX 11:18pm ✅. Duración 12h11. Precio confirmado, incluye regreso.",
           "place": "Bogotá / Japón",
           "link": "https://www.google.com/travel/flights"
         },
@@ -85,7 +85,7 @@
           "currency": "COP",
           "unitAmount": 2409162,
           "quantity": 6,
-          "note": "STARLUX Airlines, LAX 11:50pm local ✅ → escala Taipéi (TPE) ~13h de vuelo, llega ~3:50-4:00am 🟡 estimado → sale Taipéi ~8:40am 🟡 estimado → Narita (NRT) 12:35pm hora Japón, 22 mar ✅. Precio confirmado (Kiwi.com/Google Flights). Incluye tramo de regreso.",
+          "note": "STARLUX, LAX 11:50pm ✅ → escala Taipéi ~13h 🟡 → Narita 12:35pm (22 mar) ✅. Precio confirmado, incluye regreso.",
           "place": "Bogotá / Japón",
           "link": "https://www.google.com/travel/flights"
         },
@@ -143,7 +143,7 @@
           "currency": "JPY",
           "unitAmount": 136080,
           "quantity": 1,
-          "note": "Habitación Triple Deluxe (2 camas dobles + 1 sofá cama), zona Maihama, junto a Tokyo Disney Resort. Reserva confirmada por Booking.com, check-in 22 mar 15:00–23:00, check-out 25 mar hasta las 10:00, 1 habitación para las 6 personas.",
+          "note": "Triple Deluxe, zona Maihama junto a Tokyo Disney Resort. Reserva confirmada, check-in 22 mar, check-out 25 mar.",
           "link": "/hoteles/tokio-mystays-maihama.pdf"
         },
         {
@@ -191,7 +191,7 @@
               "count": 1
             }
           ],
-          "note": "Pase para Disneyland (hoy) + DisneySea (mañana), 1 parque/día. Tarifa estimada temporada alta — Tokyo Disney libera fechas de 2027 ~2 meses antes.",
+          "note": "Pase Disneyland (hoy) + DisneySea (mañana), 1 parque/día. Tarifa estimada — Tokyo Disney libera fechas 2027 ~2 meses antes.",
           "link": "https://www.tokyodisneyresort.jp/en/"
         },
         {
@@ -257,7 +257,7 @@
           "currency": "JPY",
           "unitAmount": 81935,
           "quantity": 1,
-          "note": "Casa de 3 dormitorios, zona Konohana junto a Universal Studios Japan. Reserva confirmada por Booking.com, check-in 25 mar 16:00–00:00, check-out 27 mar hasta las 10:00, 1 casa para las 6 personas (incluye suplemento de limpieza).",
+          "note": "Casa de 3 dormitorios, zona Konohana junto a Universal Studios Japan. Reserva confirmada para las 6 personas, incluye limpieza.",
           "link": "/hoteles/osaka-sakurajima.pdf"
         },
         {
@@ -300,7 +300,7 @@
               "count": 1
             }
           ],
-          "note": "Super Nintendo World, The Wizarding World of Harry Potter, Minion Park. USJ usa solo 2 categorías de edad (no tiene tarifa 'junior' aparte).",
+          "note": "Super Nintendo World, Wizarding World of Harry Potter, Minion Park. USJ usa solo 2 categorías de edad.",
           "link": "https://www.usj.co.jp/e/"
         },
         {
@@ -342,7 +342,7 @@
           "currency": "COP",
           "unitAmount": 0,
           "quantity": 1,
-          "note": "Incluido en la tarifa ida y vuelta del vuelo de ida. STARLUX: Narita 3:40pm ✅ → escala Taipéi ~5:35-11:45pm 🟡 estimado → LAX 8:05pm hora local, mismo día por cruce de línea de fecha ✅.",
+          "note": "Incluido en el vuelo de ida. STARLUX: Narita 3:40pm ✅ → escala Taipéi 🟡 → LAX 8:05pm mismo día ✅.",
           "link": null
         },
         {
@@ -375,7 +375,7 @@
           "currency": "COP",
           "unitAmount": 0,
           "quantity": 1,
-          "note": "Incluido en la tarifa ida y vuelta del vuelo de ida. COPA: LAX 2:28am ✅ → escala Panamá (PTY) ~10:28-11:50am hora Panamá 🟡 estimado → Bogotá 1:30pm hora Colombia ✅.",
+          "note": "Incluido en el vuelo de ida. COPA: LAX 2:28am ✅ → escala Panamá 🟡 → Bogotá 1:30pm ✅.",
           "place": "Bogotá / Japón",
           "link": null
         },
