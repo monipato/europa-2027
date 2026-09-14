@@ -1,0 +1,36 @@
+{
+  "updatedAt": "12/09/2026",
+  "markup": 1.05,
+  "rates": {
+    "EUR": {
+      "label": "Euro — Francia, España, Italia, Croacia, Alemania",
+      "symbol": "€",
+      "baseRate": 3604,
+      "sourceUrl": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=EUR&To=COP"
+    },
+    "CHF": {
+      "label": "Franco suizo — Suiza",
+      "symbol": "CHF",
+      "baseRate": 3806,
+      "sourceUrl": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=CHF&To=COP"
+    },
+    "CZK": {
+      "label": "Corona checa — República Checa",
+      "symbol": "Kč",
+      "baseRate": 148.6,
+      "sourceUrl": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=CZK&To=COP"
+    },
+    "USD": {
+      "label": "Dólar estadounidense — vuelos internacionales / referencia",
+      "symbol": "US$",
+      "baseRate": 3106,
+      "sourceUrl": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=COP"
+    },
+    "JPY": {
+      "label": "Yen japonés",
+      "symbol": "¥",
+      "baseRate": 20.2,
+      "sourceUrl": "https://www.xe.com/currencyconverter/convert/?Amount=1&From=JPY&To=COP"
+    }
+  }
+}

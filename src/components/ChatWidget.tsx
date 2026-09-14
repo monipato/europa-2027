@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { MessageCircle, RotateCcw, Send, X } from 'lucide-react'
 import { getChatSessionId, resetChatSessionId } from '../utils/chatSession'
 import { setChatOpenListener } from '../utils/chatBus'
+import patitoursIconDark from '../assets/brand/patitours-icon-dark.png'
+import patitoursWordmarkDark from '../assets/brand/patitours-wordmark-dark.png'
+import duckAssistant from '../assets/ducks/duck-cat-cultural.png'
 
 type ChatMessage = { sender: 'user' | 'ai'; body: string }
 
@@ -143,52 +146,65 @@ export function ChatWidget({ contextMessage }: { contextMessage: string }) {
     <>
       {!open && (
         <button className="chat-fab" onClick={() => setOpen(true)} aria-label="Abrir chat con PatiTours">
-          <MessageCircle size={26} />
+          <MessageCircle size={22} />
+          <span>¿Dudas?</span>
         </button>
       )}
 
       {open && (
         <div className="chat-panel">
-          <div className="chat-panel-header">
-            <div>
-              <strong>PatiTours</strong>
-              <span>Asistente del viaje · IA</span>
-            </div>
-            <div className="chat-panel-header-actions">
-              <button onClick={handleReset} aria-label="Reiniciar conversación" title="Reiniciar conversación">
-                <RotateCcw size={18} />
-              </button>
-              <button onClick={() => setOpen(false)} aria-label="Cerrar chat">
-                <X size={20} />
-              </button>
-            </div>
-          </div>
-
-          <div className="chat-messages">
-            {messages.length === 0 && (
-              <p className="chat-empty-hint">¡Hola! Pregúntame lo que quieras sobre el viaje: vuelos, hoteles, tours, precios o clima.</p>
-            )}
-            {messages.map((message, index) => (
-              <div className={`chat-bubble ${message.sender}`} key={index}>
-                {message.sender === 'ai' ? renderChatText(message.body) : message.body}
+          <div className="chat-panel-inner">
+            <div className="chat-panel-header">
+              <div className="chat-panel-brand">
+                <img src={patitoursIconDark} alt="" />
+                <img src={patitoursWordmarkDark} alt="PatiTours" />
               </div>
-            ))}
-            {sending && <div className="chat-bubble ai chat-typing">Escribiendo…</div>}
-            <div ref={messagesEndRef} />
-          </div>
+              <div className="chat-panel-header-actions">
+                <button onClick={handleReset} aria-label="Reiniciar conversación" title="Reiniciar conversación">
+                  <RotateCcw size={18} />
+                </button>
+                <button onClick={() => setOpen(false)} aria-label="Cerrar chat">
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
 
-          <div className="chat-input-row">
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Escribe tu pregunta…"
-              rows={1}
-            />
-            <button onClick={handleSend} disabled={sending || !input.trim()} aria-label="Enviar mensaje">
-              <Send size={18} />
-            </button>
+            <div className="chat-messages">
+              {messages.length === 0 && (
+                <p className="chat-empty-hint">¡Hola! Pregúntame lo que quieras sobre el viaje: vuelos, hoteles, tours, precios o clima.</p>
+              )}
+              {messages.map((message, index) => (
+                <div className={`chat-bubble ${message.sender}`} key={index}>
+                  <span className="chat-bubble-tape" aria-hidden="true" />
+                  {message.sender === 'ai' && <img className="chat-bubble-avatar" src={duckAssistant} alt="" aria-hidden="true" />}
+                  <div className="chat-bubble-text">
+                    {message.sender === 'ai' ? renderChatText(message.body) : message.body}
+                  </div>
+                </div>
+              ))}
+              {sending && (
+                <div className="chat-bubble ai chat-typing">
+                  <span className="chat-bubble-tape" aria-hidden="true" />
+                  <img className="chat-bubble-avatar" src={duckAssistant} alt="" aria-hidden="true" />
+                  <div className="chat-bubble-text">Escribiendo…</div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            <div className="chat-input-row">
+              <textarea
+                ref={textareaRef}
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Escribe tu pregunta…"
+                rows={1}
+              />
+              <button onClick={handleSend} disabled={sending || !input.trim()} aria-label="Enviar mensaje">
+                <Send size={18} />
+              </button>
+            </div>
           </div>
         </div>
       )}

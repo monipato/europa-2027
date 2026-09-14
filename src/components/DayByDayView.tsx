@@ -1,29 +1,31 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, ChevronDown, ChevronLeft, ChevronRight, ExternalLink, MapPin, X } from 'lucide-react'
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Download, ExternalLink, MapPin, X } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
 import { CATEGORY_META } from '../categoryMeta'
 import { formatCOP, formatExpenseAmount } from '../utils/currency'
+import { expenseLinkLabel, isDownloadableLink } from '../utils/expenseLink'
 import { getDayDisplayLabel } from '../utils/dayDisplay'
+import { assignDayMotivationNotes } from '../utils/dayMotivation'
 import { assignDuckStickers } from '../utils/duckStickers'
 import { assignTourDucks } from '../utils/tourDuck'
 import { assignWeatherDucks } from '../utils/weatherDuck'
-import { ChatInlineCTA } from './ChatInlineCTA'
 import duckPacking from '../assets/ducks/duck-luggage.png'
 
 interface DayByDayViewProps {
   days: GeneratedDay[]
   selectedDayIndex: number
   onSelectDay: (index: number) => void
-  optionName: string
 }
 
 /** "Por día" view: a scrollable list of days on the left, and the selected
  * day's photo, title and full expense list on the right. */
-export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }: DayByDayViewProps) {
+export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayViewProps) {
   const activeIndex = days[selectedDayIndex] ? selectedDayIndex : 0
   const activeDay = days[activeIndex]
   const activeDayLabel = getDayDisplayLabel(activeDay)
+  const dayMotivationNotes = useMemo(() => assignDayMotivationNotes(days), [days])
+  const activeDayNote = dayMotivationNotes[activeIndex]
   const activeDayTotal = activeDay.expenses.reduce((sum, expense) => sum + expense.amount, 0)
   const dayDucks = useMemo(() => assignDuckStickers(days), [days])
   const activeDayDuck = dayDucks[activeIndex]
@@ -41,8 +43,6 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
   const SWIPE_THRESHOLD = 40
   const selectedNavRef = useRef<HTMLButtonElement | null>(null)
   const dayListRef = useRef<HTMLElement | null>(null)
-  const layoutRef = useRef<HTMLDivElement | null>(null)
-  const isFirstRender = useRef(true)
 
   // Keep the selected day-nav button in view by scrolling only the day-list
   // strip itself (never window.scrollTo / scrollIntoView on ancestors) —
@@ -66,23 +66,6 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
     }
   }, [activeIndex])
 
-  // Every time the selected day changes (arrows, swipe, or the list), snap
-  // back to a stable landing spot: the day-nav row together with the hero
-  // image just below it, instead of wherever the page happened to be
-  // scrolled to (e.g. deep in the expense list). Anchored on the whole
-  // day-list + day-detail section — not just the detail — so the nav row
-  // stays visible with the hero, matching how this view is meant to be
-  // read. Instant (no smooth) so it doesn't fight the day-list's own
-  // smooth horizontal scroll above. Skipped on first mount so opening the
-  // planner doesn't jump.
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false
-      return
-    }
-    layoutRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' })
-  }, [activeIndex])
-
   function handleTouchStart(event: React.TouchEvent) {
     touchStartX.current = event.touches[0].clientX
   }
@@ -104,7 +87,7 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
   const singleCityTrip = days.length > 0 && days.every((day) => day.city === days[0].city)
 
   return (
-    <div className="day-layout" ref={layoutRef}>
+    <div className="day-layout">
       <aside className="day-list" ref={dayListRef}>
         {days.map((day, index) => {
           const label = getDayDisplayLabel(day)
@@ -140,12 +123,22 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
             </button>
           )}
           <div className="day-hero-overlay">
-            <span>{activeDayLabel.emoji} {activeDayLabel.label}</span>
+            <span>
+              {activeDayLabel.emoji} {activeDayLabel.label}
+              <span className="day-stamp-badge stamp-label" aria-hidden="true">DÍA {activeIndex + 1} DE {days.length}</span>
+            </span>
             <h2>{activeDay.title}</h2>
             <p><MapPin size={15} /> {activeDay.city}</p>
           </div>
           {activeDayDuck && <img className="day-duck-sticker" src={activeDayDuck} alt="" aria-hidden="true" />}
         </div>
+
+        {activeDayNote && (
+          <div className="day-note">
+            <span className="day-note-tab stamp-label">Nota del día</span>
+            <p>{activeDayNote}</p>
+          </div>
+        )}
 
         {activeDay.climateCity !== activeDay.city && (
           <p className="climate-away-note">🚠 Clima de {activeDay.climateCity} — la excursión del día</p>
@@ -185,11 +178,6 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
             {activeDay.planNoteCaption && <p className="day-plan-caption">{activeDay.planNoteCaption}</p>}
           </div>
         )}
-
-        <ChatInlineCTA
-          label={`¿Preguntas sobre este día? Escríbenos`}
-          message={`Hola! Tengo una pregunta sobre el día ${activeDay.dayKey} (${activeDay.city}) de la opción "${optionName}".`}
-        />
 
         {showPacking && (
           <>
@@ -281,9 +269,14 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay, optionName }
               <div className="expense-info">
                 <strong>{expense.title}</strong>
                 <span>{expense.category}{expense.note && ` · ${expense.note}`}</span>
-                {expense.link && (
+                {expense.link && isDownloadableLink(expense.link) && (
+                  <a href={expense.link} download rel="noreferrer">
+                    {expenseLinkLabel(expense.link)} <Download size={14} />
+                  </a>
+                )}
+                {expense.link && !isDownloadableLink(expense.link) && (
                   <a href={expense.link} target="_blank" rel="noreferrer">
-                    Ver tour o sitio web <ExternalLink size={14} />
+                    {expenseLinkLabel(expense.link)} <ExternalLink size={14} />
                   </a>
                 )}
               </div>
