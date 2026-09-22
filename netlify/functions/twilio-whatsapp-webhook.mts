@@ -1,5 +1,5 @@
 import type { Config } from '@netlify/functions'
-import { ensureSchema, getOrCreateConversation, getRecentMessages, insertInboundMessage, insertOutboundMessage } from './_lib/db'
+import { ensureSchema, getOrCreateConversation, getRecentMessages, hasReachedDailyMessageCap, insertInboundMessage, insertOutboundMessage } from './_lib/db'
 import { verifyTwilioSignature } from './_lib/twilio'
 import { buildSystemPrompt } from './_lib/tripContext'
 import { generateReply } from './_lib/gemini'
@@ -18,6 +18,7 @@ export const config: Config = {
 }
 
 const FALLBACK_REPLY = '¡Hola! Recibimos tu mensaje, en un momento seguimos. 😊'
+const DAILY_CAP_REPLY = 'Hemos hablado bastante hoy 😊 Para no perder detalle, sigamos la conversación en unas horas o mañana. ¡Gracias por tu paciencia!'
 
 export default async (req: Request) => {
   const formData = await req.formData()
@@ -47,8 +48,15 @@ export default async (req: Request) => {
   if (!isNew || conversation.aiPaused) return twimlReply('')
 
   try {
+    // Cost/abuse backstop — anyone can message the WhatsApp number with no
+    // login, so this caps it per conversation instead of calling Gemini forever.
+    if (await hasReachedDailyMessageCap(conversation.id)) {
+      await insertOutboundMessage(conversation.id, 'ai', DAILY_CAP_REPLY)
+      return twimlReply(DAILY_CAP_REPLY)
+    }
+
     const history = await getRecentMessages(conversation.id, 20)
-    const systemPrompt = buildSystemPrompt()
+    const systemPrompt = buildSystemPrompt([...history.map((m) => m.body), text])
     const reply = await generateReply(systemPrompt, history, text)
     await insertOutboundMessage(conversation.id, 'ai', reply)
     return twimlReply(reply)

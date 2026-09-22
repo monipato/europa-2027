@@ -124,3 +124,25 @@ export async function getRecentMessages(conversationId: number, limit = 20): Pro
   `) as StoredMessage[]
   return rows.reverse()
 }
+
+/** Default daily cap on customer messages per conversation before the bot
+ * stops calling Gemini and asks them to wait — a WhatsApp number with no
+ * login is otherwise an open door to unlimited (paid) API calls from a
+ * single caller, deliberate or not. Overridable via env for a busier launch
+ * day without a code change. */
+const DAILY_MESSAGE_CAP = Number(process.env.CHAT_DAILY_MESSAGE_CAP) || 40
+
+/** Whether this conversation has already sent DAILY_MESSAGE_CAP or more
+ * inbound (customer) messages in the last rolling 24h — the abuse/cost
+ * backstop for both chat.mts and twilio-whatsapp-webhook.mts. A generous
+ * cap: it's there to stop a runaway loop or deliberate abuse, not to
+ * interrupt a real, if unusually chatty, conversation. */
+export async function hasReachedDailyMessageCap(conversationId: number): Promise<boolean> {
+  const rows = (await sql`
+    SELECT COUNT(*)::int AS count FROM messages
+    WHERE conversation_id = ${conversationId}
+      AND direction = 'inbound'
+      AND created_at > now() - interval '24 hours'
+  `) as { count: number }[]
+  return (rows[0]?.count ?? 0) >= DAILY_MESSAGE_CAP
+}
