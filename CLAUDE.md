@@ -75,9 +75,9 @@ Every trip price, date, and note is plain JSON you can open and read directly �
 
 ### Brand assets and theming
 
-- **`src/patitours.jpg`** is the source-of-truth logo lockup. `scripts/generate_brand_assets.py` derives everything else from it into `src/assets/brand/` (light/dark full lockup + icon-only crops, plus `public/favicon.png`). Never hand-edit those generated PNGs — replace `src/patitours.jpg` and re-run the script.
+- **`src/patitours.jpg`** is the source-of-truth logo lockup. `scripts/generate_brand_assets.py` derives everything else from it into `src/assets/brand/` (light/dark full lockup + icon-only crops, as WebP — smaller than PNG with no visible difference for these — plus `public/favicon.png`, kept PNG for format compatibility). Never hand-edit those generated files — replace `src/patitours.jpg` and re-run the script.
 - Theming is CSS custom properties (`src/styles.css`), not two parallel stylesheets — every color is a `--token` in `:root` with overrides in both `@media (prefers-color-scheme: dark)` and `:root[data-theme="dark"]`. `src/hooks/useTheme.ts` resolves the initial theme and persists explicit choices to `localStorage`. When adding a new color, add a token pair (light + dark) rather than hardcoding a hex.
-- **`src/assets/ducks/*.png`** are the app's small decorative "traveling duck" stickers (not the logo, not emoji) — final, hand-cropped, checked-in assets with no generator script. `src/utils/duckStickers.ts`/`weatherDuck.ts`/`tourDuck.ts` each assign a duck from a *pool* (≥2 candidates) per day, so a run of similar days never repeats one fixed duck — see each file's own top comment for its reserved pool and priority order.
+- **`src/assets/ducks/*.webp`** are the app's small decorative "traveling duck" stickers (not the logo, not emoji) — final, hand-cropped, checked-in assets with no generator script (saved as WebP rather than PNG purely for file size — same content, no other difference). `src/utils/duckStickers.ts`/`weatherDuck.ts`/`tourDuck.ts` each assign a duck from a *pool* (≥2 candidates) per day, so a run of similar days never repeats one fixed duck — see each file's own top comment for its reserved pool and priority order.
 
 ### WhatsApp/chat AI assistant (`netlify/functions/`)
 

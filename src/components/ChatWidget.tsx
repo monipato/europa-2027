@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { MessageCircle, RotateCcw, Send, X } from 'lucide-react'
 import { getChatSessionId, resetChatSessionId } from '../utils/chatSession'
 import { setChatOpenListener } from '../utils/chatBus'
-import patitoursIconDark from '../assets/brand/patitours-icon-dark.png'
-import patitoursWordmarkDark from '../assets/brand/patitours-wordmark-dark.png'
-import duckAssistant from '../assets/ducks/duck-cat-cultural.png'
+import patitoursIconDark from '../assets/brand/patitours-icon-dark.webp'
+import patitoursWordmarkDark from '../assets/brand/patitours-wordmark-dark.webp'
+import duckAssistant from '../assets/ducks/duck-cat-cultural.webp'
 
 type ChatMessage = { sender: 'user' | 'ai'; body: string }
 

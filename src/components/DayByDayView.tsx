@@ -10,7 +10,7 @@ import { assignDayMotivationNotes } from '../utils/dayMotivation'
 import { assignDuckStickers } from '../utils/duckStickers'
 import { assignTourDucks } from '../utils/tourDuck'
 import { assignWeatherDucks } from '../utils/weatherDuck'
-import duckPacking from '../assets/ducks/duck-luggage.png'
+import duckPacking from '../assets/ducks/duck-luggage.webp'
 
 interface DayByDayViewProps {
   days: GeneratedDay[]

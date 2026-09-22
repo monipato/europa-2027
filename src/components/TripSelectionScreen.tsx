@@ -2,9 +2,9 @@ import type { GeneratedOption } from '../data/generated/itinerary.generated'
 import { formatCOP } from '../utils/currency'
 import { collectCountryFlagsWithNames } from '../utils/tripStats'
 import { ExchangeRatesCard } from './ExchangeRatesCard'
-import duckFamily2 from '../assets/ducks/duck2-family-car.png'
-import duckFamily3 from '../assets/ducks/duck2-family-3.png'
-import duckFamily4 from '../assets/ducks/duck2-family-4.png'
+import duckFamily2 from '../assets/ducks/duck2-family-car.webp'
+import duckFamily3 from '../assets/ducks/duck2-family-3.webp'
+import duckFamily4 from '../assets/ducks/duck2-family-4.webp'
 
 // Small duck icon next to the "N personas" badge on each option card — picked
 // to roughly match the actual traveler count, falling back to the 3-duck one

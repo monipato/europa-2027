@@ -4,13 +4,15 @@ Run from the project root (requires Pillow — `pip install pillow`):
     python3 scripts/generate_brand_assets.py
 
 Reads src/patitours.jpg (the flat, white-background logo lockup) and writes:
-    src/assets/brand/patitours-logo.png        full lockup, light theme (navy ink)
-    src/assets/brand/patitours-logo-dark.png   full lockup, dark theme (cream ink)
-    src/assets/brand/patitours-icon.png        icon only (badge, no wordmark), light
-    src/assets/brand/patitours-icon-dark.png   icon only, dark
-    src/assets/brand/patitours-wordmark.png    "PATITOURS" wordmark only (no icon), light
-    src/assets/brand/patitours-wordmark-dark.png  wordmark only, dark
-    public/favicon.png                         square favicon, from the icon
+    src/assets/brand/patitours-logo.webp        full lockup, light theme (navy ink)
+    src/assets/brand/patitours-logo-dark.webp   full lockup, dark theme (cream ink)
+    src/assets/brand/patitours-icon.webp        icon only (badge, no wordmark), light
+    src/assets/brand/patitours-icon-dark.webp   icon only, dark
+    src/assets/brand/patitours-wordmark.webp    "PATITOURS" wordmark only (no icon), light
+    src/assets/brand/patitours-wordmark-dark.webp  wordmark only, dark
+    public/favicon.png                          square favicon, from the icon (kept
+                                                 PNG — favicons need the widest format
+                                                 compatibility, and it's tiny either way)
 
 The source file is a plain JPEG on a white background with no transparency,
 so this script keys out the white background and, for the dark variants,
@@ -18,6 +20,10 @@ recolors the navy ink (wordmark + line art) to a light cream so it stays
 legible on a dark header — everything else (the duck, globe, teal canoe,
 gold sparkle) is left untouched. Re-run this after replacing src/patitours.jpg
 with a new export of the logo.
+
+Saved as WebP (quality 90) rather than PNG — these are small, low-frequency
+UI assets where lossless PNG bought a lot of file size for no visible gain
+(measured ~75-80% smaller at this quality with no perceptible difference).
 """
 from __future__ import annotations
 
@@ -162,12 +168,12 @@ def main() -> None:
     wordmark_light = resize_to_height(split_wordmark_from_icon(logo_light), ICON_HEIGHT)
     wordmark_dark = recolor_ink_for_dark_theme(wordmark_light)
 
-    logo_light.save(ASSETS_DIR / "patitours-logo.png")
-    logo_dark.save(ASSETS_DIR / "patitours-logo-dark.png")
-    icon_light.save(ASSETS_DIR / "patitours-icon.png")
-    icon_dark.save(ASSETS_DIR / "patitours-icon-dark.png")
-    wordmark_light.save(ASSETS_DIR / "patitours-wordmark.png")
-    wordmark_dark.save(ASSETS_DIR / "patitours-wordmark-dark.png")
+    logo_light.save(ASSETS_DIR / "patitours-logo.webp", quality=90)
+    logo_dark.save(ASSETS_DIR / "patitours-logo-dark.webp", quality=90)
+    icon_light.save(ASSETS_DIR / "patitours-icon.webp", quality=90)
+    icon_dark.save(ASSETS_DIR / "patitours-icon-dark.webp", quality=90)
+    wordmark_light.save(ASSETS_DIR / "patitours-wordmark.webp", quality=90)
+    wordmark_dark.save(ASSETS_DIR / "patitours-wordmark-dark.webp", quality=90)
     make_favicon(icon_light).save(PUBLIC_DIR / "favicon.png")
 
     print("Generated logo/icon/favicon assets in src/assets/brand/ and public/")

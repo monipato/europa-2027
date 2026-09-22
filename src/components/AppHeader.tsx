@@ -1,9 +1,9 @@
 import type { Theme } from '../hooks/useTheme'
 import { ThemeToggle } from './ThemeToggle'
-import patitoursIcon from '../assets/brand/patitours-icon.png'
-import patitoursIconDark from '../assets/brand/patitours-icon-dark.png'
-import patitoursWordmark from '../assets/brand/patitours-wordmark.png'
-import patitoursWordmarkDark from '../assets/brand/patitours-wordmark-dark.png'
+import patitoursIcon from '../assets/brand/patitours-icon.webp'
+import patitoursIconDark from '../assets/brand/patitours-icon-dark.webp'
+import patitoursWordmark from '../assets/brand/patitours-wordmark.webp'
+import patitoursWordmarkDark from '../assets/brand/patitours-wordmark-dark.webp'
 
 interface AppHeaderProps {
   theme: Theme
