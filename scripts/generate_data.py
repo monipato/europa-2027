@@ -40,6 +40,7 @@ def load_json(path: Path):
 
 CITIES = load_json(DATA / "cities.json")
 RATES_DOC = load_json(DATA / "rates.json")
+TOURS = load_json(DATA / "tours.json")
 
 
 def unsplash(photo_id: str) -> str:
@@ -177,6 +178,8 @@ def to_expense(item: dict[str, object], people_count: int) -> dict[str, object]:
         "title": item["title"], "amount": per_person_cop, "originalAmount": original_amount,
         "currency": item["currency"], "note": item.get("note") or "", "place": item.get("place", ""),
         "date": item.get("date", ""), "link": item.get("link"),
+        "details": item.get("details") or TOURS.get(item["title"]),
+        "time": item.get("time"),
     }
 
 
@@ -269,7 +272,7 @@ def build_disney_option(doc: dict[str, object]) -> dict[str, object]:
         return {
             "category": category, "title": title, "amount": round(per_person_cop),
             "originalAmount": round(total_usd / people_count, 2), "currency": "USD",
-            "note": clarified_note, "place": "Orlando", "date": "", "link": link,
+            "note": clarified_note, "place": "Orlando", "date": "", "link": link, "details": None, "time": None,
         }
 
     def shared_expense(category: str, title: str, total_usd: float, note: str, link: str | None = None) -> dict[str, object]:
@@ -287,7 +290,7 @@ def build_disney_option(doc: dict[str, object]) -> dict[str, object]:
         return {
             "category": category, "title": title, "amount": round(per_person_usd * rate_usd_to_cop),
             "originalAmount": round(per_person_usd, 2), "currency": "USD",
-            "note": note, "place": "Orlando", "date": "", "link": link,
+            "note": note, "place": "Orlando", "date": "", "link": link, "details": None, "time": None,
         }
 
     AVIANCA = "https://www.avianca.com/co/es/vuelos-desde-bogota-a-orlando"
@@ -364,7 +367,7 @@ def build_disney_option(doc: dict[str, object]) -> dict[str, object]:
             expenses.append({
                 "category": "Transporte", "title": "Vuelo internacional Orlando → Bogotá (regreso)", "amount": 0,
                 "originalAmount": 0, "currency": "USD",
-                "note": "Incluido en la tarifa ida y vuelta del vuelo de ida.", "place": "Orlando", "date": "", "link": None,
+                "note": "Incluido en la tarifa ida y vuelta del vuelo de ida.", "place": "Orlando", "date": "", "link": None, "details": None, "time": None,
             })
 
         day_plan = doc["dayPlans"][index]
@@ -429,7 +432,8 @@ def build_japan_expense(item: dict[str, object], people_count: int, rate_usd_to_
         return {
             "category": item["category"], "title": item["title"],
             "amount": round(per_person_usd * rate_usd_to_cop), "originalAmount": round(per_person_usd, 2),
-            "currency": "USD", "note": note, "place": item.get("place", "Japón"), "date": "", "link": link,
+            "currency": "USD", "note": note, "place": item.get("place", "Japón"), "date": "", "link": link, "details": None,
+            "time": item.get("time"),
         }
     total = item["unitAmount"] * item["quantity"]
     rate = rate_jpy_to_cop if currency == "JPY" else (rate_usd_to_cop if currency == "USD" else 1.0)
@@ -437,7 +441,8 @@ def build_japan_expense(item: dict[str, object], people_count: int, rate_usd_to_
     return {
         "category": item["category"], "title": item["title"],
         "amount": round(per_person), "originalAmount": round((total / people_count), 2) if currency != "COP" else round(per_person),
-        "currency": currency, "note": item["note"], "place": item.get("place", "Japón"), "date": "", "link": link,
+        "currency": currency, "note": item["note"], "place": item.get("place", "Japón"), "date": "", "link": link, "details": None,
+        "time": item.get("time"),
     }
 
 
@@ -509,10 +514,13 @@ def build_japan_option(doc: dict[str, object], rate_usd_to_cop: float, rate_jpy_
 
 def main() -> None:
     options = []
-    for file_id in ["europa", "alpes-suizos", "crucero-en-pareja"]:
+    for file_id in ["crucero-en-pareja", "europa", "alpes-suizos"]:
         options.append(build_option(load_json(DATA / "options" / f"{file_id}.json")))
-    for file_id in ["orlando-jero", "orlando-pachito-vale"]:
-        options.append(build_disney_option(load_json(DATA / "options" / f"{file_id}.json")))
+    # Orlando (jero, pachito-vale) and Japón are temporarily hidden from the
+    # live app — data files untouched, just excluded from this build so they
+    # don't show up as selection cards. Re-add these lines to bring them back.
+    # for file_id in ["orlando-jero", "orlando-pachito-vale"]:
+    #     options.append(build_disney_option(load_json(DATA / "options" / f"{file_id}.json")))
 
     rates = []
     for code, entry in RATES_DOC["rates"].items():
@@ -522,11 +530,11 @@ def main() -> None:
         })
     usd_rate = next(r["rate"] for r in rates if r["code"] == "USD")
     jpy_rate = next(r["rate"] for r in rates if r["code"] == "JPY")
-    options.append(build_japan_option(load_json(DATA / "options" / "japon.json"), usd_rate, jpy_rate))
+    # options.append(build_japan_option(load_json(DATA / "options" / "japon.json"), usd_rate, jpy_rate))
 
     ITINERARY_OUTPUT.write_text(
         "// Generated by scripts/generate_data.py — do not edit manually.\n"
-        "export type GeneratedExpense = { category: string; title: string; amount: number; originalAmount: number; currency: string; note: string; place: string; date: string; link: string | null };\n"
+        "export type GeneratedExpense = { category: string; title: string; amount: number; originalAmount: number; currency: string; note: string; place: string; date: string; link: string | null; details: string | null; time: string | null };\n"
         "export type GeneratedDay = { dayKey: string; city: string; country: string; emoji: string; image: string; title: string; dayKind: 'flight' | 'embark' | null; climateCity: string; sunrise: string; sunset: string; temp: string; weatherIcon: string; weather: string; packing: string[]; weatherUrl: string | null; sunUrl: string | null; planNote: string | null; planNoteCaption: string | null; expenses: GeneratedExpense[] };\n"
         "export type GeneratedOption = { name: string; dates: string; route: string; days: number; total: number; perPerson: number; color: string; description: string; peopleCount: number; perPersonByType?: { label: string; amount: number }[]; itinerary: GeneratedDay[] };\n"
         "export type ExchangeRate = { code: string; label: string; symbol: string; rate: number; sourceUrl: string };\n"

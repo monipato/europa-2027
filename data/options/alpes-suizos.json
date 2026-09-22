@@ -5,15 +5,18 @@
   "description": "Una excursión a los glaciares alpinos, un pueblo de cuento en Alsacia y un crucero mediterráneo de 7 noches",
   "peopleCount": 3,
   "routeOverride": [
+    "Milán",
     "Diavolezza",
     "Colmar",
     "Basilea",
     "Barcelona",
     "La Spezia",
+    "Florencia",
     "Pisa",
     "Roma",
     "Salerno",
-    "Zadar"
+    "Zadar",
+    "Venecia"
   ],
   "days": [
     {
@@ -38,7 +41,8 @@
           "note": "Air Europa UX194, BOG 20:15 (hora Colombia) → MAD 13:00 (+1, local); UX1083 → VCE 17:45 local",
           "place": "Bogota / Venecia",
           "date": "30 Abr 2027",
-          "link": null
+          "link": null,
+          "time": "20:15 → 17:45"
         },
         {
           "category": "Comidas",
@@ -101,6 +105,18 @@
       "items": [
         {
           "category": "Vuelos y Trenes",
+          "title": "Llegada del vuelo",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Aterriza en Venecia (VCE), vía Madrid",
+          "place": "Venecia",
+          "date": "1 May 2027",
+          "link": null,
+          "time": "17:45"
+        },
+        {
+          "category": "Vuelos y Trenes",
           "title": "Bus Venecia → Milán (FlixBus)",
           "currency": "EUR",
           "unitAmount": 65.73,
@@ -108,18 +124,19 @@
           "note": "FlixBus nocturno, Aeropuerto Marco Polo → Estación Lampugnano, 19:20-00:15. Reserva #3392231315",
           "place": "Milán",
           "date": "1 May 2027",
-          "link": null
+          "link": null,
+          "time": "19:20 → 00:15"
         },
         {
           "category": "Alojamiento",
           "title": "Franca's Apartment Milano — costo total (3 noches)",
-          "currency": "COP",
-          "unitAmount": 2015680.0,
+          "currency": "EUR",
+          "unitAmount": 520.69,
           "quantity": 1.0,
           "note": "Apartamento en Milán, cerca del centro histórico",
           "place": "Milán, Italia",
           "date": "1 – 4 May (3 noches)",
-          "link": "https://www.booking.com/hotel/it/francas-apartment-milano17.es.html?aid=304142&label=gen173nr-10CA4oggI46AdIClgEaDKIAQGYATO4AQfIAQzYAQPoAQH4AQGIAgGoAgG4AsCS0tQGwAIB0gIkOGVkYmE2NGQtNGY0OS00MTU4LTgzNzAtZGVlNWVjY2Y3NmE32AIB4AIB&sid=f6a1a9bb810c453f7b5f1225205f1f26&all_sr_blocks=1429932801_439269609_3_0_0&checkin=2027-05-01&checkout=2027-05-04&dest_id=2303&dest_type=district&dist=0&group_adults=3&group_children=0&hapos=7&highlighted_blocks=1429932801_439269609_3_0_0&hpos=7&matching_block_id=1429932801_439269609_3_0_0&nflt=fc%3D2&no_rooms=1&req_adults=3&req_children=0&room1=A%2CA%2CA&sb_price_type=total&sr_order=popularity&sr_pri_blocks=1429932801_439269609_3_0_0__41616&srepoch=1788119649&srpvid=1eb98b8ab11b1a94&type=total&ucfs=1"
+          "link": "/hoteles/milan-francas-apartment.pdf"
         }
       ]
     },
@@ -290,13 +307,13 @@
         {
           "category": "Alojamiento",
           "title": "Appart'hôtel Odalys City - Colmar Centre — costo total (2 noches)",
-          "currency": "COP",
-          "unitAmount": 1082080.0,
+          "currency": "EUR",
+          "unitAmount": 303.1,
           "quantity": 1.0,
           "note": "Apartahotel con piscina cubierta, cerca del centro histórico",
           "place": "Colmar, Francia",
           "date": "4 – 6 May (2 noches)",
-          "link": null
+          "link": "/hoteles/colmar-odalys-city.pdf"
         }
       ]
     },
@@ -375,13 +392,13 @@
         {
           "category": "Alojamiento",
           "title": "Hotel Spalentor — costo total (1 noche)",
-          "currency": "COP",
-          "unitAmount": 719380.0,
+          "currency": "CHF",
+          "unitAmount": 190.8,
           "quantity": 1.0,
           "note": "Hotel céntrico, cerca del casco antiguo de Basilea",
           "place": "Basilea, Suiza",
           "date": "6 – 7 May (1 noche)",
-          "link": null
+          "link": "/hoteles/basilea-spalentor.pdf"
         },
         {
           "category": "Comidas",
@@ -467,13 +484,13 @@
         {
           "category": "Alojamiento",
           "title": "Hostal Bedmates — costo total (1 noche)",
-          "currency": "COP",
-          "unitAmount": 990080.0,
+          "currency": "EUR",
+          "unitAmount": 277.33,
           "quantity": 1.0,
           "note": "Hostal céntrico cerca de Sagrada Familia, 1 noche antes del crucero",
           "place": "Barcelona, España",
           "date": "7 – 8 May (1 noche, pre-crucero)",
-          "link": null
+          "link": "/hoteles/barcelona-hostal-bedmates.pdf"
         }
       ]
     },
@@ -522,6 +539,18 @@
           "place": "Barcelona",
           "date": "8 May 2027",
           "link": null
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de Barcelona, según itinerario oficial del crucero",
+          "place": "Barcelona",
+          "date": "8 May 2027",
+          "link": null,
+          "time": "11:00"
         }
       ]
     },
@@ -565,7 +594,7 @@
     {
       "dayKey": "10 MAY",
       "city": "La Spezia",
-      "title": "Panoramic Pisa",
+      "title": "Best of Florence & Pisa",
       "dayKind": null,
       "weather": {
         "sunrise": "5:58 AM",
@@ -576,26 +605,40 @@
       },
       "items": [
         {
-          "category": "Tours y Excursiones",
-          "title": "Panoramic Pisa",
-          "currency": "USD",
-          "unitAmount": 70.0,
-          "quantity": 3.0,
-          "note": "Excursión panorámica por Pisa desde el crucero",
-          "place": "La Spezia (Florencia/Pisa)",
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en La Spezia, según itinerario oficial del crucero",
+          "place": "La Spezia",
           "date": "10 May 2027",
-          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/Y8RO?bookingId=3113096&shipCode=BR&sailDate=20270508"
+          "link": null,
+          "time": "07:00"
         },
         {
-          "category": "Comidas",
-          "title": "Almuerzo en tierra",
-          "currency": "EUR",
-          "unitAmount": 25.0,
+          "category": "Tours y Excursiones",
+          "title": "Best of Florence & Pisa",
+          "currency": "USD",
+          "unitAmount": 180.99,
           "quantity": 3.0,
-          "note": "Desayuno y cena incluidos en el crucero, almuerzo en Pisa/Florencia",
+          "note": "Excursión guiada a Florencia y Pisa (10h30), incluye almuerzo. Torre Inclinada, Piazza del Duomo, Santa Croce",
           "place": "La Spezia (Florencia/Pisa)",
           "date": "10 May 2027",
-          "link": null
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/LL97?bookingId=3113096&shipCode=BR&sailDate=20270508",
+          "time": "7:30 am"
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de La Spezia, según itinerario oficial del crucero",
+          "place": "La Spezia",
+          "date": "10 May 2027",
+          "link": null,
+          "time": "19:00"
         }
       ]
     },
@@ -613,6 +656,18 @@
       },
       "items": [
         {
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en Civitavecchia (Roma), según itinerario oficial del crucero",
+          "place": "Civitavecchia (Roma)",
+          "date": "11 May 2027",
+          "link": null,
+          "time": "07:00"
+        },
+        {
           "category": "Tours y Excursiones",
           "title": "Visit to Rome",
           "currency": "USD",
@@ -621,7 +676,8 @@
           "note": "Excursión a Roma desde el crucero",
           "place": "Civitavecchia (Roma)",
           "date": "11 May 2027",
-          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/CV1F?bookingId=3113096&shipCode=BR&sailDate=20270508"
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/CV1F?bookingId=3113096&shipCode=BR&sailDate=20270508",
+          "time": "8:00 am"
         },
         {
           "category": "Comidas",
@@ -633,13 +689,25 @@
           "place": "Civitavecchia (Roma)",
           "date": "11 May 2027",
           "link": null
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de Civitavecchia (Roma), según itinerario oficial del crucero",
+          "place": "Civitavecchia (Roma)",
+          "date": "11 May 2027",
+          "link": null,
+          "time": "19:00"
         }
       ]
     },
     {
       "dayKey": "12 MAY",
       "city": "Salerno",
-      "title": "Tour a pie gratis",
+      "title": "Excursión a Pompeya",
       "dayKind": null,
       "weather": {
         "sunrise": "5:45 AM",
@@ -650,15 +718,16 @@
       },
       "items": [
         {
-          "category": "Tours y Excursiones",
-          "title": "Tour a pie gratis",
-          "currency": "EUR",
-          "unitAmount": 0.0,
-          "quantity": 3.0,
-          "note": "",
-          "place": "Salerno (Costa Amalfitana)",
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en Salerno, según itinerario oficial del crucero",
+          "place": "Salerno",
           "date": "12 May 2027",
-          "link": null
+          "link": null,
+          "time": "07:00"
         },
         {
           "category": "Comidas",
@@ -670,6 +739,30 @@
           "place": "Salerno (Costa Amalfitana)",
           "date": "12 May 2027",
           "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Excursión a Pompeya (tour en español)",
+          "currency": "USD",
+          "unitAmount": 106.99,
+          "quantity": 3.0,
+          "note": "Excursión a Pompeya con guía en español, 30% descuento pre-crucero",
+          "place": "Salerno (Costa Amalfitana)",
+          "date": "12 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/ESA7?bookingId=3113096&shipCode=BR&sailDate=20270508",
+          "time": "8:30 am"
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de Salerno, según itinerario oficial del crucero",
+          "place": "Salerno",
+          "date": "12 May 2027",
+          "link": null,
+          "time": "18:00"
         }
       ]
     },
@@ -724,15 +817,16 @@
       },
       "items": [
         {
-          "category": "Traslados",
-          "title": "Transporte - Tour a pie gratis",
-          "currency": "EUR",
-          "unitAmount": 10.0,
-          "quantity": 3.0,
-          "note": "",
-          "place": "Zadar, Croacia",
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en Zadar, según itinerario oficial del crucero",
+          "place": "Zadar",
           "date": "14 May 2027",
-          "link": null
+          "link": null,
+          "time": "10:00"
         },
         {
           "category": "Comidas",
@@ -744,6 +838,30 @@
           "place": "Zadar, Croacia",
           "date": "14 May 2027",
           "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Historic Zadar Walking Tour",
+          "currency": "USD",
+          "unitAmount": 43.99,
+          "quantity": 3.0,
+          "note": "Tour histórico a pie por Zadar desde el crucero",
+          "place": "Zadar, Croacia",
+          "date": "14 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/RZ44?bookingId=3113096&shipCode=BR&sailDate=20270508",
+          "time": "10:30 am"
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de Zadar, según itinerario oficial del crucero",
+          "place": "Zadar",
+          "date": "14 May 2027",
+          "link": null,
+          "time": "19:00"
         }
       ]
     },
@@ -761,6 +879,18 @@
       },
       "items": [
         {
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en Ravenna, según itinerario oficial del crucero",
+          "place": "Ravenna",
+          "date": "15 May 2027",
+          "link": null,
+          "time": "05:30"
+        },
+        {
           "category": "Traslados",
           "title": "Vaporetti ACTV",
           "currency": "EUR",
@@ -772,37 +902,27 @@
           "link": "https://book.tickets-venice.com/es/book/8748/select/?_gl=1%2A1073ils%2A_gcl_aw%2AR0NMLjE3ODc4NzgwODMuRUFJYUlRb2JDaE1JaFpPNjdZekNsZ01Wd1lSYUJSM2Y1U1JPRUFBWUF5QUFFZ0tjeFBEX0J3RQ..%2A_gcl_au%2ANzIxMTA1MTQ5LjE3ODc4NzgwODMuLS4tLjE3ODc4NzgwODMuMTE2MDU2ODc1MS4xNzg3ODc4MDg0LjE3ODc4NzgwODM.%2A_ga%2ANDcyOTU3MzYyLjE3ODc4NzgwODM.%2A_ga_Y45PC9R73C%2AczE3ODc4NzgwODMkbzEkZzAkdDE3ODc4NzgwODQkajU5JGwwJGgw&cookieBanner=false&date=2027-05-15&tourId=15560&variantId=15560"
         },
         {
-          "category": "Vuelos y Trenes",
-          "title": "Tren Ravenna - Venecia St Lucia",
-          "currency": "EUR",
-          "unitAmount": 25.0,
-          "quantity": 3.0,
-          "note": "Tren regional desde Ravenna hasta Venecia Santa Lucia",
-          "place": "Italia",
-          "date": "15 May 2027",
-          "link": "https://www.trenitalia.com/en.html"
-        },
-        {
           "category": "Alojamiento",
-          "title": "Casa Burchielle — costo total (1 noche)",
-          "currency": "COP",
-          "unitAmount": 1510140.0,
+          "title": "Casanova ai Tolentini — costo total (1 noche)",
+          "currency": "EUR",
+          "unitAmount": 240.0,
           "quantity": 1.0,
           "note": "Casa con vista al canal, cerca del centro histórico",
           "place": "Venecia, Italia",
           "date": "15 – 16 May (1 noche, post-crucero)",
-          "link": null
+          "link": "/hoteles/venecia-casanova-ai-tolentini.pdf"
         },
         {
           "category": "Traslados",
           "title": "Traslado puerto → Estación Ravenna",
           "currency": "EUR",
-          "unitAmount": 12.0,
+          "unitAmount": 95.0,
           "quantity": 3.0,
           "note": "",
           "place": "Italia",
           "date": "15 May 2027",
-          "link": null
+          "link": null,
+          "time": "9:00 am"
         },
         {
           "category": "Comidas",
@@ -824,7 +944,8 @@
           "note": "Free tour guiado por el centro histórico de Venecia",
           "place": "Venecia",
           "date": "15 May 2027",
-          "link": "https://www.civitatis.com/es/venecia/free-tour-venecia/?_gl=1*1ijxuzi*_up*MQ..*_ga*ODU4MDQyNjAyLjE3ODc4Nzc2ODY.*_ga_QJQ54CTKPM*czE3ODc4Nzc2ODYkbzEkZzEkdDE3ODc4Nzc2OTEkajU1JGwwJGgxNTA2MDA0ODU0"
+          "link": "https://www.civitatis.com/es/venecia/free-tour-venecia/?_gl=1*1ijxuzi*_up*MQ..*_ga*ODU4MDQyNjAyLjE3ODc4Nzc2ODY.*_ga_QJQ54CTKPM*czE3ODc4Nzc2ODYkbzEkZzEkdDE3ODc4Nzc2OTEkajU1JGwwJGgxNTA2MDA0ODU0",
+          "time": "1:00 pm"
         }
       ]
     },
@@ -850,7 +971,8 @@
           "note": "Air Europa UX1082, VCE 10:25 local → MAD 13:10; UX193 → BOG 18:15 (hora Colombia)",
           "place": "Venecia / Bogota",
           "date": "16 May 2027",
-          "link": null
+          "link": null,
+          "time": "10:25 → 18:15 (hora CO)"
         },
         {
           "category": "Traslados",

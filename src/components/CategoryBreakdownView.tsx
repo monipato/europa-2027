@@ -23,6 +23,10 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
     () => (selectedCategory ? collectExpensesByCategory(days, selectedCategory) : []),
     [days, selectedCategory],
   )
+  // Same number already shown on the category's own card — reused here
+  // instead of re-summing selectedCategoryExpenses, so the popup's total
+  // can never drift from the card's.
+  const selectedCategoryTotal = selectedCategory ? (totalsByCategory[selectedCategory] ?? 0) : 0
 
   return (
     <div className="category-layout">
@@ -71,7 +75,10 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
             {selectedCategoryExpenses.map((expense, index) => (
               <div className="mini-row" key={expense.title + index}>
                 <span>{expense.dayKey} · {expense.place}</span>
-                <strong>{expense.title}</strong>
+                <strong>
+                  {expense.title}
+                  {expense.time && <span className="expense-time">🕐 {expense.time}</span>}
+                </strong>
                 {expense.note && <p>{expense.note}</p>}
                 <b>{formatExpenseAmount(expense)}</b>
                 {expense.link && isDownloadableLink(expense.link) && (
@@ -86,6 +93,10 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
                 )}
               </div>
             ))}
+            <div className="category-detail-total">
+              <span>Total {selectedCategory}</span>
+              <strong>{formatCOP(selectedCategoryTotal)}</strong>
+            </div>
           </div>
         </>
       )}

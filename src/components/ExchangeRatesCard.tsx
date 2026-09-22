@@ -15,7 +15,15 @@ interface ExchangeRatesCardProps {
 export function ExchangeRatesCard({ className, occupancyNote }: ExchangeRatesCardProps) {
   return (
     <details className={className ? `rates-card ${className}` : 'rates-card'}>
-      <summary>Ver tasas de cambio · {ratesUpdatedAt}</summary>
+      {/* "Ver " and the "· fecha" bit only make sense as a clickable
+          on-screen toggle — print forces this card open regardless (see
+          styles.css's `@media print`), so both are hidden there, leaving
+          just "tasas de cambio" as a plain heading over the values. */}
+      <summary>
+        <span className="rates-card-verb">Ver </span>
+        tasas de cambio
+        <span className="rates-card-updated"> · {ratesUpdatedAt}</span>
+      </summary>
       <div className="rates-card-body">
         <div>
           {exchangeRates.map(rate => (

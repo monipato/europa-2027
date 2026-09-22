@@ -44,6 +44,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OPTIONS_DIR = ROOT / "data" / "options"
+TOURS_PATH = ROOT / "data" / "tours.json"
 
 # The 3 options priced day-by-day (a workbook row per line item, in spirit).
 # Orlando and Japón are shaped too differently for this generic tool — see
@@ -80,6 +81,28 @@ def load_option(option_id: str) -> dict:
 def save_option(option_id: str, doc: dict) -> None:
     path = OPTIONS_DIR / f"{option_id}.json"
     path.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def load_tours() -> dict:
+    return json.loads(TOURS_PATH.read_text(encoding="utf-8"))
+
+
+def save_tours(tours: dict) -> None:
+    TOURS_PATH.write_text(json.dumps(tours, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def set_tour_details(title: str, details: str | None) -> None:
+    """Tour details (highlights, accessibility, language...) live centrally
+    in data/tours.json, keyed by title — shared across every option that
+    includes that same tour, instead of repeating the text in each option's
+    JSON. Not shown in the app UI; only used to brief the WhatsApp/chat
+    assistant (see netlify/functions/_lib/tripContext.ts)."""
+    tours = load_tours()
+    if details:
+        tours[title] = details
+    else:
+        tours.pop(title, None)
+    save_tours(tours)
 
 
 def find_item(doc: dict, match_title: str, match_date: str | None = None) -> tuple[int, int]:
@@ -139,7 +162,9 @@ def main():
     parser.add_argument("--unit-amount", type=float)
     parser.add_argument("--quantity", type=float)
     parser.add_argument("--note", help="Max 20 words — the single most relevant fact about this item")
+    parser.add_argument("--time", default=None, help='Optional clock time(s) to highlight next to the title, e.g. "12:35" or "Salida 08:00 · Llegada 05:15+1". Pass "" to remove an existing one.')
     parser.add_argument("--link", default=None, help="Optional booking/info URL. Pass \"\" to remove an existing link.")
+    parser.add_argument("--details", default=None, help="Optional longer description (highlights, restrictions, language, etc.), saved centrally to data/tours.json keyed by title (shared by every option with that same tour) — not shown in the app UI, only given to the WhatsApp/chat assistant so it can answer detailed questions. Pass \"\" to remove.")
     args = parser.parse_args()
 
     if args.note is not None and word_count(args.note) > 20:
@@ -178,12 +203,18 @@ def main():
             "unitAmount": args.unit_amount, "quantity": args.quantity,
             "note": args.note, "place": args.place or "", "date": args.date_text, "link": args.link,
         }
+        if args.time:
+            item["time"] = args.time
         doc["days"][day_idx]["items"].append(item)
         save_option(args.option, doc)
+        if args.details:
+            set_tour_details(item["title"], args.details)
         print(f"Added item to {doc['name']!r}, day {doc['days'][day_idx]['dayKey']}:")
-        print(f"  {item['title']}  ·  {item['category']}")
+        print(f"  {item['title']}  ·  {item['category']}" + (f"  ·  🕐 {item['time']}" if item.get("time") else ""))
         print(f"  {item['currency']} {item['unitAmount']} x {item['quantity']}")
         print(f"  Note: {item['note']}" + (f" | Link: {item['link']}" if item["link"] else ""))
+        if args.details:
+            print(f"  Details saved to data/tours.json under {item['title']!r}")
         subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_data.py")], check=True, cwd=ROOT)
         return
 
@@ -212,11 +243,20 @@ def main():
         item["note"] = args.note
     if args.link is not None:
         item["link"] = args.link or None
+    if args.time is not None:
+        if args.time:
+            item["time"] = args.time
+        else:
+            item.pop("time", None)
     save_option(args.option, doc)
+    if args.details is not None:
+        set_tour_details(item["title"], args.details or None)
     print(f"Updated item in {doc['name']!r}, day {doc['days'][day_idx]['dayKey']}:")
-    print(f"  {item['title']}  ·  {item['category']}")
+    print(f"  {item['title']}  ·  {item['category']}" + (f"  ·  🕐 {item['time']}" if item.get("time") else ""))
     print(f"  {item['currency']} {item['unitAmount']} x {item['quantity']}")
     print(f"  Note: {item['note']}" + (f" | Link: {item['link']}" if item["link"] else ""))
+    if args.details is not None:
+        print(f"  Details {'saved to' if args.details else 'removed from'} data/tours.json under {item['title']!r}")
     subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_data.py")], check=True, cwd=ROOT)
 
 

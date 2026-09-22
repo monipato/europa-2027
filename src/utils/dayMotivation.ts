@@ -107,11 +107,23 @@ export function assignDayMotivationNotes(days: GeneratedDay[]): string[] {
     const isDepartureDay = !isTripLastDay && days[index + 1].city !== day.city
     const descriptor = descriptorFor(day.city)
 
+    // A flight day whose next day shares its city hasn't landed yet — the
+    // flight departs today and arrives tomorrow (see crucero-en-pareja's and
+    // europa's "06 MAY" departure day, both labeled with the destination
+    // city for display purposes even though nobody's there yet). That next
+    // day is the real arrival, even though `isArrivalDay` reads false for it
+    // (same city as the flight day right before it).
+    const isSameDayFlightArrival = day.dayKind === 'flight' && (isTripLastDay || days[index + 1].city !== day.city)
+    const arrivesFromFlightYesterday = index > 0 && days[index - 1].dayKind === 'flight' && days[index - 1].city === day.city
+
     if (isTripLastDay) return pick('tripEnd', TRIP_END(day.city))
     if (day.dayKind === 'embark') return pick('embark', EMBARK())
     if (day.city === 'En el mar') return pick('sea', SEA())
     if (day.city === 'En vuelo') return pick('transit', TRANSIT())
-    if (day.dayKind === 'flight' && isArrivalDay) return pick('flightArrival', FLIGHT_ARRIVAL(day.city, descriptor))
+    if (day.dayKind === 'flight' && !isSameDayFlightArrival) return pick('transit', TRANSIT())
+    if ((day.dayKind === 'flight' && isSameDayFlightArrival) || arrivesFromFlightYesterday) {
+      return pick('flightArrival', FLIGHT_ARRIVAL(day.city, descriptor))
+    }
     if (isArrivalDay) return pick('arrival', ARRIVAL(day.city, descriptor))
     if (isDepartureDay) return pick('departure', DEPARTURE(day.city, descriptor))
     return pick('continue', CONTINUE(day.city, descriptor))

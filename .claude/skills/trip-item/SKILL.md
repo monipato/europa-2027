@@ -47,6 +47,14 @@ Ask for whatever isn't already clear from context:
   día" and "Por rubro" views, since they read the exact same `note`/`link`
   fields. If omitted, no link button appears. Never invent a link — if the
   user hasn't given you one, leave it out rather than guessing a URL.
+- **time** (optional, `--time`): a clock time (or a departure/arrival pair)
+  to show as its own highlighted badge next to the title — e.g. `"12:35"`
+  or `"17:30 → 12:45 (+1)"` for a flight, `"10:30 am"` for a tour with a
+  fixed start. Only set it when a real schedule exists; don't invent one.
+  Leave it out entirely for anything without its own clock time (a hotel
+  stay, a SIM card). Never duplicate a time that's only a rough estimate
+  buried in someone else's note (e.g. "llegada ~00:15") — that belongs in
+  `note` prose, not this badge.
 
 **Per-person vs. shared amount** — look at how similar existing items in
 that day/category are modeled (read `data/options/<id>.json`, or ask)

@@ -267,7 +267,10 @@ export function DayByDayView({ days, selectedDayIndex, onSelectDay }: DayByDayVi
                 <img src={CATEGORY_META[expense.category as Category].duck} alt="" />
               </span>
               <div className="expense-info">
-                <strong>{expense.title}</strong>
+                <strong>
+                  {expense.title}
+                  {expense.time && <span className="expense-time">🕐 {expense.time}</span>}
+                </strong>
                 <span>{expense.category}{expense.note && ` · ${expense.note}`}</span>
                 {expense.link && isDownloadableLink(expense.link) && (
                   <a href={expense.link} download rel="noreferrer">

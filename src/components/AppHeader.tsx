@@ -1,6 +1,8 @@
 import type { Theme } from '../hooks/useTheme'
 import { ThemeToggle } from './ThemeToggle'
+import patitoursIcon from '../assets/brand/patitours-icon.png'
 import patitoursIconDark from '../assets/brand/patitours-icon-dark.png'
+import patitoursWordmark from '../assets/brand/patitours-wordmark.png'
 import patitoursWordmarkDark from '../assets/brand/patitours-wordmark-dark.png'
 
 interface AppHeaderProps {
@@ -21,11 +23,18 @@ export function AppHeader({ theme, onToggleTheme, onGoHome }: AppHeaderProps) {
   return (
     <header className="topbar">
       {/* The header bar is always a dark navy/espresso surface (light and dark
-          theme alike — see .topbar in styles.css), so the logo always wears
-          its dark-background (cream-ink) variant regardless of `theme`. */}
+          theme alike — see .topbar in styles.css), so on screen the logo
+          always wears its dark-background (cream-ink) variant regardless of
+          `theme`. Print forces the header back to white (styles.css's
+          `@media print`, to save ink) — the cream-ink logo would go
+          near-invisible there, so a second, light-background (navy-ink)
+          pair sits alongside it, hidden on screen and swapped in only for
+          print (see the `.brand-*-print`/`.brand-*-screen` rule). */}
       <button className="brand" onClick={onGoHome} aria-label="Ir al inicio">
-        <img className="brand-icon" src={patitoursIconDark} alt="" />
-        <img className="brand-wordmark" src={patitoursWordmarkDark} alt="PatiTours" />
+        <img className="brand-icon brand-icon-screen" src={patitoursIconDark} alt="" />
+        <img className="brand-wordmark brand-wordmark-screen" src={patitoursWordmarkDark} alt="PatiTours" />
+        <img className="brand-icon brand-icon-print" src={patitoursIcon} alt="" />
+        <img className="brand-wordmark brand-wordmark-print" src={patitoursWordmark} alt="PatiTours" />
       </button>
       <div className="header-actions">
         <ThemeToggle theme={theme} onToggle={onToggleTheme} />

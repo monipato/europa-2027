@@ -140,9 +140,20 @@ button{cursor:pointer;border:0;background:none}
    Planner heading (back link + rates card), shown once a trip is picked
    ============================================================ */
 .planner-heading{max-width:1180px;margin:0 auto;padding:16px 24px 0}
-.planner-top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.planner-top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .planner-back{display:flex;align-items:center;gap:4px;color:var(--accent-gold);font-weight:700;font-size:14px;padding:4px 0}
 .planner-back:hover{text-decoration:underline}
+.planner-print-wrap{position:relative}
+.planner-print{display:flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:9px;padding:6px 12px;color:var(--text-muted);font-size:12.5px;font-weight:700;white-space:nowrap;background:var(--bg-surface)}
+.planner-print:hover{color:var(--text-strong);border-color:var(--border-strong)}
+@media(max-width:480px){.planner-print span{display:none}}
+/* The "¿qué imprimir?" dropdown — asks before printing, since "vista
+   actual" (just what's on screen), "todos los días" and "todo por rubro"
+   each print a genuinely different document (see PrintView.tsx). */
+.planner-print-menu{position:absolute;top:calc(100% + 6px);right:0;z-index:20;width:220px;padding:6px;border-radius:10px;background:var(--bg-surface);border:1px solid var(--border);box-shadow:0 10px 24px rgba(var(--shadow-rgb),.2);display:flex;flex-direction:column;gap:2px}
+.planner-print-menu button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:8px 10px;border-radius:7px;text-align:left;color:var(--text-strong);font-size:13px;font-weight:700}
+.planner-print-menu button:hover{background:var(--bg-surface-muted)}
+.planner-print-menu button small{color:var(--text-muted);font-size:11.5px;font-weight:500}
 /* A collapsed <details> by default — just the summary line — so this
    useful-but-secondary info doesn't push everything else down the page. */
 .rates-card{background:var(--bg-surface-muted);border:1px solid var(--border);border-radius:12px;margin-top:12px;padding:10px 15px;color:var(--text-body)}
@@ -237,6 +248,12 @@ button{cursor:pointer;border:0;background:none}
 .expense-info strong,.expense-info span{display:block}
 .expense-info strong{font-size:15px;color:var(--text-strong)}
 .expense-info span{font-size:12px;color:var(--text-muted)}
+/* The clock-time badge (flight departures/arrivals, a tour's start time...)
+   sits inline right after the title instead of falling to its own line —
+   more specific than the plain `.expense-info span{display:block}` above,
+   so it wins the cascade. Reused as-is inside `.mini-row strong` (the "Por
+   rubro" drill-down popup), same title/badge layout. */
+.expense-info strong .expense-time,.mini-row strong .expense-time{display:inline-flex;align-items:center;gap:3px;margin-left:8px;padding:2px 7px;border-radius:20px;background:var(--bg-accent);color:var(--accent-gold-contrast);font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;vertical-align:middle}
 .expense-info a,.mini-row a{display:inline-flex;align-items:center;gap:4px;color:var(--accent-gold);font-size:12px;font-weight:700;text-decoration:none;margin-top:5px}
 .expense-row>b{font-size:14px;color:var(--text-strong);text-align:right}
 .expense-row>b:after{content:' · por persona';display:block;color:var(--text-muted);font-size:10px;font-weight:500}
@@ -271,6 +288,9 @@ button{cursor:pointer;border:0;background:none}
 .mini-row b:after{content:' · por persona';display:block;color:var(--text-muted);font-size:10px;font-weight:500}
 .mini-row p{grid-column:2;margin:2px 0 0;color:var(--text-muted);font-size:12px}
 .mini-row a{grid-column:2}
+.category-detail-total{display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--border-strong);margin-top:4px;padding-top:12px}
+.category-detail-total span{color:var(--text-muted);font-size:13px;font-weight:600}
+.category-detail-total strong{font:700 20px 'Bricolage Grotesque',sans-serif;color:var(--text-strong)}
 
 /* ============================================================
    Footer
@@ -424,3 +444,92 @@ button{cursor:pointer;border:0;background:none}
      the fab's own position at the bottom, same as everywhere else here). */
   .chat-panel{left:8px;right:8px;top:16px;bottom:80px;width:auto;height:auto}
 }
+
+/* ============================================================
+   Print ("Imprimir" button in PlannerHeading) — prints exactly what's on
+   screen (the current day in "Por día", or the current "Por categoría"
+   view), not a separate export. Two jobs: force the light/kraft-paper
+   palette regardless of the active theme (dark-mode navy filling a printed
+   page wastes ink and can invert badly depending on the browser's own
+   background-graphics setting), and strip everything that's only useful
+   on-screen — nav chrome, the chat widget, hover/click affordances, and any
+   open fixed-position modal, which print unreliably across browsers anyway.
+   `!important` here is deliberate: these tokens are otherwise set three
+   times over (light :root, prefers-color-scheme dark, [data-theme="dark"])
+   and print needs to win over all three at once, not just the plain :root.
+   ============================================================ */
+@media print{
+  :root{
+    --bg-page:#ffffff !important;
+    --bg-surface:#ffffff !important;
+    --bg-surface-muted:#ffffff !important;
+    --bg-header:#ffffff !important;
+    --bg-accent:#ffffff !important;
+    --text-on-header:#1b2a4a !important;
+    --text-strong:#1b2a4a !important;
+    --text-body:#2a2114 !important;
+    --text-muted:#5c503a !important;
+    --text-on-accent:#1b2a4a !important;
+    --text-on-accent-muted:#5c503a !important;
+    --border:#ccc !important;
+    --border-strong:#999 !important;
+    --shadow-rgb:0,0,0 !important;
+  }
+  .chat-fab,.chat-panel,
+  .planner-back,.view-toggle,.planner-print-wrap,
+  .header-actions,
+  .day-list,.day-hero-nav,
+  .category-detail-backdrop,.category-detail{
+    display:none !important;
+  }
+  .day-layout{grid-template-columns:1fr}
+  .topbar:after{display:none}
+  a[href]{color:inherit;text-decoration:none}
+  /* Avoid an expense card, a day's hero photo, or a note being sliced across
+     a page break mid-block. */
+  .expense-row,.day-hero,.day-note,.category-card{break-inside:avoid}
+
+  /* "Todos los días"/"Todo por rubro" (PrintView, mounted only while
+     App.tsx's fullPrintMode is set) replace the on-screen views entirely
+     for that one print job, rather than printing the single selected
+     day/category the live UI happens to show. */
+  .print-all-days .day-layout,.print-all-days .category-layout,.print-all-days .trip-summary,
+  .print-by-category .day-layout,.print-by-category .category-layout,.print-by-category .trip-summary{
+    display:none !important;
+  }
+
+  /* <details> prints closed by default (only its <summary> line) in every
+     browser tested — on paper there's no way to click it open, so it'd
+     just show "Ver tasas de cambio · fecha" with nothing under it. Forces
+     the body open and drops the now-meaningless clickable-arrow styling. */
+  .rates-card-body{display:block !important}
+  .rates-card summary{cursor:default;color:var(--text-strong)}
+  .rates-card summary:before{content:none}
+  /* "Ver" (the click affordance) and "· fecha" (only relevant next to a
+     live rate someone might refresh) both read as clutter once the values
+     themselves are sitting right there on paper — see ExchangeRatesCard.tsx. */
+  .rates-card-verb,.rates-card-updated{display:none}
+
+  /* .brand-*-screen is the cream-ink logo built for the always-dark navy
+     header — invisible against the white header print forces above, so
+     print swaps in the navy-ink pair instead (see AppHeader.tsx). */
+  .brand-icon-screen,.brand-wordmark-screen{display:none !important}
+  .brand-icon-print,.brand-wordmark-print{display:block !important;filter:none !important}
+}
+.brand-icon-print,.brand-wordmark-print{display:none}
+.print-view{display:none}
+@media print{
+  .print-all-days .print-view,.print-by-category .print-view{display:block}
+}
+.print-view-header{margin-bottom:18px}
+.print-view-header h1{margin:0 0 4px;font-family:'Bricolage Grotesque',sans-serif;font-size:22px;color:var(--text-strong)}
+.print-view-header p{margin:0;color:var(--text-muted);font-size:13px}
+.print-block{margin-bottom:20px;break-inside:avoid}
+.print-block h2{margin:0 0 4px;font-size:15px;color:var(--text-strong)}
+.print-block-meta{margin:0 0 8px;color:var(--text-muted);font-size:12px}
+.print-block table{width:100%;border-collapse:collapse;font-size:12.5px}
+.print-block td{padding:4px 6px;border-bottom:1px solid var(--border);vertical-align:top}
+.print-block td:last-child{text-align:right;white-space:nowrap;font-weight:700}
+.print-time{display:inline-block;margin-right:6px;font-family:'IBM Plex Mono',monospace;font-weight:700}
+.print-block-total{margin:6px 0 0;text-align:right;font-weight:700;font-size:13px}
+.print-view-grand-total{margin-top:16px;padding-top:10px;border-top:2px solid var(--border-strong);text-align:right;font-weight:700;font-size:15px;color:var(--text-strong)}

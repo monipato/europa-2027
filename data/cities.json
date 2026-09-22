@@ -29,8 +29,8 @@
         "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?auto=format&fit=crop&w=900&q=80"
       ],
       "climate": {
-        "sunrise": "6:00 AM",
-        "sunset": "9:33 PM",
+        "sunrise": "6:02 AM",
+        "sunset": "9:32 PM",
         "temp": "11–20°C",
         "weatherIcon": "☁️",
         "weather": "Nublado",
@@ -48,8 +48,8 @@
         "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?auto=format&fit=crop&w=900&q=80"
       ],
       "climate": {
-        "sunrise": "6:39 AM",
-        "sunset": "8:56 PM",
+        "sunrise": "6:40 AM",
+        "sunset": "8:55 PM",
         "temp": "13–21°C",
         "weatherIcon": "☁️",
         "weather": "Nublado",
@@ -66,8 +66,8 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Vernazza%2C_Cinque_Terre_%28panorama%29.jpg/960px-Vernazza%2C_Cinque_Terre_%28panorama%29.jpg"
       ],
       "climate": {
-        "sunrise": "5:57 AM",
-        "sunset": "8:36 PM",
+        "sunrise": "5:58 AM",
+        "sunset": "8:35 PM",
         "temp": "12–20°C",
         "weatherIcon": "☁️",
         "weather": "Nublado",
@@ -84,8 +84,8 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Positano_at_dusk%2C_Amalfi_Coast%2C_Italy.jpg/960px-Positano_at_dusk%2C_Amalfi_Coast%2C_Italy.jpg"
       ],
       "climate": {
-        "sunrise": "5:44 AM",
-        "sunset": "8:10 PM",
+        "sunrise": "5:45 AM",
+        "sunset": "8:09 PM",
         "temp": "14–21°C",
         "weatherIcon": "☁️",
         "weather": "Nublado",
@@ -103,8 +103,8 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Zadar_%2848947016376%29.jpg/960px-Zadar_%2848947016376%29.jpg"
       ],
       "climate": {
-        "sunrise": "5:31 AM",
-        "sunset": "8:19 PM",
+        "sunrise": "5:32 AM",
+        "sunset": "8:18 PM",
         "temp": "14–22°C",
         "weatherIcon": "☁️",
         "weather": "Nublado",
@@ -122,9 +122,9 @@
         "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=900&q=80"
       ],
       "climate": {
-        "sunrise": "5:37 AM",
-        "sunset": "8:36 PM",
-        "temp": "14–22°C",
+        "sunrise": "5:38 AM",
+        "sunset": "8:35 PM",
+        "temp": "14–21°C",
         "weatherIcon": "☁️",
         "weather": "Nublado",
         "packing": "Zapatos cómodos, el suelo puede estar húmedo"
@@ -141,9 +141,9 @@
         "https://images.unsplash.com/photo-1531572753322-ad063cecc140?auto=format&fit=crop&w=900&q=80"
       ],
       "climate": {
-        "sunrise": "5:51 AM",
-        "sunset": "8:21 PM",
-        "temp": "13–24°C",
+        "sunrise": "5:52 AM",
+        "sunset": "8:20 PM",
+        "temp": "13–23°C",
         "weatherIcon": "☁️",
         "weather": "Nublado",
         "packing": "Ropa ligera y zapatos para caminar"
@@ -160,8 +160,8 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Prague_Old_Town_2021_13.jpg/960px-Prague_Old_Town_2021_13.jpg"
       ],
       "climate": {
-        "sunrise": "5:04 AM",
-        "sunset": "8:53 PM",
+        "sunrise": "5:05 AM",
+        "sunset": "8:52 PM",
         "temp": "11–21°C",
         "weatherIcon": "🌦️",
         "weather": "Llovizna",
@@ -179,8 +179,8 @@
         "https://images.unsplash.com/photo-1528728329032-2972f65dfb3f?auto=format&fit=crop&w=900&q=80"
       ],
       "climate": {
-        "sunrise": "4:51 AM",
-        "sunset": "9:16 PM",
+        "sunrise": "4:52 AM",
+        "sunset": "9:14 PM",
         "temp": "11–21°C",
         "weatherIcon": "🌦️",
         "weather": "Llovizna",
@@ -199,8 +199,8 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Historische_Altstadt_Muenchen_01.JPG/960px-Historische_Altstadt_Muenchen_01.JPG"
       ],
       "climate": {
-        "sunrise": "5:20 AM",
-        "sunset": "9:00 PM",
+        "sunrise": "5:21 AM",
+        "sunset": "8:59 PM",
         "temp": "10–20°C",
         "weatherIcon": "☁️",
         "weather": "Nublado",
@@ -218,8 +218,8 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Milano_Porta_Nuova_1.jpg/960px-Milano_Porta_Nuova_1.jpg"
       ],
       "climate": {
-        "sunrise": "5:48 AM",
-        "sunset": "8:50 PM",
+        "sunrise": "5:50 AM",
+        "sunset": "8:49 PM",
         "temp": "14–23°C",
         "weatherIcon": "🌧️",
         "weather": "Lluvia",
@@ -287,8 +287,8 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Diavolezza.jpg/960px-Diavolezza.jpg"
       ],
       "climate": {
-        "sunrise": "5:40 AM",
-        "sunset": "8:52 PM",
+        "sunrise": "5:41 AM",
+        "sunset": "8:51 PM",
         "temp": "-5–2°C",
         "weatherIcon": "⛅",
         "weather": "Parcialmente nublado",
@@ -306,9 +306,9 @@
         "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80"
       ],
       "climate": {
-        "sunrise": "5:45 AM",
-        "sunset": "8:03 PM",
-        "temp": "10–21°C",
+        "sunrise": "5:46 AM",
+        "sunset": "8:02 PM",
+        "temp": "9–20°C",
         "weatherIcon": "🌦️",
         "weather": "Llovizna",
         "packing": "Traje de baño y ropa casual"
