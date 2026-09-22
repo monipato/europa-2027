@@ -1,0 +1,1002 @@
+{
+  "name": "Alpes Suizos, Alsacia y Mar Mediterráneo",
+  "dates": "30 abr – 16 may 2027",
+  "color": "#7a9b8e",
+  "description": "Una excursión a los glaciares alpinos, un pueblo de cuento en Alsacia y un crucero mediterráneo de 7 noches",
+  "peopleCount": 3,
+  "routeOverride": [
+    "Milán",
+    "Diavolezza",
+    "Colmar",
+    "Basilea",
+    "Barcelona",
+    "La Spezia",
+    "Florencia",
+    "Pisa",
+    "Roma",
+    "Salerno",
+    "Zadar",
+    "Venecia"
+  ],
+  "days": [
+    {
+      "dayKey": "30 ABR",
+      "city": "Venecia",
+      "title": "Vuelo a Venecia",
+      "dayKind": "flight",
+      "weather": {
+        "sunrise": "5:59 AM",
+        "sunset": "8:16 PM",
+        "temp": "11–18°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo internacional Bogotá → Venecia (ida)",
+          "currency": "COP",
+          "unitAmount": 1500000.0,
+          "quantity": 3.0,
+          "note": "Air Europa UX194, BOG 20:15 (hora Colombia) → MAD 13:00 (+1, local); UX1083 → VCE 17:45 local",
+          "place": "Bogota / Venecia",
+          "date": "30 Abr 2027",
+          "link": null,
+          "time": "20:15 → 17:45"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comidas a bordo",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Incluidas en el vuelo internacional",
+          "place": "—",
+          "date": "30 Abr 2027",
+          "link": null
+        },
+        {
+          "category": "Otros y Extras",
+          "title": "SIM card de viaje (datos internacionales)",
+          "currency": "USD",
+          "unitAmount": 52.0,
+          "quantity": 1.0,
+          "note": "SIM compartida entre las 3 personas para los 16 días del viaje",
+          "place": "",
+          "date": "Durante el viaje",
+          "link": "https://esim.holafly.com/es/esim-europa/?selectedDays=16&startDate=2027-05-01&endDate=2027-05-16"
+        },
+        {
+          "category": "Otros y Extras",
+          "title": "Imprevistos / gastos varios (contingencia)",
+          "currency": "EUR",
+          "unitAmount": 200.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "",
+          "date": "Contingencia",
+          "link": null
+        },
+        {
+          "category": "Seguro de Viaje",
+          "title": "Asistencia médica internacional",
+          "currency": "COP",
+          "unitAmount": 295980.0,
+          "quantity": 3.0,
+          "note": "Asistencia médica internacional, cobertura USD 60.000 (Cuponatic)",
+          "place": "Internacional",
+          "date": "1 – 16 may 2027 (16 días de cobertura)",
+          "link": "https://www.cuponatic.com.co/descuento/asistencia-medica-internacional-cobertura-de-usd-60-000?m=tarjetas-de-asistencia&id_descuento=212587"
+        }
+      ]
+    },
+    {
+      "dayKey": "01 MAY",
+      "city": "Milán",
+      "title": "Llegada a Milán",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:09 AM",
+        "sunset": "8:30 PM",
+        "temp": "11–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Llegada del vuelo",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Aterriza en Venecia (VCE), vía Madrid",
+          "place": "Venecia",
+          "date": "1 May 2027",
+          "link": null,
+          "time": "17:45"
+        },
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Bus Venecia → Milán (FlixBus)",
+          "currency": "EUR",
+          "unitAmount": 65.73,
+          "quantity": 1.0,
+          "note": "FlixBus nocturno, Aeropuerto Marco Polo → Estación Lampugnano, 19:20-00:15. Reserva #3392231315",
+          "place": "Milán",
+          "date": "1 May 2027",
+          "link": null,
+          "time": "19:20 → 00:15"
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Franca's Apartment Milano — costo total (3 noches)",
+          "currency": "EUR",
+          "unitAmount": 520.69,
+          "quantity": 1.0,
+          "note": "Apartamento en Milán, cerca del centro histórico",
+          "place": "Milán, Italia",
+          "date": "1 – 4 May (3 noches)",
+          "link": "/hoteles/milan-francas-apartment.pdf"
+        }
+      ]
+    },
+    {
+      "dayKey": "02 MAY",
+      "city": "Diavolezza",
+      "title": "Alpine Wonders: almuerzo en Diavolezza y tren Bernina",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:03 AM",
+        "sunset": "8:31 PM",
+        "temp": "-7–-1°C",
+        "weatherIcon": "⛅",
+        "weather": "Parcialmente nublado"
+      },
+      "items": [
+        {
+          "category": "Traslados",
+          "title": "Traslado estación de autobuses → hotel, Milán",
+          "currency": "EUR",
+          "unitAmount": 15.0,
+          "quantity": 1.0,
+          "note": "Estimado: taxi corto desde Lampugnano al hotel (llegada 00:15), ~15-20 min, €15-20",
+          "place": "Milán",
+          "date": "2 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Alpine Wonders: almuerzo en Diavolezza y tren Bernina",
+          "currency": "USD",
+          "unitAmount": 250.0,
+          "quantity": 3.0,
+          "note": "Excursión de día completo desde Milán, tren panorámico Bernina",
+          "place": "Milán",
+          "date": "2 May 2027",
+          "link": "https://www.tripadvisor.com/AttractionProductReview-g187849-d15090556-From_Milan_Alpine_Wonders_Lunch_at_Diavolezza_and_Bernina_Train-Milan_Lombardy.html"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "Estimado: ~€40/persona/día (desayuno+almuerzo+cena)",
+          "place": "Milán",
+          "date": "2 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "03 MAY",
+      "city": "Milán",
+      "title": "Duomo di Milano y terrazas (entrada)",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:07 AM",
+        "sunset": "8:33 PM",
+        "temp": "11–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "Estimado: ~€40/persona/día (desayuno+almuerzo+cena)",
+          "place": "Milán",
+          "date": "3 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Duomo di Milano y terrazas (entrada)",
+          "currency": "EUR",
+          "unitAmount": 16.0,
+          "quantity": 3.0,
+          "note": "Entrada terrazas con ascensor, precio oficial",
+          "place": "Milán",
+          "date": "3 May 2027",
+          "link": "https://ticket.duomomilano.it/en/categoria/terrazze/"
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Free tour por Milán",
+          "currency": "EUR",
+          "unitAmount": 50.0,
+          "quantity": 1.0,
+          "note": "Tour gratuito en español, 10:30h. Citywalkers LTD, 8,9/10 (18.320 opiniones). Propina voluntaria",
+          "place": "Milán",
+          "date": "3 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "04 MAY",
+      "city": "Colmar",
+      "title": "Llegada a Colmar",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:05 AM",
+        "sunset": "8:49 PM",
+        "temp": "9–19°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Tren Milán → Basilea, directo (EuroCity)",
+          "currency": "EUR",
+          "unitAmount": 45.0,
+          "quantity": 3.0,
+          "note": "EuroCity directo, aprox. 4h15, asiento reservado; conexión en Basilea hacia Colmar",
+          "place": "Milán / Basilea",
+          "date": "4 May 2027",
+          "link": null
+        },
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Tren Basilea → Colmar, directo (TER)",
+          "currency": "EUR",
+          "unitAmount": 15.0,
+          "quantity": 3.0,
+          "note": "TER regional directo, aprox. 45 min, sin reserva de asiento",
+          "place": "Basilea / Colmar",
+          "date": "4 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "Estimado: ~€40/persona/día (desayuno+almuerzo+cena)",
+          "place": "Colmar",
+          "date": "4 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → Estación Milano Centrale",
+          "currency": "EUR",
+          "unitAmount": 15.0,
+          "quantity": 1.0,
+          "note": "Estimado: taxi corto centro Milán (1 carro para el grupo)",
+          "place": "Italia",
+          "date": "4 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado estación → hotel, Colmar",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 1.0,
+          "note": "Estimado: taxi corto, centro histórico (1 carro para el grupo)",
+          "place": "Colmar",
+          "date": "4 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Appart'hôtel Odalys City - Colmar Centre — costo total (2 noches)",
+          "currency": "EUR",
+          "unitAmount": 303.1,
+          "quantity": 1.0,
+          "note": "Apartahotel con piscina cubierta, cerca del centro histórico",
+          "place": "Colmar, Francia",
+          "date": "4 – 6 May (2 noches)",
+          "link": "/hoteles/colmar-odalys-city.pdf"
+        }
+      ]
+    },
+    {
+      "dayKey": "05 MAY",
+      "city": "Colmar",
+      "title": "Día en Colmar",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:04 AM",
+        "sunset": "8:50 PM",
+        "temp": "10–19°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "Estimado: ~€40/persona/día (desayuno+almuerzo+cena)",
+          "place": "Colmar",
+          "date": "5 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "06 MAY",
+      "city": "Basilea",
+      "title": "Llegada a Basilea",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:03 AM",
+        "sunset": "8:49 PM",
+        "temp": "9–19°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Tren Colmar → Basilea, directo (TER)",
+          "currency": "EUR",
+          "unitAmount": 15.0,
+          "quantity": 3.0,
+          "note": "TER regional directo, aprox. 45 min",
+          "place": "Colmar / Basilea",
+          "date": "6 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → estación, Colmar",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 1.0,
+          "note": "Estimado: taxi corto al check-out (1 carro para el grupo)",
+          "place": "Colmar",
+          "date": "6 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado estación → hotel, Basilea",
+          "currency": "EUR",
+          "unitAmount": 15.0,
+          "quantity": 1.0,
+          "note": "Estimado: taxi corto desde Basel SBB (1 carro para el grupo)",
+          "place": "Basilea",
+          "date": "6 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hotel Spalentor — costo total (1 noche)",
+          "currency": "CHF",
+          "unitAmount": 190.8,
+          "quantity": 1.0,
+          "note": "Hotel céntrico, cerca del casco antiguo de Basilea",
+          "place": "Basilea, Suiza",
+          "date": "6 – 7 May (1 noche)",
+          "link": "/hoteles/basilea-spalentor.pdf"
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "Estimado: ~€40/persona/día (desayuno+almuerzo+cena)",
+          "place": "Basilea",
+          "date": "6 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Free tour por Colmar",
+          "currency": "EUR",
+          "unitAmount": 50.0,
+          "quantity": 1.0,
+          "note": "Tour gratuito en español, 10:00h. Estrasburgo Es Emocionante, 9,5/10 (7.394 opiniones). Propina voluntaria",
+          "place": "Colmar",
+          "date": "6 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "07 MAY",
+      "city": "Barcelona",
+      "title": "Llegada a Barcelona",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "6:39 AM",
+        "sunset": "8:56 PM",
+        "temp": "13–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo Basilea → Barcelona, directo",
+          "currency": "EUR",
+          "unitAmount": 65.0,
+          "quantity": 3.0,
+          "note": "easyJet directo, EuroAirport (Basilea-Mulhouse) a Barcelona, aprox. 1h50",
+          "place": "Basilea / Barcelona",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → aeropuerto, Basilea",
+          "currency": "EUR",
+          "unitAmount": 20.0,
+          "quantity": 1.0,
+          "note": "Estimado: EuroAirport queda a las afueras (1 carro para el grupo)",
+          "place": "Basilea",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado aeropuerto → hotel, Barcelona",
+          "currency": "EUR",
+          "unitAmount": 13.33,
+          "quantity": 3.0,
+          "note": "Traslado desde El Prat al hostal",
+          "place": "España",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Comida del día (desayuno, almuerzo y cena)",
+          "currency": "EUR",
+          "unitAmount": 40.0,
+          "quantity": 3.0,
+          "note": "Estimado: ~€40/persona/día (desayuno+almuerzo+cena)",
+          "place": "Barcelona",
+          "date": "7 May 2027",
+          "link": null
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Hostal Bedmates — costo total (1 noche)",
+          "currency": "EUR",
+          "unitAmount": 277.33,
+          "quantity": 1.0,
+          "note": "Hostal céntrico cerca de Sagrada Familia, 1 noche antes del crucero",
+          "place": "Barcelona, España",
+          "date": "7 – 8 May (1 noche, pre-crucero)",
+          "link": "/hoteles/barcelona-hostal-bedmates.pdf"
+        }
+      ]
+    },
+    {
+      "dayKey": "08 MAY",
+      "city": "Barcelona",
+      "title": "Embarque en Barcelona",
+      "dayKind": "embark",
+      "weather": {
+        "sunrise": "6:38 AM",
+        "sunset": "8:57 PM",
+        "temp": "12–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Crucero",
+          "title": "Crucero Barcelona → Ravena — tarifa por persona (cabina)",
+          "currency": "USD",
+          "unitAmount": 670.0,
+          "quantity": 3.0,
+          "note": "Crucero Barcelona-Ravena, 7 noches, incluye propinas",
+          "place": "Mediterráneo",
+          "date": "8 – 15 May (7 noches)",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → puerto (embarque crucero), Barcelona",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "España",
+          "date": "8 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Desayuno",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Barcelona",
+          "date": "8 May 2027",
+          "link": null
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de Barcelona, según itinerario oficial del crucero",
+          "place": "Barcelona",
+          "date": "8 May 2027",
+          "link": null,
+          "time": "11:00"
+        }
+      ]
+    },
+    {
+      "dayKey": "09 MAY",
+      "city": "En el mar",
+      "title": "Día de navegación",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:46 AM",
+        "sunset": "8:02 PM",
+        "temp": "9–20°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Otros y Extras",
+          "title": "Día de navegación",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Día de navegación, incluido en la tarifa del crucero",
+          "place": "Navegación",
+          "date": "9 May 2027",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluidas en el crucero (come a bordo)",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "Navegación",
+          "date": "9 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "10 MAY",
+      "city": "La Spezia",
+      "title": "Best of Florence & Pisa",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:58 AM",
+        "sunset": "8:35 PM",
+        "temp": "12–20°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en La Spezia, según itinerario oficial del crucero",
+          "place": "La Spezia",
+          "date": "10 May 2027",
+          "link": null,
+          "time": "07:00"
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Best of Florence & Pisa",
+          "currency": "USD",
+          "unitAmount": 180.99,
+          "quantity": 3.0,
+          "note": "Excursión guiada a Florencia y Pisa (10h30), incluye almuerzo. Torre Inclinada, Piazza del Duomo, Santa Croce",
+          "place": "La Spezia (Florencia/Pisa)",
+          "date": "10 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/LL97?bookingId=3113096&shipCode=BR&sailDate=20270508",
+          "time": "7:30 am"
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de La Spezia, según itinerario oficial del crucero",
+          "place": "La Spezia",
+          "date": "10 May 2027",
+          "link": null,
+          "time": "19:00"
+        }
+      ]
+    },
+    {
+      "dayKey": "11 MAY",
+      "city": "Roma",
+      "title": "Visit to Rome",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:52 AM",
+        "sunset": "8:20 PM",
+        "temp": "13–23°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en Civitavecchia (Roma), según itinerario oficial del crucero",
+          "place": "Civitavecchia (Roma)",
+          "date": "11 May 2027",
+          "link": null,
+          "time": "07:00"
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Visit to Rome",
+          "currency": "USD",
+          "unitAmount": 142.0,
+          "quantity": 3.0,
+          "note": "Excursión a Roma desde el crucero",
+          "place": "Civitavecchia (Roma)",
+          "date": "11 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/CV1F?bookingId=3113096&shipCode=BR&sailDate=20270508",
+          "time": "8:00 am"
+        },
+        {
+          "category": "Comidas",
+          "title": "Almuerzo en tierra",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 3.0,
+          "note": "Desayuno y cena incluidos en el crucero, almuerzo en Roma",
+          "place": "Civitavecchia (Roma)",
+          "date": "11 May 2027",
+          "link": null
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de Civitavecchia (Roma), según itinerario oficial del crucero",
+          "place": "Civitavecchia (Roma)",
+          "date": "11 May 2027",
+          "link": null,
+          "time": "19:00"
+        }
+      ]
+    },
+    {
+      "dayKey": "12 MAY",
+      "city": "Salerno",
+      "title": "Excursión a Pompeya",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:45 AM",
+        "sunset": "8:09 PM",
+        "temp": "14–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en Salerno, según itinerario oficial del crucero",
+          "place": "Salerno",
+          "date": "12 May 2027",
+          "link": null,
+          "time": "07:00"
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluida en el crucero (come a bordo)",
+          "currency": "EUR",
+          "unitAmount": 0.0,
+          "quantity": 3.0,
+          "note": "Comida incluida en el paquete del crucero, sin costo adicional",
+          "place": "Salerno (Costa Amalfitana)",
+          "date": "12 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Excursión a Pompeya (tour en español)",
+          "currency": "USD",
+          "unitAmount": 106.99,
+          "quantity": 3.0,
+          "note": "Excursión a Pompeya con guía en español, 30% descuento pre-crucero",
+          "place": "Salerno (Costa Amalfitana)",
+          "date": "12 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/ESA7?bookingId=3113096&shipCode=BR&sailDate=20270508",
+          "time": "8:30 am"
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de Salerno, según itinerario oficial del crucero",
+          "place": "Salerno",
+          "date": "12 May 2027",
+          "link": null,
+          "time": "18:00"
+        }
+      ]
+    },
+    {
+      "dayKey": "13 MAY",
+      "city": "En el mar",
+      "title": "Día de navegación",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:42 AM",
+        "sunset": "8:06 PM",
+        "temp": "11–22°C",
+        "weatherIcon": "🌦️",
+        "weather": "Llovizna"
+      },
+      "items": [
+        {
+          "category": "Otros y Extras",
+          "title": "Día de navegación",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "Día de navegación, incluido en la tarifa del crucero",
+          "place": "Navegación",
+          "date": "13 May 2027",
+          "link": "https://www.royalcaribbean.com/lac/es/itinerary/7-night-italy-croatia-cruise-from-barcelona-on-brilliance-BR07M885?sailDate=2027-05-08&packageCode=BR07M885&groupId=BR07BCN-1768961711&country=COL&search=startDate:2027-05-01~2027-05-31"
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluidas en el crucero (come a bordo)",
+          "currency": "COP",
+          "unitAmount": 0.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "Navegación",
+          "date": "13 May 2027",
+          "link": null
+        }
+      ]
+    },
+    {
+      "dayKey": "14 MAY",
+      "city": "Zadar",
+      "title": "Día en Zadar",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:32 AM",
+        "sunset": "8:18 PM",
+        "temp": "14–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en Zadar, según itinerario oficial del crucero",
+          "place": "Zadar",
+          "date": "14 May 2027",
+          "link": null,
+          "time": "10:00"
+        },
+        {
+          "category": "Comidas",
+          "title": "Incluida en el crucero (come a bordo)",
+          "currency": "EUR",
+          "unitAmount": 0.0,
+          "quantity": 3.0,
+          "note": "Comida incluida en el paquete del crucero, sin costo adicional",
+          "place": "Zadar, Croacia",
+          "date": "14 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Historic Zadar Walking Tour",
+          "currency": "USD",
+          "unitAmount": 43.99,
+          "quantity": 3.0,
+          "note": "Tour histórico a pie por Zadar desde el crucero",
+          "place": "Zadar, Croacia",
+          "date": "14 May 2027",
+          "link": "https://www.royalcaribbean.com/account/cruise-planner/category/shorex/product/RZ44?bookingId=3113096&shipCode=BR&sailDate=20270508",
+          "time": "10:30 am"
+        },
+        {
+          "category": "Crucero",
+          "title": "Salida del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Zarpa de Zadar, según itinerario oficial del crucero",
+          "place": "Zadar",
+          "date": "14 May 2027",
+          "link": null,
+          "time": "19:00"
+        }
+      ]
+    },
+    {
+      "dayKey": "15 MAY",
+      "city": "Venecia",
+      "title": "Llegada a Venecia",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:38 AM",
+        "sunset": "8:35 PM",
+        "temp": "14–21°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Crucero",
+          "title": "Llegada del barco",
+          "currency": "COP",
+          "unitAmount": 0,
+          "quantity": 1,
+          "note": "Atraca en Ravenna, según itinerario oficial del crucero",
+          "place": "Ravenna",
+          "date": "15 May 2027",
+          "link": null,
+          "time": "05:30"
+        },
+        {
+          "category": "Traslados",
+          "title": "Vaporetti ACTV",
+          "currency": "EUR",
+          "unitAmount": 25.0,
+          "quantity": 3.0,
+          "note": "Boletos de vaporetto (transporte acuático) por Venecia",
+          "place": "Venecia",
+          "date": "15 May 2027",
+          "link": "https://book.tickets-venice.com/es/book/8748/select/?_gl=1%2A1073ils%2A_gcl_aw%2AR0NMLjE3ODc4NzgwODMuRUFJYUlRb2JDaE1JaFpPNjdZekNsZ01Wd1lSYUJSM2Y1U1JPRUFBWUF5QUFFZ0tjeFBEX0J3RQ..%2A_gcl_au%2ANzIxMTA1MTQ5LjE3ODc4NzgwODMuLS4tLjE3ODc4NzgwODMuMTE2MDU2ODc1MS4xNzg3ODc4MDg0LjE3ODc4NzgwODM.%2A_ga%2ANDcyOTU3MzYyLjE3ODc4NzgwODM.%2A_ga_Y45PC9R73C%2AczE3ODc4NzgwODMkbzEkZzAkdDE3ODc4NzgwODQkajU5JGwwJGgw&cookieBanner=false&date=2027-05-15&tourId=15560&variantId=15560"
+        },
+        {
+          "category": "Alojamiento",
+          "title": "Casanova ai Tolentini — costo total (1 noche)",
+          "currency": "EUR",
+          "unitAmount": 240.0,
+          "quantity": 1.0,
+          "note": "Casa con vista al canal, cerca del centro histórico",
+          "place": "Venecia, Italia",
+          "date": "15 – 16 May (1 noche, post-crucero)",
+          "link": "/hoteles/venecia-casanova-ai-tolentini.pdf"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado puerto → Estación Ravenna",
+          "currency": "EUR",
+          "unitAmount": 95.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Italia",
+          "date": "15 May 2027",
+          "link": "/traslados/ravenna-venecia-transfer.pdf",
+          "time": "9:00 am"
+        },
+        {
+          "category": "Comidas",
+          "title": "Almuerzo y cena",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 3.0,
+          "note": "",
+          "place": "Rávena (Venecia)",
+          "date": "15 May 2027",
+          "link": null
+        },
+        {
+          "category": "Tours y Excursiones",
+          "title": "Free tour Venecia",
+          "currency": "EUR",
+          "unitAmount": 10.0,
+          "quantity": 3.0,
+          "note": "Free tour guiado por el centro histórico de Venecia",
+          "place": "Venecia",
+          "date": "15 May 2027",
+          "link": "https://www.civitatis.com/es/venecia/free-tour-venecia/?_gl=1*1ijxuzi*_up*MQ..*_ga*ODU4MDQyNjAyLjE3ODc4Nzc2ODY.*_ga_QJQ54CTKPM*czE3ODc4Nzc2ODYkbzEkZzEkdDE3ODc4Nzc2OTEkajU1JGwwJGgxNTA2MDA0ODU0",
+          "time": "1:00 pm"
+        }
+      ]
+    },
+    {
+      "dayKey": "16 MAY",
+      "city": "Venecia",
+      "title": "Vuelo de regreso",
+      "dayKind": null,
+      "weather": {
+        "sunrise": "5:37 AM",
+        "sunset": "8:36 PM",
+        "temp": "14–22°C",
+        "weatherIcon": "☁️",
+        "weather": "Nublado"
+      },
+      "items": [
+        {
+          "category": "Vuelos y Trenes",
+          "title": "Vuelo internacional Venecia → Bogotá (regreso)",
+          "currency": "COP",
+          "unitAmount": 1500000.0,
+          "quantity": 3.0,
+          "note": "Air Europa UX1082, VCE 10:25 local → MAD 13:10; UX193 → BOG 18:15 (hora Colombia)",
+          "place": "Venecia / Bogota",
+          "date": "16 May 2027",
+          "link": null,
+          "time": "10:25 → 18:15 (hora CO)"
+        },
+        {
+          "category": "Traslados",
+          "title": "Traslado hotel → aeropuerto, Venecia",
+          "currency": "EUR",
+          "unitAmount": 30.0,
+          "quantity": 1.0,
+          "note": "",
+          "place": "Italia",
+          "date": "16 May 2027",
+          "link": null
+        },
+        {
+          "category": "Comidas",
+          "title": "Desayuno",
+          "currency": "EUR",
+          "unitAmount": 12.0,
+          "quantity": 3.0,
+          "note": "Almuerzo y cena incluidos en el vuelo de regreso (15h, sale 10:55am)",
+          "place": "Venecia",
+          "date": "16 May 2027",
+          "link": null
+        }
+      ]
+    }
+  ]
+}

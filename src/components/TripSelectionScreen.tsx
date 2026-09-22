@@ -1,21 +1,15 @@
 import type { GeneratedOption } from '../data/generated/itinerary.generated'
 import { formatCOP } from '../utils/currency'
-import { collectCountryFlags } from '../utils/tripStats'
+import { collectCountryFlagsWithNames } from '../utils/tripStats'
 import { ExchangeRatesCard } from './ExchangeRatesCard'
-import duckFamily2 from '../assets/ducks/duck2-family-car.png'
-import duckFamily3 from '../assets/ducks/duck2-family-3.png'
-import duckFamily4 from '../assets/ducks/duck2-family-4.png'
-import duckSailboat from '../assets/ducks/duck-sailboat.png'
+import duckFamily2 from '../assets/ducks/duck2-family-car.webp'
+import duckFamily3 from '../assets/ducks/duck2-family-3.webp'
+import duckFamily4 from '../assets/ducks/duck2-family-4.webp'
 
 // Small duck icon next to the "N personas" badge on each option card — picked
 // to roughly match the actual traveler count, falling back to the 3-duck one
 // (the common case) for any other count.
 const PEOPLE_DUCK_BY_COUNT: Record<number, string> = { 2: duckFamily2, 3: duckFamily3, 4: duckFamily4 }
-
-// A small illustrated duck next to specific option titles, not an emoji —
-// keyed by option name since it's a one-off touch for a single card, not a
-// general per-option feature.
-const OPTION_TITLE_DUCK_BY_NAME: Record<string, string> = { "Italia": duckSailboat }
 
 interface TripSelectionScreenProps {
   options: GeneratedOption[]
@@ -31,19 +25,13 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
     <>
       <section className="welcome">
         <div className="welcome-copy">
-          <p className="eyebrow">Tu viaje, más fácil de entender</p>
-          <h1>Elige tu forma de <span className="accent-word">viajar</span></h1>
-          <p className="intro">Compara las opciones y revisa cada gasto con calma. Todo está organizado para que encuentres lo que necesitas.</p>
+          <p className="eyebrow">Tu pasaporte de viajes</p>
+          <h1>Elige tu próximo <span className="accent-word">sello</span> de viaje</h1>
+          <p className="intro">Cada viaje trae su propia postal y su sello. Toca "Ver detalle" para abrir el itinerario completo.</p>
         </div>
       </section>
 
       <section className="option-area">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Paso 1 de 2</p>
-            <h2>Selecciona una cotización</h2>
-          </div>
-        </div>
         <div className="option-grid">
           {options.map((option, index) => (
             <button
@@ -51,29 +39,43 @@ export function TripSelectionScreen({ options, selectedOptionIndex, onSelectOpti
               key={option.name}
               onClick={() => onSelectOption(index)}
             >
-              <div className="option-top">
-                <span className="option-flags">{collectCountryFlags(option.itinerary).join(' ')}</span>
+              <span className="option-card-stripe" aria-hidden="true" />
+              <div className="option-photo">
+                <img src={option.itinerary[0]?.image} alt="" />
+                <span className="option-people-badge">
+                  <img src={PEOPLE_DUCK_BY_COUNT[option.peopleCount] ?? duckFamily3} alt="" aria-hidden="true" /> {option.peopleCount} personas
+                </span>
+                <span className="option-stamp stamp-label" aria-hidden="true">
+                  <span className="option-stamp-ring" />
+                  <strong>{option.days}</strong>
+                  <small>días</small>
+                </span>
               </div>
-              <span className="option-people">
-                <img src={PEOPLE_DUCK_BY_COUNT[option.peopleCount] ?? duckFamily3} alt="" aria-hidden="true" /> {option.peopleCount} personas
-              </span>
-              <h3>
-                {option.name}
-                {OPTION_TITLE_DUCK_BY_NAME[option.name] && (
-                  <img className="option-title-duck" src={OPTION_TITLE_DUCK_BY_NAME[option.name]} alt="" aria-hidden="true" />
-                )}
-              </h3>
-              <p>{option.description} · {option.days} días</p>
-              <strong>{formatCOP(option.perPerson)}</strong>
-              {option.perPersonByType && (
-                <div className="option-by-type">
-                  {option.perPersonByType.map((entry) => (
-                    <span key={entry.label}>{entry.label}: {formatCOP(entry.amount)}</span>
+              <div className="option-body">
+                <h3>{option.name}</h3>
+                <div className="option-flags">
+                  {collectCountryFlagsWithNames(option.itinerary).map(({ emoji, country }) => (
+                    <span key={country}>{emoji} {country}</span>
                   ))}
                 </div>
-              )}
-              <small>{option.dates}</small>
-              <div className="route">{option.route}</div>
+                <p>{option.description}</p>
+                <div className="option-price-row">
+                  <div>
+                    <span className="option-price-label stamp-label">por persona</span>
+                    <strong>{formatCOP(option.perPerson)}</strong>
+                  </div>
+                  <span className="option-cta">Ver detalle →</span>
+                </div>
+                {option.perPersonByType && (
+                  <div className="option-by-type">
+                    {option.perPersonByType.map((entry) => (
+                      <span key={entry.label}>{entry.label}: {formatCOP(entry.amount)}</span>
+                    ))}
+                  </div>
+                )}
+                <small>{option.dates}</small>
+                <div className="route">{option.route}</div>
+              </div>
             </button>
           ))}
         </div>

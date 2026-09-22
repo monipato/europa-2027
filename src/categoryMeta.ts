@@ -1,11 +1,11 @@
 import type { Category } from './types'
-import duckAirplaneWindow from './assets/ducks/duck-airplane-window.png'
-import duckCamping from './assets/ducks/duck-camping.png'
-import duckCatFood from './assets/ducks/duck-cat-food.png'
-import duckCity from './assets/ducks/duck-city.png'
-import duckCruise from './assets/ducks/duck-cruise.png'
-import duckArctic from './assets/ducks/duck-arctic.png'
-import duckShopping from './assets/ducks/duck-shopping.png'
+import duckAirplaneWindow from './assets/ducks/duck-airplane-window.webp'
+import duckCamping from './assets/ducks/duck-camping.webp'
+import duckCatFood from './assets/ducks/duck-cat-food.webp'
+import duckCity from './assets/ducks/duck-city.webp'
+import duckCruise from './assets/ducks/duck-cruise.webp'
+import duckArctic from './assets/ducks/duck-arctic.webp'
+import duckShopping from './assets/ducks/duck-shopping.webp'
 
 /** Icon + accent color shown for each expense category, in both the day
  * view's expense rows and the category view's grid/detail panel. `duck`
@@ -14,9 +14,9 @@ import duckShopping from './assets/ducks/duck-shopping.png'
  * closest fit (a bundled-up "protected from the elements" duck) rather than
  * a literal one.
  *
- * Kept out of `constants.ts` on purpose: these PNG imports need Vite's asset
+ * Kept out of `constants.ts` on purpose: these WebP imports need Vite's asset
  * pipeline, which `netlify/functions/` doesn't have (its esbuild bundle has
- * no loader for `.png`) — anything importable from a Netlify function
+ * no loader for `.webp`) — anything importable from a Netlify function
  * (`tripContext.ts` → `utils/currency.ts` → `constants.ts`) must stay
  * asset-free, so this file exists to keep the two apart. */
 export const CATEGORY_META: Record<Category, { icon: string; color: string; duck: string }> = {

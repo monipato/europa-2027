@@ -1,6 +1,6 @@
 ---
 name: update-climate
-description: Refresh each day's sunrise, sunset, and weather (temperature range + condition) shown in the day-by-day planner, per exact city and calendar date. Use whenever the user asks to update, refresh, or check the weather/climate/sunrise/sunset data, or mentions it being stale/outdated.
+description: Refresh each day's sunrise, sunset, and weather (temperature range + condition) shown in the day-by-day planner, per exact city and calendar date — across every trip option (Europa, Alpes Suizos, Crucero en pareja, Orlando, Japón). Use whenever the user asks to update, refresh, or check the weather/climate/sunrise/sunset data, or mentions it being stale/outdated.
 ---
 
 # Updating weather, sunrise, and sunset
@@ -11,116 +11,96 @@ Run the backing script:
 python3 scripts/update_climate.py
 ```
 
-That's it for the normal case — it walks every option's built itinerary,
-fetches real astronomy and climate-normal data per (city, exact date) in
-parallel (up to 8 pairs at once — see `MAX_WORKERS`), and regenerates
+That's it for the normal case — it walks every day of `data/options/
+{europa,alpes-suizos,crucero-en-pareja}.json`, every day of
+`data/options/japon.json` (except "En vuelo", the transit day, which has no
+real location), and the shared 9-day calendar in
+`data/options/orlando-{jero,pachito-vale}.json`'s `dayPlans`; fetches real
+astronomy and climate-normal data per (city, exact date) in parallel (up to
+8 pairs at once — see `MAX_WORKERS`); writes the result straight into each
+day's own `weather` object; and regenerates
 `src/data/generated/itinerary.generated.ts` automatically. Takes well under
-two minutes even across the ~40 (city, day) pairs in this itinerary — a
-fully serial version of this took 15+ minutes and was replaced for that
-reason. Then just typecheck/build (`npx tsc -p tsconfig.app.json && npm run
-build`) and report anything that looks off (e.g. a city with no coordinates
-on file) to the user.
+two minutes even across the ~60 (city, day) pairs total. Then just
+typecheck/build (`npx tsc -p tsconfig.app.json && npm run build`) and
+report anything that looks off (e.g. a city with no coordinates on file) to
+the user.
 
 ## What it does, and why it's safe to just run
 
-- Unlike exchange rates, this data doesn't live in the Excel workbook — it's
-  two plain Python dicts in `scripts/generate_data.py`:
-  - `CITY_CLIMATE_BY_DAY` — keyed by `"{city}|{dayKey}"` (e.g.
-    `"Zúrich|30 Abr"`), the values actually shown in the app. Populated
-    fresh every run, one entry per (city, day) pair that's actually used
-    across all 5 option sheets — so the same city visited on two different
-    dates gets two different readings.
-  - `CITY_CLIMATE` — the older per-city-only dict, kept as a fallback for
-    any (city, day) not covered by `CITY_CLIMATE_BY_DAY` (e.g. right after
-    a new day is added to the workbook, before this script has run again).
-    Also refreshed each run, from each city's first-occurrence date.
+- Every day already states its own weather directly (`weather` —
+  `sunrise`/`sunset`/`temp`/`weatherIcon`/`weather` — on each day of the 3
+  Europa-shaped options and of `japon.json`, and on each `dayPlans` entry
+  of the 2 Orlando options), so this script's whole job is: for each day,
+  figure out which real place its weather should reflect, fetch that
+  place's numbers for that exact date, and overwrite the `weather` object
+  in place.
+- Which place: normally the day's own `city` (or, for Orlando, always
+  "Orlando" — both options share one calendar, fetched once and written
+  into both files), but a day trip whose weather belongs somewhere else
+  (e.g. an Alpine excursion out of a city-base day) carries an explicit
+  `climateCity` field instead — see `alpes-suizos.json`'s "02 MAY" for a
+  real example. This script reads that field when present; nothing is
+  inferred from a keyword or place string.
 - Sunrise/sunset are exact astronomy (not a forecast) for the day's real
   calendar date in 2027 — fetched from the free, keyless
-  `api.sunrise-sunset.org` and converted from UTC to local time via a fixed
-  UTC+2 (CEST) offset, which every city in this itinerary shares in
-  April/May.
+  `api.sunrise-sunset.org` and converted from UTC to local time via a
+  per-city UTC offset (`CITY_UTC_OFFSET`, defaulting to CEST/UTC+2 for the
+  Europa-trip cities; Orlando/Los Ángeles/Tokio/Osaka each have their own —
+  the two US ones already account for DST, since both trips fall after the
+  2nd Sunday of March).
 - Temperature range and the dominant weather condition are real seasonal
   normals — Open-Meteo's free `archive-api.open-meteo.com`, averaged over a
   +/-7 day window around that exact calendar date across the last 3 years
   (2022-2024) per city. This is the honest ceiling on "live" weather data a
   year ahead: no real forecast exists that far out, so a historical normal
-  for that time of year is what's shown, same as before — just computed per
-  exact date now instead of one static value per city.
+  for that time of year is what's shown.
+- `data/cities.json`'s per-city `climate` field is also refreshed (from
+  each city's first-occurrence date across every option) — it's dead
+  weight for a city whose every day already has its own per-day weather
+  (true for every city today), but it's the fallback a brand-new day would
+  get before its own exact-date fetch has run once.
 - "packing" tips are editorial text, not fetched data, and are left
   untouched by this script.
-- `CLIMATE_SOURCE_URL` and `SUN_SOURCE_URL` (also in `generate_data.py`, per
-  city) are static reference links, not something this script refreshes —
-  they don't change.
-- Fetches for different (city, day) pairs run concurrently (a
-  `ThreadPoolExecutor`, `MAX_WORKERS = 8`); within one pair, the sunrise
-  call and the 3-year climate-normal calls still run sequentially since
-  they share the same lat/lon and there's no benefit splitting them further.
 
 ## Where this shows up in the app
 
 - `DayByDayView`'s `.day-conditions` row shows sunrise, sunset, and the
   weather chip for the day currently selected — specific to that exact
   date, not just the city.
-- All three chips are clickable links — labelled with a dashed underline,
-  same treatment as the currency links in `ExchangeRatesCard`:
-  - Sunrise and sunset both link to a sunrise-sunset.org page for that city
-    (`SUN_SOURCE_URL`) — one page shows the full day's sun schedule, so
-    both chips share the same URL per city.
-  - The weather chip (icon + temp) links to a weather-and-climate.com
-    monthly-normals page for that city (`CLIMATE_SOURCE_URL`).
-  - "En el mar" has no fixed location, so it gets no links on any of the
-    three chips.
-  - All three links are repeated on their matching stat inside the "Qué
-    llevar" packing popup.
-- That popup also shows a weather-themed duck sticker (`getWeatherDuck` in
-  `src/utils/weatherDuck.ts`), chosen purely from the day's `weather` label.
-  This script is the reason it updates: `weather` is exactly the field
-  refreshed above, so re-running this script and regenerating changes both
-  the number and the duck together — no extra step, no extra wiring.
+- All three chips are clickable links — labelled with a dashed underline:
+  sunrise and sunset both link to a sunrise-sunset.org page for that city
+  (`sunSourceUrl` in `data/cities.json`), and the weather chip links to a
+  weather-and-climate.com monthly-normals page (`weatherSourceUrl`).
+  "En el mar" has no fixed location, so it gets no links on any of the
+  three chips. All three links are repeated on their matching stat inside
+  the "Qué llevar" packing popup.
+- That popup also shows a weather-themed duck sticker
+  (`getWeatherDuck` in `src/utils/weatherDuck.ts`), chosen purely from the
+  day's `weather` label. This script is the reason it updates: `weather` is
+  exactly the field refreshed above, so re-running this script changes both
+  the number and the duck together — no extra wiring.
 
 ## If a new city is ever added
 
-Add its lat/lon to `CITY_COORDS` in `scripts/update_climate.py` (and, if you
-want "Ver clima"/"Ver amanecer"/"Ver atardecer" links for it too, matching
-entries in `CLIMATE_SOURCE_URL` and `SUN_SOURCE_URL` in `generate_data.py`
-— check both URL patterns actually resolve with a plain city/city,Country
-slug before trusting them, same as the existing entries). Cities missing
-from `CITY_COORDS` are skipped with a printed warning rather than crashing,
-and fall back to `DEFAULT_CLIMATE`.
+Add its lat/lon to `CITY_COORDS` in `scripts/update_climate.py`. If it's
+outside the CEST (UTC+2) zone the Europa-trip cities all share, also add
+its offset to `CITY_UTC_OFFSET` (remember to account for that city's DST
+rules on the actual trip dates, the way `Orlando`/`Los Ángeles` already
+do). If you want "Ver clima"/"Ver amanecer"/"Ver atardecer" links for it
+too, add `weatherSourceUrl`/`sunSourceUrl` to its entry in
+`data/cities.json` — check the URL pattern actually resolves with a plain
+city/city,Country slug before trusting it. A city missing from
+`CITY_COORDS` is skipped with a printed warning rather than crashing, and
+its days keep whatever weather they already had.
 
-## Day trips to somewhere other than the base city
+## Day trips
 
 A day's weather doesn't always belong to the city it's otherwise filed
-under. E.g. 02 May is a Zürich-based day (hotel stays there), but one Tours
-line is a day trip up to the Jungfraujoch — a 3,454m glacier summit that's
-well below freezing even when Zürich itself is mild. `climateCity` on each
-`GeneratedDay` is a separate field from `city` for exactly this: it's
-resolved by `day_trip_destination()` in `generate_data.py`, which matches a
-keyword (see `DAY_TRIP_DESTINATIONS`) against that day's Tours line titles.
-When it matches, weather/sunrise/sunset/packing all key off `climateCity`
-instead of `city` — the day's own city/title/hero image are untouched, and
-the app shows a small "🚠 Clima de {climateCity} — la excursión del día"
-note (`DayByDayView`) so it's clear why the numbers look different from the
-base city. `collect_city_day_pairs()` here also reads `climateCity`, not
-`city`, so the excursion destination gets its own live-fetched entry in
-`CITY_CLIMATE_BY_DAY` too — the Jungfraujoch entry isn't the same as
-Zürich's despite being the same calendar day. To add another such day trip,
-add a keyword→destination entry to `DAY_TRIP_DESTINATIONS`, then give that
-destination the same three things any climate-tracked place needs:
-`CITY_COORDS` here, and a `CITY_CLIMATE` fallback entry plus
-`CLIMATE_SOURCE_URL`/`SUN_SOURCE_URL` links in `generate_data.py` (a
-mountain/attraction may need a nearby town substituted for the
-weather-and-climate.com link, the way Jungfraujoch uses Interlaken — see
-the comment there).
-
-## Verifying before trusting a run
-
-`scripts/update_climate.py` edits `generate_data.py`'s Python source
-directly (parses the `CITY_CLIMATE` / `CITY_CLIMATE_BY_DAY` dict literals
-with `ast.literal_eval`, re-serializes them, and `compile()`s the result
-before writing — so a malformed rewrite fails loudly instead of corrupting
-the file). If you're ever modifying this script itself, test it against a
-scratch copy of `generate_data.py` first (point `update_climate.GENERATE_SCRIPT`
-at a `/tmp` copy and patch the loaded module's `WORKBOOK` back to the real
-workbook path, since the copy's own `ROOT`-relative path won't resolve) and
-read through the printed per-(city, day) values before running it for real.
+under — see the "What it does" section above. To add a new one: give that
+day in its `data/options/<id>.json` file a `climateCity` field naming the
+real destination, add that destination's coordinates to `CITY_COORDS` here,
+and (optionally) a fallback entry in `data/cities.json` if you want a
+sensible starting value before the first live fetch. The day's own
+`city`/`title`/hero image are untouched either way — only the `weather`
+block and the "Clima de {climateCity}" note the UI shows when the two
+differ.

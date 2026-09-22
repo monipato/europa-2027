@@ -1,442 +1,262 @@
-"""Add or update a single line item in the quote workbook.
+"""Add, update, or delete a single line item in a trip option's JSON file.
 
 Run from the project root:
-    python3 scripts/manage_item.py add    --option "Italia" --category "Tours y Excursiones" \
-        --place "Zadar" --date "14 May 2027" --title "Tour a pie por el casco antiguo" \
-        --currency EUR --unit-amount 15 --quantity 3 \
+    python3 scripts/manage_item.py add --option alpes-suizos --category "Tours y Excursiones" \\
+        --date "14 May 2027" --place "Zadar" --title "Tour a pie por el casco antiguo" \\
+        --currency EUR --unit-amount 15 --quantity 3 \\
         --note "Tour guiado 2h, incluye entrada a la catedral" --link "https://example.com/tour"
 
-    python3 scripts/manage_item.py update --option "Italia" --match-title "SIM card" \
+    python3 scripts/manage_item.py update --option alpes-suizos --match-title "SIM card" \\
         --currency USD --unit-amount 45 --quantity 1 --note "..." --link "..."
 
-    python3 scripts/manage_item.py delete --option "Italia" --match-title "Free tour"
+    python3 scripts/manage_item.py delete --option alpes-suizos --match-title "Free tour"
 
-This is the only supported way to hand-edit a line item in the workbook — it
-edits the raw .xlsx XML directly (same approach as generate_data.py, no
-external dependency), keeps every native Excel formula intact, and always
-regenerates src/data/generated/itinerary.generated.ts afterward so the app
-and the spreadsheet never drift apart. Never hand-edit the .xlsx in a
-spreadsheet app for these kinds of changes and never hand-edit the
-generated .ts file — use this script instead.
+This is the supported way to edit a line item — it's the same JSON file you
+could open and edit by hand (data/options/<option>.json), just with the
+same "don't guess on an ambiguous match" safety net a hand edit doesn't
+give you for free, plus a word-count check on notes. It always regenerates
+src/data/generated/itinerary.generated.ts afterward, so the app and the
+data file never drift apart. Never hand-edit the generated .ts file.
 
-Design notes:
-- Currency conversion rates are read live from the 'Tasas de Cambio' sheet
-  (never hardcoded), so the amounts always use whatever rate is currently
-  in the workbook.
-- New rows reuse the sheet's own live Excel formulas (F*G, H*I, J/people)
-  instead of writing pre-computed numbers, so the row keeps recalculating
-  correctly if it's ever hand-edited in Excel later.
-- The note shown in the app (both the "Por día" and "Por rubro" views read
-  the exact same field) must be <= 20 words — the single most relevant
-  fact about the item. Anything else (a price-confirmation date, an
-  internal comment) belongs in column M ("Fecha confirmación precio"),
-  which the generator never reads, not in the note.
-- A link is optional. If given, it's appended to the end of the note text
-  and the app automatically renders it as a "Ver tour o sitio web" button
-  that opens in a new tab, in both views. If omitted, no link is shown.
-- On `update`, changing `--note` without also passing `--link` keeps the
-  row's existing link (extracted back out of its current note+link text) —
-  it does not get silently dropped. Pass `--link ""` to explicitly remove
-  an existing link while updating the note.
+`--option` is the file id (the JSON filename without ".json"), NOT the
+option's display name shown in the app — see data/options/*.json's own
+"name" field for that. This is deliberate: renaming an option (editing its
+"name" field) never requires touching this script or its callers, since the
+filename is a stable id independent of what's displayed.
+
+`add` places the new item on the day matching `--date` (by day number +
+month, e.g. "14 May 2027" -> the day already keyed "14 MAY"). If no such
+day exists yet, add the day itself directly in the JSON file first (a day
+needs a city/title/weather, which isn't line-item data) — this script only
+ever adds items to a day that's already there. A dateless item (e.g.
+"Durante el viaje", for a SIM card or travel insurance) lands on the
+option's first day, matching where every existing trip-wide item already
+sits.
 """
 from __future__ import annotations
 
 import argparse
+import json
 import re
-import shutil
 import subprocess
 import sys
-import zipfile
-from datetime import date
 from pathlib import Path
-from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKBOOK = ROOT / "Europa2027_Cotizacion_plan_completo (1).xlsx"
-NS = {"x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+OPTIONS_DIR = ROOT / "data" / "options"
+TOURS_PATH = ROOT / "data" / "tours.json"
 
-# Option name -> sheet number, matching the mapping in generate_data.py's main().
-# Sheets 6, 8, 10, 13, 15 (Zúrich y Crucero, Múnich y Crucero, Crucero para
-# 3, Crucero para 4, 1 mes por Europa Milán) are hidden in the workbook and
-# no longer active options — see scripts/restructure_2027_plan.py.
-OPTION_SHEETS = {
-    "1 mes por Europa": 4,
-    "Crucero en pareja": 12,
-    "Italia": 14,
-}
-
-# Options whose per-person headcount differs from the workbook-wide
-# 'Tasas de Cambio'!C5 value (see scripts/duplicate_option.py) — its K
-# formulas divide by a literal number instead of that shared cell.
-OPTION_PEOPLE_OVERRIDE = {
-    "Crucero en pareja": 2,
-}
+# The 3 options priced day-by-day (a workbook row per line item, in spirit).
+# Orlando and Japón are shaped too differently for this generic tool — see
+# CLAUDE.md's "Data" section for why, and edit their JSON files by hand.
+OPTION_IDS = ["europa", "alpes-suizos", "crucero-en-pareja"]
 
 CATEGORIES = {
     "Vuelos y Trenes", "Traslados", "Alojamiento", "Crucero",
     "Tours y Excursiones", "Comidas", "Seguro de Viaje", "Otros y Extras",
 }
-
 CURRENCIES = {"EUR", "CHF", "CZK", "USD", "COP"}
 
-MONTHS_ES_LOWER = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
-
-# Column layout shared by every "Cotización"-style sheet (A..M).
-COLUMNS = "ABCDEFGHIJKLM"
-
-# Style ids used by every item row across all 4 sheets (identical template).
-STYLES = {
-    "A": 29, "B": 29, "C": 30, "D": 32, "E": 33, "F": 34, "G": 33,
-    "H": 51, "I": 51, "J": 52, "K": 53, "L": 54,
-}
+MONTHS_ES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
 
 
-def esc(s: str) -> str:
-    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+def day_key(raw_date: str) -> str | None:
+    match = re.search(r"(\d{1,2})\s*[–\-]?\s*(?:\d{1,2}\s*)?(Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic)", raw_date, re.IGNORECASE)
+    if not match:
+        return None
+    return f"{int(match.group(1)):02d} {match.group(2).upper()}"
 
 
 def word_count(text: str) -> int:
     return len(text.split())
 
 
-class Workbook:
-    """Thin wrapper around the raw zip/XML editing needed to add or update a
-    row. Everything is staged in memory and written back atomically."""
+def load_option(option_id: str) -> dict:
+    path = OPTIONS_DIR / f"{option_id}.json"
+    if not path.exists():
+        raise SystemExit(f"No such option file: {path.relative_to(ROOT)}")
+    return json.loads(path.read_text(encoding="utf-8"))
 
-    def __init__(self):
-        with zipfile.ZipFile(WORKBOOK) as z:
-            self.files = {name: z.read(name) for name in z.namelist()}
-        self.shared_strings = self._parse_shared_strings()
 
-    def _parse_shared_strings(self) -> list[str]:
-        root = ET.fromstring(self.files["xl/sharedStrings.xml"])
-        return ["".join(node.text or "" for node in item.iter() if node.tag.endswith("}t")) for item in root.findall("x:si", NS)]
+def save_option(option_id: str, doc: dict) -> None:
+    path = OPTIONS_DIR / f"{option_id}.json"
+    path.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    def cell_value(self, cell: ET.Element) -> str:
-        node = cell.find("x:v", NS)
-        raw = "" if node is None else (node.text or "")
-        if cell.attrib.get("t") == "s" and raw:
-            return self.shared_strings[int(raw)]
-        return raw
 
-    def sheet_root(self, sheet_no: int) -> ET.Element:
-        return ET.fromstring(self.files[f"xl/worksheets/sheet{sheet_no}.xml"])
+def load_tours() -> dict:
+    return json.loads(TOURS_PATH.read_text(encoding="utf-8"))
 
-    def get_or_add_shared_string(self, text: str) -> int:
-        for i, s in enumerate(self.shared_strings):
-            if s == text:
-                return i
-        idx = len(self.shared_strings)
-        self.shared_strings.append(text)
-        return idx
 
-    def read_rate(self, currency: str) -> float:
-        """Live lookup from the 'Tasas de Cambio' sheet (sheet3) — never hardcoded."""
-        if currency == "COP":
-            return 1.0
-        sheet = self.sheet_root(3)
-        for row in sheet.findall(".//x:sheetData/x:row", NS):
-            cells = {c.attrib["r"]: self.cell_value(c) for c in row.findall("x:c", NS)}
-            code = cells.get(f"B{row.attrib['r']}", "")
-            if code == currency:
-                return float(cells.get(f"E{row.attrib['r']}", "0"))
-        raise ValueError(f"Currency {currency} not found in 'Tasas de Cambio' sheet")
+def save_tours(tours: dict) -> None:
+    TOURS_PATH.write_text(json.dumps(tours, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    def read_people_count(self) -> int:
-        sheet = self.sheet_root(3)
-        for row in sheet.findall(".//x:sheetData/x:row", NS):
-            cells = {c.attrib["r"]: self.cell_value(c) for c in row.findall("x:c", NS)}
-            if cells.get(f"B{row.attrib['r']}", "") == "Número de personas":
-                return int(float(cells.get(f"C{row.attrib['r']}", "3")))
-        return 3
 
-    def find_row_by_title(self, sheet_no: int, match_title: str, match_date: str | None = None) -> int | None:
-        """Match by substring, but only ever silently return a result when
-        it's unambiguous. Preference order: (1) a case-sensitive exact title
-        match — the strongest signal; (2) if none, a case-insensitive exact
-        match, but only if exactly one row qualifies (two rows differing
-        only by case, e.g. "Tour a pie gratis" vs "tour a pie gratis", must
-        not be silently conflated); (3) otherwise substring matches, again
-        only if exactly one qualifies. Any ambiguity at (2) or (3) raises
-        instead of guessing — two real edits in this project accidentally
-        clobbered the wrong row (a substring collision, then a same-modulo-
-        case collision) before these checks existed.
+def set_tour_details(title: str, details: str | None) -> None:
+    """Tour details (highlights, accessibility, language...) live centrally
+    in data/tours.json, keyed by title — shared across every option that
+    includes that same tour, instead of repeating the text in each option's
+    JSON. Not shown in the app UI; only used to brief the WhatsApp/chat
+    assistant (see netlify/functions/_lib/tripContext.ts)."""
+    tours = load_tours()
+    if details:
+        tours[title] = details
+    else:
+        tours.pop(title, None)
+    save_tours(tours)
 
-        If match_date is given, candidates are filtered to rows whose
-        column C (date) exactly matches it *before* the ambiguity checks
-        above — needed for a title that's intentionally repeated once per
-        day (e.g. "Comida del día (almuerzo y cena)"), where title alone
-        can never disambiguate."""
-        sheet = self.sheet_root(sheet_no)
-        needle = match_title.strip()
-        needle_lower = needle.lower()
-        exact_ci, substring, case_sensitive_hit = [], [], None
-        for row in sheet.findall(".//x:sheetData/x:row", NS):
-            rn = int(row.attrib["r"])
-            if rn < 5:
+
+def find_item(doc: dict, match_title: str, match_date: str | None = None) -> tuple[int, int]:
+    """Same ambiguity-safety rules as the old Excel-cell version: (1) a
+    case-sensitive exact title match wins outright; (2) failing that, a
+    case-insensitive exact match, only if exactly one item qualifies; (3)
+    otherwise a substring match, again only if exactly one qualifies. Any
+    ambiguity at (2) or (3) raises instead of guessing.
+
+    If `match_date` is given, candidates are filtered to items whose own
+    `date` field exactly matches it first — needed for a title that's
+    intentionally repeated once per day (e.g. "Comida del día")."""
+    needle = match_title.strip()
+    needle_lower = needle.lower()
+    exact_ci: list[tuple[int, int, str]] = []
+    substring: list[tuple[int, int, str]] = []
+    case_sensitive_hit: tuple[int, int] | None = None
+    for day_idx, day in enumerate(doc["days"]):
+        for item_idx, item in enumerate(day["items"]):
+            if match_date is not None and item.get("date", "") != match_date:
                 continue
-            cells = {c.attrib["r"]: self.cell_value(c) for c in row.findall("x:c", NS)}
-            title = cells.get(f"D{rn}", "")
-            if not title:
-                continue
-            if match_date is not None and cells.get(f"C{rn}", "").strip() != match_date.strip():
-                continue
-            stripped = title.strip()
-            if stripped == needle:
-                case_sensitive_hit = rn
-            if stripped.lower() == needle_lower:
-                exact_ci.append((rn, title))
+            title = item["title"]
+            if title == needle:
+                case_sensitive_hit = (day_idx, item_idx)
+            if title.lower() == needle_lower:
+                exact_ci.append((day_idx, item_idx, title))
             elif needle_lower in title.lower():
-                substring.append((rn, title))
-        if case_sensitive_hit is not None:
-            return case_sensitive_hit
-        if len(exact_ci) > 1:
-            listing = "; ".join(f"row {rn}: {t!r}" for rn, t in exact_ci)
-            raise SystemExit(f"--match-title {match_title!r} matches {len(exact_ci)} rows that differ only by case, ambiguous: {listing}. Use --match-title with the exact case shown, or add --match-date.")
-        if exact_ci:
-            return exact_ci[0][0]
-        if len(substring) > 1:
-            listing = "; ".join(f"row {rn}: {t!r}" for rn, t in substring)
-            raise SystemExit(f"--match-title {match_title!r} matches {len(substring)} rows, ambiguous: {listing}. Use a more specific --match-title, or add --match-date.")
-        return substring[0][0] if substring else None
-
-    def find_blank_row(self, sheet_no: int) -> int:
-        """First existing scaffold row (>=5) with an empty title (column D) —
-        every sheet already has hundreds of pre-styled blank rows past its
-        last real item, so a brand new item never needs row insertion."""
-        sheet = self.sheet_root(sheet_no)
-        for row in sheet.findall(".//x:sheetData/x:row", NS):
-            rn = int(row.attrib["r"])
-            if rn < 5:
-                continue
-            cells = {c.attrib["r"]: self.cell_value(c) for c in row.findall("x:c", NS)}
-            if not cells.get(f"D{rn}", "").strip():
-                return rn
-        raise RuntimeError(f"sheet{sheet_no}: no blank scaffold row found")
-
-    def build_row_xml(self, row_no: int, *, category: str, place: str, date_text: str,
-                       title: str, currency: str, unit_amount: float, quantity: float,
-                       note_with_link: str, confirmed_date: str, people_override: int | None = None) -> str:
-        rate = self.read_rate(currency)
-        people = people_override if people_override is not None else self.read_people_count()
-
-        idx_category = self.get_or_add_shared_string(category)
-        idx_place = self.get_or_add_shared_string(place)
-        idx_date = self.get_or_add_shared_string(date_text)
-        idx_title = self.get_or_add_shared_string(title)
-        idx_currency = self.get_or_add_shared_string(currency)
-        idx_note = self.get_or_add_shared_string(note_with_link)
-        idx_confirmed = self.get_or_add_shared_string(confirmed_date)
-
-        total_original = unit_amount * quantity
-        total_cop = total_original * rate
-        per_person = total_cop / people
-
-        cells = []
-        cells.append(f'<c r="A{row_no}" s="{STYLES["A"]}" t="s"><v>{idx_category}</v></c>')
-        cells.append(f'<c r="B{row_no}" s="{STYLES["B"]}" t="s"><v>{idx_place}</v></c>')
-        cells.append(f'<c r="C{row_no}" s="{STYLES["C"]}" t="s"><v>{idx_date}</v></c>')
-        cells.append(f'<c r="D{row_no}" s="{STYLES["D"]}" t="s"><v>{idx_title}</v></c>')
-        cells.append(f'<c r="E{row_no}" s="{STYLES["E"]}" t="s"><v>{idx_currency}</v></c>')
-        cells.append(f'<c r="F{row_no}" s="{STYLES["F"]}"><v>{unit_amount}</v></c>')
-        cells.append(f'<c r="G{row_no}" s="{STYLES["G"]}"><v>{quantity}</v></c>')
-        cells.append(f'<c r="H{row_no}" s="{STYLES["H"]}"><f>IFERROR(F{row_no}*G{row_no},0)</f><v>{total_original}</v></c>')
-        cells.append(
-            f'<c r="I{row_no}" s="{STYLES["I"]}">'
-            f'<f t="array" ref="I{row_no}">IFERROR(INDEX(\'Tasas de Cambio\'!$E$11:$E$15,'
-            f'MATCH(E{row_no},\'Tasas de Cambio\'!$B$11:$B$15,0)),0)</f><v>{rate}</v></c>'
-        )
-        cells.append(f'<c r="J{row_no}" s="{STYLES["J"]}"><f>IFERROR(H{row_no}*I{row_no},0)</f><v>{total_cop}</v></c>')
-        k_divisor = str(people_override) if people_override is not None else "'Tasas de Cambio'!$C$5"
-        cells.append(
-            f'<c r="K{row_no}" s="{STYLES["K"]}">'
-            f"<f>IFERROR(J{row_no}/{k_divisor},0)</f><v>{per_person}</v></c>"
-        )
-        cells.append(f'<c r="L{row_no}" s="{STYLES["L"]}" t="s"><v>{idx_note}</v></c>')
-        cells.append(f'<c r="M{row_no}" s="1" t="s"><v>{idx_confirmed}</v></c>')
-
-        return "".join(cells), per_person
-
-    def blank_row_xml(self, row_no: int) -> str:
-        """Reset a row back to the same empty scaffold state find_blank_row()
-        looks for, so a deleted item's row can be reused by a future add."""
-        cells = [f'<c r="{col}{row_no}" s="{STYLES.get(col, 1)}"/>' for col in COLUMNS]
-        return "".join(cells)
-
-    def replace_row(self, sheet_no: int, row_no: int, new_cells_xml: str):
-        raw = self.files[f"xl/worksheets/sheet{sheet_no}.xml"].decode("utf-8")
-        pattern = re.compile(rf'(<row r="{row_no}"[^>]*>).*?(</row>)', re.S)
-        match = pattern.search(raw)
-        if not match:
-            raise RuntimeError(f"sheet{sheet_no}: row {row_no} not found")
-        new_row = match.group(1) + new_cells_xml + match.group(2)
-        raw = raw[: match.start()] + new_row + raw[match.end() :]
-        self.files[f"xl/worksheets/sheet{sheet_no}.xml"] = raw.encode("utf-8")
-
-    def _rebuild_shared_strings_xml(self):
-        original = self.files["xl/sharedStrings.xml"].decode("utf-8")
-        m = re.search(r'<sst[^>]*uniqueCount="(\d+)"', original)
-        old_unique = int(m.group(1))
-        new_entries = self.shared_strings[old_unique:]
-        if new_entries:
-            appended = "".join(f"<si><t>{esc(t)}</t></si>" for t in new_entries)
-            original = original.replace("</sst>", appended + "</sst>")
-        m2 = re.search(r'<sst[^>]*count="(\d+)" uniqueCount="(\d+)"', original)
-        count, unique = int(m2.group(1)), int(m2.group(2))
-        new_count = count + self._new_refs
-        new_unique = unique + len(new_entries)
-        original = original.replace(f'count="{count}" uniqueCount="{unique}"', f'count="{new_count}" uniqueCount="{new_unique}"', 1)
-        self.files["xl/sharedStrings.xml"] = original.encode("utf-8")
-
-    def save(self, new_refs: int):
-        self._new_refs = new_refs
-        self._rebuild_shared_strings_xml()
-        new_path = str(WORKBOOK) + ".new"
-        with zipfile.ZipFile(WORKBOOK) as zin, zipfile.ZipFile(new_path, "w", zipfile.ZIP_DEFLATED) as zout:
-            for item in zin.namelist():
-                zout.writestr(item, self.files[item])
-        shutil.move(new_path, WORKBOOK)
-
-
-def confirmed_date_text() -> str:
-    today = date.today()
-    return f"{today.day} {MONTHS_ES_LOWER[today.month - 1]} {today.year}"
-
-
-LINK_RE = re.compile(r"https?://\S+")
-
-
-def extract_link(note: str) -> str | None:
-    match = LINK_RE.search(note)
-    return match.group(0).rstrip(".,)") if match else None
-
-
-def strip_link(note: str) -> str:
-    return LINK_RE.sub("", note).strip(" .|")
-
-
-def build_note(note: str, link: str | None) -> str:
-    if word_count(note) > 20:
-        raise SystemExit(f"Note is {word_count(note)} words (max 20): {note!r}")
-    note = note.strip()
-    if link:
-        note = note.rstrip(".") + ". " + link.strip()
-    return note
+                substring.append((day_idx, item_idx, title))
+    if case_sensitive_hit is not None:
+        return case_sensitive_hit
+    if len(exact_ci) > 1:
+        listing = "; ".join(f"day {doc['days'][d]['dayKey']}: {t!r}" for d, _, t in exact_ci)
+        raise SystemExit(f"--match-title {match_title!r} matches {len(exact_ci)} items that differ only by case, ambiguous: {listing}. Use --match-title with the exact case shown, or add --match-date.")
+    if exact_ci:
+        d, i, _ = exact_ci[0]
+        return d, i
+    if len(substring) > 1:
+        listing = "; ".join(f"day {doc['days'][d]['dayKey']}: {t!r}" for d, _, t in substring)
+        raise SystemExit(f"--match-title {match_title!r} matches {len(substring)} items, ambiguous: {listing}. Use a more specific --match-title, or add --match-date.")
+    if substring:
+        d, i, _ = substring[0]
+        return d, i
+    raise SystemExit(f"No item found in {doc['name']!r} matching title {match_title!r}")
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("action", choices=["add", "update", "delete"])
-    parser.add_argument("--option", required=True, choices=list(OPTION_SHEETS))
+    parser.add_argument("--option", required=True, choices=OPTION_IDS)
     parser.add_argument("--category", choices=sorted(CATEGORIES))
-    parser.add_argument("--place", default="")
-    parser.add_argument("--date", dest="date_text", default="", help='e.g. "14 May 2027", or a dateless label like "Durante el viaje"')
+    parser.add_argument("--place", default=None)
+    parser.add_argument("--date", dest="date_text", help='e.g. "14 May 2027", or a dateless label like "Durante el viaje"')
     parser.add_argument("--title", help="Required for 'add'; optional for 'update' (keeps the matched title if omitted)")
-    parser.add_argument("--match-title", help="Substring to find the row to update (required for 'update')")
-    parser.add_argument("--match-date", help="Also filter --match-title candidates by exact column-C date text, for a title repeated once per day (e.g. \"Comida del día\")")
+    parser.add_argument("--match-title", help="Substring to find the item to update/delete")
+    parser.add_argument("--match-date", help="Also filter --match-title candidates by exact item date text, for a title repeated once per day (e.g. \"Comida del día\")")
     parser.add_argument("--currency", choices=sorted(CURRENCIES))
     parser.add_argument("--unit-amount", type=float)
     parser.add_argument("--quantity", type=float)
     parser.add_argument("--note", help="Max 20 words — the single most relevant fact about this item")
-    parser.add_argument("--link", default=None, help="Optional booking/info URL")
+    parser.add_argument("--time", default=None, help='Optional clock time(s) to highlight next to the title, e.g. "12:35" or "Salida 08:00 · Llegada 05:15+1". Pass "" to remove an existing one.')
+    parser.add_argument("--link", default=None, help="Optional booking/info URL. Pass \"\" to remove an existing link.")
+    parser.add_argument("--details", default=None, help="Optional longer description (highlights, restrictions, language, etc.), saved centrally to data/tours.json keyed by title (shared by every option with that same tour) — not shown in the app UI, only given to the WhatsApp/chat assistant so it can answer detailed questions. Pass \"\" to remove.")
     args = parser.parse_args()
 
-    wb = Workbook()
-    sheet_no = OPTION_SHEETS[args.option]
+    if args.note is not None and word_count(args.note) > 20:
+        raise SystemExit(f"Note is {word_count(args.note)} words (max 20): {args.note!r}")
+
+    doc = load_option(args.option)
 
     if args.action == "delete":
         if not args.match_title:
             raise SystemExit("delete requires --match-title")
-        row_no = wb.find_row_by_title(sheet_no, args.match_title, args.match_date)
-        if row_no is None:
-            raise SystemExit(f"No row found in {args.option!r} matching title {args.match_title!r}")
-        sheet = wb.sheet_root(sheet_no)
-        deleted_title = ""
-        for row in sheet.findall(".//x:sheetData/x:row", NS):
-            if int(row.attrib["r"]) != row_no:
-                continue
-            for c in row.findall("x:c", NS):
-                if c.attrib["r"][0] == "D":
-                    deleted_title = wb.cell_value(c)
-        wb.replace_row(sheet_no, row_no, wb.blank_row_xml(row_no))
-        wb.save(new_refs=-7)
-        print(f"Deleted row {row_no} in sheet{sheet_no} ({args.option}): {deleted_title!r}")
+        day_idx, item_idx = find_item(doc, args.match_title, args.match_date)
+        deleted = doc["days"][day_idx]["items"].pop(item_idx)
+        save_option(args.option, doc)
+        print(f"Deleted item from {doc['name']!r}, day {doc['days'][day_idx]['dayKey']}: {deleted['title']!r}")
         subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_data.py")], check=True, cwd=ROOT)
         return
 
     if args.action == "add":
-        missing = [f for f in ("category", "title", "currency", "unit_amount", "quantity", "note") if getattr(args, f) is None or getattr(args, f) == ""]
+        missing = [f for f in ("category", "title", "currency", "unit_amount", "quantity", "date_text", "note") if getattr(args, f) is None]
         if missing:
             raise SystemExit(f"add requires: {', '.join(missing)}")
-        row_no = wb.find_blank_row(sheet_no)
-        action_desc = "Added"
-    else:
-        if not args.match_title:
-            raise SystemExit("update requires --match-title")
-        row_no = wb.find_row_by_title(sheet_no, args.match_title, args.match_date)
-        if row_no is None:
-            raise SystemExit(f"No row found in {args.option!r} matching title {args.match_title!r}")
-        # Fill in any field the caller didn't override from the existing row.
-        sheet = wb.sheet_root(sheet_no)
-        existing = {}
-        for row in sheet.findall(".//x:sheetData/x:row", NS):
-            if int(row.attrib["r"]) != row_no:
-                continue
-            for c in row.findall("x:c", NS):
-                existing[c.attrib["r"][0]] = wb.cell_value(c)  # keyed by column letter
-        args.category = args.category or existing.get("A", "")
-        args.place = args.place or existing.get("B", "")
-        args.date_text = args.date_text or existing.get("C", "")
-        args.title = args.title or existing.get("D", "")
-        args.currency = args.currency or existing.get("E", "COP")
-        args.unit_amount = args.unit_amount if args.unit_amount is not None else float(existing.get("F", "0") or 0)
-        args.quantity = args.quantity if args.quantity is not None else float(existing.get("G", "1") or 1)
-        action_desc = "Updated"
+        if args.category not in CATEGORIES:
+            raise SystemExit(f"Unknown category {args.category!r}. Must be one of: {sorted(CATEGORIES)}")
+        key = day_key(args.date_text)
+        if key is None:
+            day_idx = 0  # dateless item (SIM card, insurance...) -> first day, matching every existing one
+        else:
+            day_idx = next((i for i, d in enumerate(doc["days"]) if d["dayKey"] == key), None)
+            if day_idx is None:
+                raise SystemExit(
+                    f"No day {key!r} in {doc['name']!r} yet — add the day itself directly in "
+                    f"data/options/{args.option}.json first (needs a city/title/weather), then re-run this."
+                )
+        item = {
+            "category": args.category, "title": args.title, "currency": args.currency,
+            "unitAmount": args.unit_amount, "quantity": args.quantity,
+            "note": args.note, "place": args.place or "", "date": args.date_text, "link": args.link,
+        }
+        if args.time:
+            item["time"] = args.time
+        doc["days"][day_idx]["items"].append(item)
+        save_option(args.option, doc)
+        if args.details:
+            set_tour_details(item["title"], args.details)
+        print(f"Added item to {doc['name']!r}, day {doc['days'][day_idx]['dayKey']}:")
+        print(f"  {item['title']}  ·  {item['category']}" + (f"  ·  🕐 {item['time']}" if item.get("time") else ""))
+        print(f"  {item['currency']} {item['unitAmount']} x {item['quantity']}")
+        print(f"  Note: {item['note']}" + (f" | Link: {item['link']}" if item["link"] else ""))
+        if args.details:
+            print(f"  Details saved to data/tours.json under {item['title']!r}")
+        subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_data.py")], check=True, cwd=ROOT)
+        return
 
-    if args.category not in CATEGORIES:
-        raise SystemExit(f"Unknown category {args.category!r}. Must be one of: {sorted(CATEGORIES)}")
-
-    # Note and link share one workbook cell (column L), but are two
-    # independent CLI flags, so any of the 4 combinations must work as its
-    # own flag suggests — updating just one must never silently discard the
-    # other:
-    #   --note only    -> new note,      existing link kept
-    #   --link only    -> existing note, new link applied
-    #   both           -> both new
-    #   neither        -> row unchanged (update) / blank (add)
-    # `is not None` (not truthy) throughout so `--note ""` / `--link ""`
-    # explicitly clear that piece instead of being indistinguishable from
-    # omitting the flag.
-    existing_note_with_link = existing.get("L", "") if args.action == "update" else ""
-    bare_note = args.note if args.note is not None else strip_link(existing_note_with_link)
-    link = args.link if args.link is not None else extract_link(existing_note_with_link)
-    if args.note is not None or args.link is not None or args.action == "add":
-        note_with_link = build_note(bare_note, link)
-    else:
-        note_with_link = existing_note_with_link
-    confirmed = confirmed_date_text()
-
-    cells_xml, per_person = wb.build_row_xml(
-        row_no,
-        category=args.category, place=args.place, date_text=args.date_text, title=args.title,
-        currency=args.currency, unit_amount=args.unit_amount, quantity=args.quantity,
-        note_with_link=note_with_link, confirmed_date=confirmed,
-        people_override=OPTION_PEOPLE_OVERRIDE.get(args.option),
-    )
-    # A,B,C,D,E,L,M are the 7 shared-string-typed cells per row. An "add" turns 7
-    # previously-blank cells into 7 string references (net +7 to sst's `count`);
-    # an "update" replaces 7 existing string references with 7 new ones (net 0).
-    new_refs = 7 if args.action == "add" else 0
-
-    wb.replace_row(sheet_no, row_no, cells_xml)
-    wb.save(new_refs)
-
-    print(f"{action_desc} row {row_no} in sheet{sheet_no} ({args.option}):")
-    print(f"  {args.title}  ·  {args.category}")
-    print(f"  {args.currency} {args.unit_amount} x {args.quantity} -> $ {per_person:,.0f} COP/persona".replace(",", "."))
-    print(f"  Note: {note_with_link}")
-    print(f"  Confirmed: {confirmed} (Excel column M only)")
-
+    # update
+    if not args.match_title:
+        raise SystemExit("update requires --match-title")
+    day_idx, item_idx = find_item(doc, args.match_title, args.match_date)
+    item = doc["days"][day_idx]["items"][item_idx]
+    if args.category is not None:
+        if args.category not in CATEGORIES:
+            raise SystemExit(f"Unknown category {args.category!r}. Must be one of: {sorted(CATEGORIES)}")
+        item["category"] = args.category
+    if args.place is not None:
+        item["place"] = args.place
+    if args.date_text is not None:
+        item["date"] = args.date_text
+    if args.title is not None:
+        item["title"] = args.title
+    if args.currency is not None:
+        item["currency"] = args.currency
+    if args.unit_amount is not None:
+        item["unitAmount"] = args.unit_amount
+    if args.quantity is not None:
+        item["quantity"] = args.quantity
+    if args.note is not None:
+        item["note"] = args.note
+    if args.link is not None:
+        item["link"] = args.link or None
+    if args.time is not None:
+        if args.time:
+            item["time"] = args.time
+        else:
+            item.pop("time", None)
+    save_option(args.option, doc)
+    if args.details is not None:
+        set_tour_details(item["title"], args.details or None)
+    print(f"Updated item in {doc['name']!r}, day {doc['days'][day_idx]['dayKey']}:")
+    print(f"  {item['title']}  ·  {item['category']}" + (f"  ·  🕐 {item['time']}" if item.get("time") else ""))
+    print(f"  {item['currency']} {item['unitAmount']} x {item['quantity']}")
+    print(f"  Note: {item['note']}" + (f" | Link: {item['link']}" if item["link"] else ""))
+    if args.details is not None:
+        print(f"  Details {'saved to' if args.details else 'removed from'} data/tours.json under {item['title']!r}")
     subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_data.py")], check=True, cwd=ROOT)
 
 

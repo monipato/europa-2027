@@ -1,14 +1,8 @@
-"""Refresh CITY_CLIMATE / CITY_CLIMATE_BY_DAY in generate_data.py from live
-sources, then regenerate the app.
+"""Refresh each day's real sunrise/sunset/weather, embedded directly on that
+day in its option's JSON file, then regenerate the app.
 
 Run from the project root:
     python3 scripts/update_climate.py
-
-Unlike exchange rates, this data does not live in the Excel workbook — it's
-plain Python dicts in scripts/generate_data.py. This script re-derives the
-values and rewrites those dict blocks in place (a text-level edit, not an
-XML one — see `_rewrite_dict_block` below), then calls generate_data.py
-exactly like update_rates.py does.
 
 What "live" means here, since no real forecast exists ~a year out:
   - Sunrise/sunset are exact astronomy — different per exact calendar date,
@@ -18,28 +12,35 @@ What "live" means here, since no real forecast exists ~a year out:
   - Temperature range and the dominant weather condition are real seasonal
     normals: Open-Meteo's free archive API, averaged over a +/-7 day window
     around each exact calendar date across the last 3 years, per city.
-  - Both vary per (city, day), not just per city: this script imports
-    generate_data.py itself to walk every option's built itinerary and
-    collect the actual (city, dayKey) pairs in use — so a city visited on
-    two different dates gets two different climate readings, matching
-    what that date of year actually looks like.
-  - CITY_CLIMATE (per-city only) is still refreshed too, using each city's
-    first occurrence date — it now serves purely as the fallback for any
-    (city, day) pair not covered by CITY_CLIMATE_BY_DAY (e.g. right after a
-    new day is added to the workbook and before the next run of this
-    script).
+  - Both vary per (city, day), not just per city — this script reads every
+    day of data/options/{europa,alpes-suizos,crucero-en-pareja}.json,
+    fetches weather for its `climateCity` (falling back to `city` if that
+    key is absent — see "Day trips" below), and writes the result straight
+    into that day's own `weather` object. A city visited on two different
+    dates gets two different readings.
+  - Japón's own days (data/options/japon.json) get the same per-day
+    treatment, except "En vuelo" (the transit day has no real location and
+    keeps its static placeholder). Orlando's 9-day calendar
+    (data/options/orlando-*.json's `dayPlans`) is fixed and shared by both
+    Orlando options, so it's fetched once and written into both files.
+    Non-Europe cities each need their own UTC offset for the sunrise/sunset
+    conversion — see `CITY_UTC_OFFSET` — since the CEST default only holds
+    for the Europa-trip cities.
+  - data/cities.json's per-city `climate` field is also refreshed here,
+    from each city's first-occurrence date — it's dead weight for a city
+    whose every day already carries its own weather, but it's the fallback
+    a brand-new day would get before its own exact-date fetch has run once.
   - "packing" tips are editorial, not fetched data, and are left untouched.
 
-Only run this against the real generate_data.py after confirming the
-rewritten blocks still parse and the printed per-day values look sane —
-see the safety check near the end of main().
+Day trips: a day whose weather belongs to a different place than the day's
+own `city` (e.g. an Alpine excursion out of a city-base day) carries an
+explicit `climateCity` field — see data/options/alpes-suizos.json's "02 MAY"
+for an example. Add the excursion's own coordinates to CITY_COORDS below
+the same as any other city.
 """
 from __future__ import annotations
 
-import ast
-import importlib.util
 import json
-import re
 import subprocess
 import sys
 import time
@@ -48,20 +49,18 @@ import urllib.request
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, timedelta
-
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATE_SCRIPT = ROOT / "scripts" / "generate_data.py"
+DATA = ROOT / "data"
+OPTION_IDS = ["europa", "alpes-suizos", "crucero-en-pareja"]
+JAPAN_OPTION_ID = "japon"
+ORLANDO_OPTION_IDS = ["orlando-jero", "orlando-pachito-vale"]
 
 TRIP_YEAR = 2027
-LOCAL_UTC_OFFSET_HOURS = 2  # CEST, shared by every city in this itinerary in April/May
 HISTORY_YEARS = [2022, 2023, 2024]
 WINDOW_DAYS = 7  # +/- around each exact date, per history year
 
-# lat/lon per city already in CITY_CLIMATE, plus a representative point for
-# "En el mar" (roughly mid-Adriatic/Tyrrhenian, where the itinerary's cruise
-# days actually sail) so it gets real per-day values too, not just a guess.
 CITY_COORDS = {
     "Zúrich": (47.3769, 8.5417),
     "París": (48.8566, 2.3522),
@@ -76,14 +75,32 @@ CITY_COORDS = {
     "Múnich": (48.1351, 11.5820),
     "Milán": (45.4642, 9.1900),
     "Florencia": (43.7696, 11.2558),
+    "Colmar": (48.0794, 7.3585),
+    "Basilea": (47.5596, 7.5886),
     "En el mar": (40.5, 15.5),
-    # Day-trip destination, not a base city — see DAY_TRIP_DESTINATIONS in
-    # generate_data.py. Summit coordinates, not the valley town.
-    "Jungfraujoch": (46.5475, 7.9847),
+    # Day-trip destinations, not base cities (see the module docstring).
+    "Jungfraujoch": (46.5475, 7.9847),  # summit, not the Interlaken valley
+    "Diavolezza": (46.4106, 9.9671),  # mountain station, not the Pontresina valley
+    # Orlando + Japón cities — see "Orlando and Japón" below.
+    "Orlando": (28.5383, -81.3792),
+    "Los Ángeles": (34.0522, -118.2437),
+    "Tokio": (35.6762, 139.6503),
+    "Osaka": (34.6937, 135.5023),
 }
 
-# WMO weather codes (Open-Meteo's `weathercode`) collapsed into the small set
-# of icon+label pairs already used in CITY_CLIMATE.
+# UTC offset per city, for converting sunrise-sunset.org's UTC times to
+# local. Every Europa-trip city shares CEST (UTC+2) in April/May, so that's
+# the default; Orlando/Los Ángeles/Tokio/Osaka each need their own (and, for
+# the US cities, this already accounts for DST — both trips fall after the
+# 2nd Sunday of March, when US clocks have sprung forward).
+DEFAULT_UTC_OFFSET = 2
+CITY_UTC_OFFSET = {
+    "Orlando": -4,  # EDT
+    "Los Ángeles": -7,  # PDT
+    "Tokio": 9,  # JST, no DST
+    "Osaka": 9,  # JST, no DST
+}
+
 WMO_ICON_LABEL = {
     0: ("☀️", "Soleado"),
     1: ("🌤️", "Mayormente soleado"),
@@ -104,36 +121,49 @@ MONTH_NUMBER = {
 
 
 def day_key_to_date(day_key: str) -> date:
-    """"30 Abr" -> date(2027, 4, 30)."""
+    """"30 ABR" -> date(2027, 4, 30)."""
     day_str, month_str = day_key.split()
     return date(TRIP_YEAR, MONTH_NUMBER[month_str.upper()], int(day_str))
 
 
-def load_generate_data():
-    spec = importlib.util.spec_from_file_location("generate_data", GENERATE_SCRIPT)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+def load_option(option_id: str) -> dict:
+    return json.loads((DATA / "options" / f"{option_id}.json").read_text(encoding="utf-8"))
 
 
-def collect_city_day_pairs(gd) -> list[tuple[str, str]]:
-    """Every (climateCity, dayKey) pair actually used across all 5 option
-    sheets, in first-seen order, deduplicated. climateCity, not city: a
-    day-trip day (see DAY_TRIP_DESTINATIONS in generate_data.py, e.g. the
-    Jungfraujoch excursion out of Zürich) needs weather fetched for the
-    excursion destination, not the base city the day is otherwise filed
-    under — build_itinerary() already resolves which one applies per day."""
-    sheets = [
-        (4, "Completo"), (6, "Zúrich y Crucero"), (8, "Múnich y Crucero"),
-        (10, "Solo crucero"), (12, "Solo crucero 2P"), (13, "Solo crucero 4P"),
-        (14, "Crucero Milán"), (15, "Completo Milán"),
-    ]
-    rows = [line for sheet, name in sheets for line in gd.read_rows(sheet, name)]
+def save_option(option_id: str, doc: dict) -> None:
+    (DATA / "options" / f"{option_id}.json").write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def collect_city_day_pairs(docs: dict[str, dict]) -> list[tuple[str, str]]:
+    """Every (climateCity, dayKey) pair actually used across the 3 Europa-
+    shaped options, in first-seen order, deduplicated — climateCity, not
+    city, so a day-trip day fetches weather for the excursion, not the base
+    city the day is otherwise filed under."""
     seen: dict[tuple[str, str], None] = {}
-    for _, sheet_option in sheets:
-        option_rows = [r for r in rows if r["option"] == sheet_option]
-        for day in gd.build_itinerary(option_rows):
-            seen[(day["climateCity"], day["dayKey"])] = None
+    for doc in docs.values():
+        for day in doc["days"]:
+            climate_city = day.get("climateCity", day["city"])
+            seen[(climate_city, day["dayKey"])] = None
+    return list(seen.keys())
+
+
+def collect_japan_pairs(japan_doc: dict) -> list[tuple[str, str]]:
+    """(city, dayKey) pairs for every Japón day with a real location —
+    "En vuelo" (the transit day) has no coordinates and is skipped."""
+    seen: dict[tuple[str, str], None] = {}
+    for day in japan_doc["days"]:
+        if day["city"] == "En vuelo":
+            continue
+        seen[(day["city"], day["dayKey"])] = None
+    return list(seen.keys())
+
+
+def collect_orlando_pairs(orlando_docs: list[dict]) -> list[tuple[str, str]]:
+    """(Orlando, dayKey) pairs — both Orlando options share the same fixed
+    9-day calendar and city, so this only needs one of them."""
+    seen: dict[tuple[str, str], None] = {}
+    for day_plan in orlando_docs[0]["dayPlans"]:
+        seen[("Orlando", day_plan["dayKey"])] = None
     return list(seen.keys())
 
 
@@ -151,17 +181,16 @@ def fetch_json(url: str, attempts: int = 4) -> dict:
     raise SystemExit(f"update_climate.py: failed to fetch {url} after {attempts} attempts: {last_error}")
 
 
-def fetch_sun_times(lat: float, lon: float, on_date: date) -> tuple[str, str]:
+def fetch_sun_times(lat: float, lon: float, on_date: date, utc_offset: int) -> tuple[str, str]:
     url = f"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&date={on_date}&formatted=0"
     data = fetch_json(url)["results"]
-    return _to_local_12h(data["sunrise"]), _to_local_12h(data["sunset"])
+    return _to_local_12h(data["sunrise"], utc_offset), _to_local_12h(data["sunset"], utc_offset)
 
 
-def _to_local_12h(iso_utc: str) -> str:
-    # e.g. "2027-05-15T03:47:32+00:00" -> local hour = 3 + offset, minute = 47
+def _to_local_12h(iso_utc: str, utc_offset: int) -> str:
     hour_utc = int(iso_utc[11:13])
     minute = iso_utc[14:16]
-    hour_local = (hour_utc + LOCAL_UTC_OFFSET_HOURS) % 24
+    hour_local = (hour_utc + utc_offset) % 24
     suffix = "AM" if hour_local < 12 else "PM"
     hour_12 = hour_local % 12
     if hour_12 == 0:
@@ -196,106 +225,94 @@ def fetch_climate_normal(lat: float, lon: float, on_date: date) -> tuple[str, st
     return f"{avg_low}–{avg_high}°C", icon, label
 
 
-def _find_dict_block(source: str, var_name: str) -> tuple[int, int, int]:
-    """Returns (assignment_start, brace_start, brace_end) for `var_name = {...}`
-    or `var_name: <type annotation> = {...}`."""
-    match = re.search(rf"^{re.escape(var_name)}\b[^=\n]*=\s*\{{", source, re.M)
-    if match is None:
-        raise SystemExit(f"update_climate.py: could not find {var_name!r} assignment in generate_data.py")
-    start = match.start()
-    brace_start = match.end() - 1
-    depth = 0
-    end = brace_start
-    for i in range(brace_start, len(source)):
-        if source[i] == "{":
-            depth += 1
-        elif source[i] == "}":
-            depth -= 1
-            if depth == 0:
-                end = i + 1
-                break
-    return start, brace_start, end
-
-
-def _rewrite_dict_block(source: str, var_name: str, new_dict: dict, type_annotation: str = "") -> str:
-    """Replace the `var_name = {...}` dict literal in generate_data.py's
-    source text with a freshly serialized version of new_dict, one entry
-    per line, in new_dict's iteration order."""
-    start, brace_start, end = _find_dict_block(source, var_name)
-    lines = ["{"]
-    for key, fields in new_dict.items():
-        parts = ", ".join(f'"{k}": {json.dumps(v, ensure_ascii=False)}' for k, v in fields.items())
-        lines.append(f'    "{key}": {{{parts}}},')
-    lines.append("}")
-    new_block = "\n".join(lines)
-    assignment = f"{var_name}{type_annotation} = "
-    return source[:start] + assignment + new_block + source[end:]
-
-
 MAX_WORKERS = 8  # concurrent (city, day) fetches — polite to the free APIs, still a big speedup over serial
 
 
 def _fetch_one(city: str, day_key: str) -> tuple[str, str, dict[str, str]]:
     lat, lon = CITY_COORDS[city]
     on_date = day_key_to_date(day_key)
-    sunrise, sunset = fetch_sun_times(lat, lon, on_date)
+    utc_offset = CITY_UTC_OFFSET.get(city, DEFAULT_UTC_OFFSET)
+    sunrise, sunset = fetch_sun_times(lat, lon, on_date, utc_offset)
     temp, icon, weather = fetch_climate_normal(lat, lon, on_date)
     return city, day_key, {"sunrise": sunrise, "sunset": sunset, "temp": temp, "weatherIcon": icon, "weather": weather}
 
 
 def main() -> None:
-    gd = load_generate_data()
-    pairs = collect_city_day_pairs(gd)
-    print(f"Found {len(pairs)} (city, day) pairs across all options.")
+    docs = {option_id: load_option(option_id) for option_id in OPTION_IDS}
+    japan_doc = load_option(JAPAN_OPTION_ID)
+    orlando_docs = [load_option(option_id) for option_id in ORLANDO_OPTION_IDS]
 
-    fetchable = [(city, day_key) for city, day_key in pairs if city in CITY_COORDS]
-    for city, day_key in pairs:
+    pairs = collect_city_day_pairs(docs)
+    japan_pairs = collect_japan_pairs(japan_doc)
+    orlando_pairs = collect_orlando_pairs(orlando_docs)
+    all_pairs = list(dict.fromkeys(pairs + japan_pairs + orlando_pairs))  # dedup, keep order
+    print(f"Found {len(pairs)} (city, day) pairs across {len(OPTION_IDS)} Europa-shaped options, "
+          f"{len(japan_pairs)} for Japón, {len(orlando_pairs)} for Orlando.")
+
+    fetchable = [(city, day_key) for city, day_key in all_pairs if city in CITY_COORDS]
+    for city, day_key in all_pairs:
         if city not in CITY_COORDS:
-            print(f"  skipping {city!r} ({day_key}) — no coordinates on file")
+            print(f"  skipping {city!r} ({day_key}) — no coordinates on file (add one to CITY_COORDS)")
 
     by_day: dict[str, dict[str, str]] = {}
-    by_city_first_date: dict[str, str] = {}
-    # Fetches run in parallel across (city, day) pairs — each pair's own two
-    # calls (sunrise/sunset, then climate normal) still run sequentially
-    # inside _fetch_one, since the climate normal needs the same lat/lon and
-    # there's no benefit splitting a single pair's calls across threads.
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         futures = {pool.submit(_fetch_one, city, day_key): (city, day_key) for city, day_key in fetchable}
         for future in as_completed(futures):
-            city, day_key = futures[future]
             result_city, result_day_key, fields = future.result()
             by_day[f"{result_city}|{result_day_key}"] = fields
             print(f"  {result_city} ({result_day_key}): {fields['sunrise']}-{fields['sunset']}  {fields['temp']}  {fields['weatherIcon']} {fields['weather']}")
 
-    # Deterministic "first occurrence" per city, independent of thread completion order.
+    # Write straight into each day's own `weather` object.
+    for option_id, doc in docs.items():
+        updated = 0
+        for day in doc["days"]:
+            climate_city = day.get("climateCity", day["city"])
+            key = f"{climate_city}|{day['dayKey']}"
+            if key in by_day:
+                day["weather"] = by_day[key]
+                updated += 1
+        save_option(option_id, doc)
+        print(f"{option_id}: updated {updated}/{len(doc['days'])} days")
+
+    japan_updated = 0
+    for day in japan_doc["days"]:
+        key = f"{day['city']}|{day['dayKey']}"
+        if key in by_day:
+            day["weather"] = by_day[key]
+            japan_updated += 1
+    save_option(JAPAN_OPTION_ID, japan_doc)
+    print(f"{JAPAN_OPTION_ID}: updated {japan_updated}/{len(japan_doc['days'])} days")
+
+    for option_id, doc in zip(ORLANDO_OPTION_IDS, orlando_docs):
+        updated = 0
+        for day_plan in doc["dayPlans"]:
+            key = f"Orlando|{day_plan['dayKey']}"
+            if key in by_day:
+                day_plan["weather"] = by_day[key]
+                updated += 1
+        save_option(option_id, doc)
+        print(f"{option_id}: updated {updated}/{len(doc['dayPlans'])} days")
+
+    # Per-city fallback in data/cities.json, from each city's first-occurrence
+    # date — dead weight for cities whose every day already has its own
+    # reading, but a reasonable starting point for a brand-new day before its
+    # own exact-date fetch has run.
+    cities_path = DATA / "cities.json"
+    cities_doc = json.loads(cities_path.read_text(encoding="utf-8"))
+    by_city_first_date: dict[str, str] = {}
     for city, day_key in pairs:
         if f"{city}|{day_key}" in by_day:
             by_city_first_date.setdefault(city, day_key)
-
-    source = GENERATE_SCRIPT.read_text(encoding="utf-8")
-
-    # Refresh the per-city fallback dict too (CITY_CLIMATE), keeping its
-    # "packing" tips untouched, using each city's first-occurrence reading
-    # from the loop above so the fallback is at least internally consistent.
-    _, city_brace_start, city_end = _find_dict_block(source, "CITY_CLIMATE")
-    current_city_climate = ast.literal_eval(source[city_brace_start:city_end])
-    for city in current_city_climate:
-        day_key = by_city_first_date.get(city)
-        if day_key is None:
+    for city, entry in cities_doc["cities"].items():
+        first_key = by_city_first_date.get(city)
+        if first_key is None or "climate" not in entry:
             continue
-        current_city_climate[city].update(by_day[f"{city}|{day_key}"])
+        fields = by_day[f"{city}|{first_key}"]
+        entry["climate"].update(fields)
+    cities_path.write_text(json.dumps(cities_doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Updated per-city fallback climate in {cities_path.relative_to(ROOT)}")
 
-    new_source = _rewrite_dict_block(source, "CITY_CLIMATE", current_city_climate)
-    new_source = _rewrite_dict_block(new_source, "CITY_CLIMATE_BY_DAY", by_day, type_annotation=": dict[str, dict[str, str]]")
-
-    # Safety check: the rewritten file must still be syntactically valid
-    # Python before we trust it enough to write.
-    compile(new_source, str(GENERATE_SCRIPT), "exec")
-
-    GENERATE_SCRIPT.write_text(new_source, encoding="utf-8")
-    print(f"Updated CITY_CLIMATE and CITY_CLIMATE_BY_DAY in {GENERATE_SCRIPT}")
-
-    subprocess.run([sys.executable, str(GENERATE_SCRIPT)], check=True, cwd=ROOT)
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_data.py")], check=True, cwd=ROOT)
 
 
 if __name__ == "__main__":

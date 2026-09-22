@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
-import { ExternalLink, X } from 'lucide-react'
+import { Download, ExternalLink, X } from 'lucide-react'
 import type { Category } from '../types'
 import type { GeneratedDay } from '../data/generated/itinerary.generated'
 import { CATEGORY_META } from '../categoryMeta'
 import { formatCOP, formatExpenseAmount } from '../utils/currency'
 import { collectExpensesByCategory, sumExpensesByCategory } from '../utils/tripStats'
+import { expenseLinkLabel, isDownloadableLink } from '../utils/expenseLink'
 
 interface CategoryBreakdownViewProps {
   days: GeneratedDay[]
@@ -22,6 +23,10 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
     () => (selectedCategory ? collectExpensesByCategory(days, selectedCategory) : []),
     [days, selectedCategory],
   )
+  // Same number already shown on the category's own card — reused here
+  // instead of re-summing selectedCategoryExpenses, so the popup's total
+  // can never drift from the card's.
+  const selectedCategoryTotal = selectedCategory ? (totalsByCategory[selectedCategory] ?? 0) : 0
 
   return (
     <div className="category-layout">
@@ -60,7 +65,7 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
           <div className="category-detail">
             <div className="detail-title">
               <div>
-                <p className="eyebrow">Detalle del rubro</p>
+                <p className="eyebrow">Detalle de la categoría</p>
                 <h3>{CATEGORY_META[selectedCategory].icon} {selectedCategory}</h3>
               </div>
               <button onClick={() => onSelectCategory(null)} aria-label="Cerrar detalle">
@@ -70,16 +75,28 @@ export function CategoryBreakdownView({ days, selectedCategory, onSelectCategory
             {selectedCategoryExpenses.map((expense, index) => (
               <div className="mini-row" key={expense.title + index}>
                 <span>{expense.dayKey} · {expense.place}</span>
-                <strong>{expense.title}</strong>
+                <strong>
+                  {expense.title}
+                  {expense.time && <span className="expense-time">🕐 {expense.time}</span>}
+                </strong>
                 {expense.note && <p>{expense.note}</p>}
                 <b>{formatExpenseAmount(expense)}</b>
-                {expense.link && (
+                {expense.link && isDownloadableLink(expense.link) && (
+                  <a href={expense.link} download rel="noreferrer">
+                    {expenseLinkLabel(expense.link)} <Download size={13} />
+                  </a>
+                )}
+                {expense.link && !isDownloadableLink(expense.link) && (
                   <a href={expense.link} target="_blank" rel="noreferrer">
-                    Ver tour o sitio web <ExternalLink size={13} />
+                    {expenseLinkLabel(expense.link)} <ExternalLink size={13} />
                   </a>
                 )}
               </div>
             ))}
+            <div className="category-detail-total">
+              <span>Total {selectedCategory}</span>
+              <strong>{formatCOP(selectedCategoryTotal)}</strong>
+            </div>
           </div>
         </>
       )}

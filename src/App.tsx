@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
-import { CalendarDays, Wallet } from 'lucide-react'
 import { generatedOptions } from './data/generated/itinerary.generated'
 import type { Category, ViewMode } from './types'
 import { useTheme } from './hooks/useTheme'
 import { AppHeader } from './components/AppHeader'
-import { AppFooter } from './components/AppFooter'
-import { PlannerHeading } from './components/PlannerHeading'
+import { PlannerHeading, type PrintMode } from './components/PlannerHeading'
 import { TripSelectionScreen } from './components/TripSelectionScreen'
 import { TripSummaryBar } from './components/TripSummaryBar'
 import { DayByDayView } from './components/DayByDayView'
 import { CategoryBreakdownView } from './components/CategoryBreakdownView'
+import { PrintView } from './components/PrintView'
 import { ChatWidget } from './components/ChatWidget'
 import { buildContextualMessage } from './utils/chatContext'
 
@@ -24,7 +23,7 @@ export function App() {
   const [view, setView] = useState<ViewMode>('day')
   const [selectedDayIndex, setSelectedDayIndex] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [fullPrintMode, setFullPrintMode] = useState<'all-days' | 'by-category' | null>(null)
   const { theme, toggleTheme } = useTheme()
 
   const selectedOption = generatedOptions[selectedOptionIndex ?? 0]
@@ -47,22 +46,6 @@ export function App() {
     setSelectedCategory(null)
   }, [selectedOptionIndex])
 
-  // Clicking "Por día" always lands the scroll on the day-nav row (.day-layout),
-  // even if that tab was already selected — e.g. after scrolling deep into the
-  // expense list. A counter (not `view` itself) is the effect's dependency so a
-  // no-op click (already on "day") still re-triggers it, which a `view`-keyed
-  // effect wouldn't catch since the value wouldn't actually change. Switching
-  // *from* "Por rubro" also lands here: DayByDayView is a different component
-  // than CategoryBreakdownView, so it remounts fresh and its own "skip scroll on
-  // first render" guard would otherwise swallow this. Not fired on the initial
-  // mount right after picking a trip — handleSelectOption's window.scrollTo(0, 0)
-  // is the last word there, since dayTabClickCount starts at 0.
-  const [dayTabClickCount, setDayTabClickCount] = useState(0)
-  useEffect(() => {
-    if (dayTabClickCount === 0) return
-    document.querySelector('.day-layout')?.scrollIntoView({ behavior: 'auto', block: 'start' })
-  }, [dayTabClickCount])
-
   function handleSelectOption(index: number) {
     setSelectedOptionIndex(index)
     setHasStartedPlanning(true)
@@ -78,23 +61,66 @@ export function App() {
     setView(nextView)
     if (nextView === 'day') {
       setSelectedCategory(null)
-      setDayTabClickCount(count => count + 1)
     }
   }
 
+  // The browser's print/"save as PDF" dialog suggests `document.title` as
+  // the file name — left at the page's own generic <title> (set once in
+  // index.html), every export would be named after the site instead of the
+  // trip. Swaps it to the selected option's own name for the duration of
+  // the print job and restores it on `afterprint` (fires whether the user
+  // actually printed or hit cancel).
+  function printAsOption() {
+    const previousTitle = document.title
+    document.title = selectedOption.name
+    function restoreTitle() {
+      document.title = previousTitle
+      window.removeEventListener('afterprint', restoreTitle)
+    }
+    window.addEventListener('afterprint', restoreTitle)
+    window.print()
+  }
+
+  // "Vista actual" just prints whatever's on screen (styles.css's plain
+  // `@media print` block already strips the app chrome from it). "Todos los
+  // días"/"Todo por rubro" instead render <PrintView> — a full listing that
+  // isn't otherwise in the DOM — then print once it's mounted; `afterprint`
+  // fires whether the user actually printed or hit cancel, so it's the
+  // right moment to unmount it again either way.
+  function handlePrint(mode: PrintMode) {
+    if (mode === 'current') {
+      printAsOption()
+      return
+    }
+    setFullPrintMode(mode)
+  }
+
+  useEffect(() => {
+    if (!fullPrintMode) return
+    const raf = requestAnimationFrame(() => printAsOption())
+    function handleAfterPrint() {
+      setFullPrintMode(null)
+    }
+    window.addEventListener('afterprint', handleAfterPrint)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('afterprint', handleAfterPrint)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fullPrintMode])
+
   return (
-    <div className={`app-shell ${hasStartedPlanning ? 'planner-open' : 'selection-screen'}`}>
-      <AppHeader
-        menuOpen={menuOpen}
-        onToggleMenu={() => setMenuOpen(!menuOpen)}
-        onCloseMenu={() => setMenuOpen(false)}
-        theme={theme}
-        onToggleTheme={toggleTheme}
-        onGoHome={handleChangeTrip}
-      />
+    <div
+      className={`app-shell ${hasStartedPlanning ? 'planner-open' : 'selection-screen'} ${
+        fullPrintMode ? `print-${fullPrintMode}` : ''
+      }`}
+    >
+      <AppHeader theme={theme} onToggleTheme={toggleTheme} onGoHome={handleChangeTrip} />
 
       <main>
-        {hasStartedPlanning && <PlannerHeading onBack={handleChangeTrip} />}
+        {hasStartedPlanning && (
+          <PlannerHeading onBack={handleChangeTrip} view={view} onChangeView={handleChangeView} onPrint={handlePrint} />
+        )}
 
         {!hasStartedPlanning && (
           <TripSelectionScreen
@@ -106,35 +132,19 @@ export function App() {
 
         {/* Always rendered (even on the selection screen, where CSS hides it) so the
             CSS flex `order` rules that lay out the planner keep a stable DOM to work with. */}
-        <TripSummaryBar route={selectedOption.route} perPersonCop={selectedOption.perPerson} perPersonByType={selectedOption.perPersonByType} />
+        <TripSummaryBar name={selectedOption.name} peopleCount={selectedOption.peopleCount} perPersonCop={selectedOption.perPerson} perPersonByType={selectedOption.perPersonByType} />
 
-        <section id="itinerario" className="content-section">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Paso 2 de 2</p>
-              <h2>¿Cómo quieres verlo?</h2>
-            </div>
-            <span className="hint">Toca una tarjeta para ver el detalle</span>
-          </div>
-
-          <div className="view-toggle" role="tablist">
-            <button className={view === 'day' ? 'selected' : ''} onClick={() => handleChangeView('day')}>
-              <CalendarDays /> Por día
-            </button>
-            <button className={view === 'category' ? 'selected' : ''} onClick={() => handleChangeView('category')}>
-              <Wallet /> Por rubro
-            </button>
-          </div>
-
+        <section className="content-section">
           {view === 'day' ? (
-            <DayByDayView days={days} selectedDayIndex={selectedDayIndex} onSelectDay={setSelectedDayIndex} optionName={selectedOption.name} />
+            <DayByDayView days={days} selectedDayIndex={selectedDayIndex} onSelectDay={setSelectedDayIndex} />
           ) : (
             <CategoryBreakdownView days={days} selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
           )}
         </section>
+
+        {fullPrintMode && <PrintView mode={fullPrintMode} option={selectedOption} />}
       </main>
 
-      <AppFooter />
       <ChatWidget contextMessage={chatContextMessage} />
     </div>
   )
